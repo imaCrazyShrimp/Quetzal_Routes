@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Panel de proveedor — Quetzal Routes" />
+  <title>Mi Panel — Quetzal Routes</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/pages/dashboard.css" />
+
+  <style>
+    /* ── Layout del dashboard ─────────────────────────────── */
+    .dash-wrapper {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 68px;
+      background: var(--bg-principal);
+    }
+
+    /* Sidebar */
+    .dash-sidebar {
+      width: 240px;
+      background: var(--negro-suave);
+      position: fixed;
+      top: 68px;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 0;
+      transition: transform 0.3s;
+    }
+
+    .dash-sidebar-brand {
+      padding: 0 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1rem;
+    }
+
+    .dash-provider-name {
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .dash-plan-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 100px;
+      background: var(--verde-claro);
+      color: var(--negro-suave);
+    }
+
+    .dash-plan-badge.elite   { background: var(--dorado); }
+    .dash-plan-badge.premium { background: var(--verde-claro); }
+    .dash-plan-badge.free    { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); }
+
+    .dash-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      padding: 0 0.75rem;
+      flex: 1;
+    }
+
+    .dash-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.875rem;
+      border-radius: 10px;
+      font-family: var(--font-titulo);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .dash-nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
+    .dash-nav-item.active { background: var(--verde-quetzal); color: #fff; }
+
+    .dash-nav-icon { font-size: 1rem; width: 20px; flex-shrink: 0; }
+
+    .dash-nav-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 0.75rem 0.875rem;
+    }
+
+    .dash-sidebar-footer {
+      padding: 0 0.75rem;
+      margin-top: auto;
+    }
+
+    /* Contenido principal */
+    .dash-main {
+      margin-left: 240px;
+      flex: 1;
+      padding: 2rem;
+      min-width: 0;
+    }
+
+    /* Secciones */
+    .dash-section { display: none; }
+    .dash-section.active { display: block; }
+
+    /* Header de sección */
+    .dash-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .dash-section-title {
+      font-family: var(--font-titulo);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--negro-suave);
+    }
+
+    /* Stat cards */
+    .dash-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gris-borde);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .stat-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-card-icon.green  { background: rgba(45,106,79,0.1); }
+    .stat-card-icon.yellow { background: rgba(255,183,3,0.12); }
+    .stat-card-icon.red    { background: rgba(193,18,31,0.08); }
+    .stat-card-icon.blue   { background: rgba(66,133,244,0.1); }
+
+    .stat-card-value {
+      font-family: var(--font-titulo);
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--negro-suave);
+      line-height: 1;
+    }
+
+    .stat-card-label {
+      font-size: 0.78rem;
+      color: var(--gris-texto);
+      font-weight: 500;
+    }
+
+    .stat-card-delta {
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-top: 0.1rem;
+    }
+
+    .stat-card-delta.up   { color: var(--verde-quetzal); }
+    .stat-card-delta.down { color: var(--rojo-huipil); }
+
+    /* Tabla */
+    .dash-table-wrap {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gris-borde);
+      overflow: hidden;
+    }
+
+    .dash-table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gris-claro);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .dash-table-title {
+      font-family: var(--font-titulo);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--negro-suave);
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      padding: 0.875rem 1.25rem;
+      text-align: left;
+      font-family: var(--font-titulo);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gris-texto);
+      background: var(--bg-principal);
+      border-bottom: 1px solid var(--gris-claro);
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--negro-suave);
+      border-bottom: 1px solid var(--gris-claro);
+      vertical-align: middle;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: rgba(45,106,79,0.03); }
+
+    /* Status badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 100px;
+    }
+    .status-active    { background: rgba(45,106,79,0.1);  color: var(--verde-quetzal); }
+    .status-pending   { background: rgba(255,183,3,0.12); color: #a07000; }
+    .status-confirmed { background: rgba(45,106,79,0.1);  color: var(--verde-quetzal); }
+    .status-cancelled { background: rgba(193,18,31,0.08); color: var(--rojo-huipil); }
+    .status-inactive  { background: var(--gris-claro);    color: var(--gris-texto); }
+
+    /* Acciones en tabla */
+    .table-actions { display: flex; gap: 0.4rem; }
+    .table-btn {
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: var(--font-titulo);
+      border: 1.5px solid var(--gris-borde);
+      background: #fff;
+      cursor: pointer;
+      color: var(--negro-suave);
+      transition: all 0.2s;
+    }
+    .table-btn:hover { border-color: var(--verde-claro); color: var(--verde-quetzal); }
+    .table-btn.danger:hover { border-color: var(--rojo-huipil); color: var(--rojo-huipil); }
+
+    /* Destino en tabla */
+    .dest-cell { display: flex; align-items: center; gap: 0.75rem; }
+    .dest-cell-img {
+      width: 48px; height: 36px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .dest-cell-name { font-weight: 600; font-size: 0.875rem; }
+    .dest-cell-cat  { font-size: 0.72rem; color: var(--gris-texto); }
+
+    /* Form de destino */
+    .dash-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .dash-form-grid .span-2 { grid-column: span 2; }
+
+    /* Planes */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .plan-card {
+      background: #fff;
+      border: 2px solid var(--gris-borde);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .plan-card.current {
+      border-color: var(--verde-quetzal);
+      box-shadow: 0 0 0 4px rgba(45,106,79,0.08);
+    }
+
+    .plan-card.popular {
+      border-color: var(--dorado);
+    }
+
+    .plan-popular-tag {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--dorado);
+      color: var(--negro-suave);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-family: var(--font-titulo);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--negro-suave);
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-price {
+      font-family: var(--font-titulo);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--verde-quetzal);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .plan-price-sub { font-size: 0.75rem; color: var(--gris-texto); margin-bottom: 1.5rem; }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .plan-features li {
+      font-size: 0.8rem;
+      color: var(--negro-suave);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--verde-quetzal);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .plan-features li.no::before { content: '✕'; color: var(--gris-texto); }
+    .plan-features li.no { color: var(--gris-texto); }
+
+    .plan-current-tag {
+      display: inline-block;
+      background: rgba(45,106,79,0.1);
+      color: var(--verde-quetzal);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+    }
+
+    /* Perfil */
+    .profile-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gris-borde);
+      overflow: hidden;
+    }
+
+    .profile-header {
+      background: linear-gradient(135deg, var(--verde-quetzal), #1a472a);
+      padding: 2.5rem;
+      text-align: center;
+      color: #fff;
+    }
+
+    .profile-avatar-big {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 3px solid rgba(255,255,255,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-titulo);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 auto 1rem;
+    }
+
+    .profile-header h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .profile-header p { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+
+    .profile-body { padding: 2rem; }
+
+    /* Mobile */
+    .dash-sidebar-toggle {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--verde-quetzal);
+      color: #fff;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      z-index: 200;
+    }
+
+    @media (max-width: 1024px) {
+      .dash-stats { grid-template-columns: repeat(2, 1fr); }
+      .plans-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .dash-sidebar {
+        transform: translateX(-100%);
+      }
+      .dash-sidebar.open {
+        transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(0,0,0,0.2);
+      }
+      .dash-main { margin-left: 0; padding: 1.25rem; }
+      .dash-stats { grid-template-columns: 1fr 1fr; }
+      .dash-form-grid { grid-template-columns: 1fr; }
+      .dash-form-grid .span-2 { grid-column: auto; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .dash-sidebar-toggle { display: flex; align-items: center; justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAVBAR ──────────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar" style="background:#fff; box-shadow: 0 1px 12px rgba(0,0,0,0.07);">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-icon">
+          <img src="../assets/img/logo-quetzal-removebg-preview.png" alt="Logo" height="40px" />
+        </span>
+        <span class="logo-text">Quetzal <span>Routes</span></span>
+      </a>
+
+      <div class="navbar-actions" style="margin-left:auto;">
+        <span id="navProviderName" style="font-size:0.85rem; color:var(--gris-texto); font-weight:600;"></span>
+        <a href="explore.html" class="btn btn-outline btn-sm">Ver sitio</a>
+        <button class="btn btn-sm" id="logoutBtn"
+          style="background:none; border:1.5px solid var(--gris-borde); color:var(--gris-texto);">
+          Salir
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dash-wrapper">
+
+    <!-- ── SIDEBAR ──────────────────────────────────────────── -->
+    <aside class="dash-sidebar" id="dashSidebar">
+
+      <div class="dash-sidebar-brand">
+        <span class="dash-provider-name" id="sidebarProviderName">Mi empresa</span>
+        <span class="dash-plan-badge" id="sidebarPlanBadge">Free</span>
+      </div>
+
+      <nav class="dash-nav">
+        <button class="dash-nav-item active" data-section="overview">
+          <span class="dash-nav-icon">📊</span> Resumen
+        </button>
+        <button class="dash-nav-item" data-section="destinations">
+          <span class="dash-nav-icon">🗺️</span> Mis destinos
+        </button>
+        <button class="dash-nav-item" data-section="create">
+          <span class="dash-nav-icon">➕</span> Nuevo destino
+        </button>
+        <button class="dash-nav-item" data-section="bookings">
+          <span class="dash-nav-icon">📅</span> Reservas
+        </button>
+
+        <div class="dash-nav-divider"></div>
+
+        <button class="dash-nav-item" data-section="plan">
+          <span class="dash-nav-icon">⭐</span> Mi plan
+        </button>
+        <button class="dash-nav-item" data-section="profile">
+          <span class="dash-nav-icon">👤</span> Perfil
+        </button>
+      </nav>
+
+      <div class="dash-sidebar-footer">
+        <button class="dash-nav-item" id="sidebarLogout" style="color:rgba(255,255,255,0.4);">
+          <span class="dash-nav-icon">🚪</span> Cerrar sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- ── CONTENIDO PRINCIPAL ──────────────────────────────── -->
+    <main class="dash-main">
+
+      <!-- ────────────────────────────────────────────────────
+           SECCIÓN: RESUMEN
+      ──────────────────────────────────────────────────────── -->
+      <section class="dash-section active" id="section-overview">
+
+        <div class="dash-section-header">
+          <div>
+            <p style="font-size:0.8rem; color:var(--gris-texto); margin-bottom:0.2rem;">Bienvenido de vuelta</p>
+            <h1 class="dash-section-title" id="overviewTitle">Mi Panel</h1>
+          </div>
+          <button class="btn btn-primary btn-sm" data-section="create">
+            + Agregar destino
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="dash-stats">
+          <div class="stat-card">
+            <div class="stat-card-icon green">👁️</div>
+            <div class="stat-card-value" id="statVisits">1,240</div>
+            <div class="stat-card-label">Visitas este mes</div>
+            <div class="stat-card-delta up">↑ 18% vs mes anterior</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon blue">📅</div>
+            <div class="stat-card-value" id="statBookings">0</div>
+            <div class="stat-card-label">Reservas totales</div>
+            <div class="stat-card-delta up">↑ 3 nuevas esta semana</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon yellow">⭐</div>
+            <div class="stat-card-value" id="statRating">—</div>
+            <div class="stat-card-label">Calificación promedio</div>
+            <div class="stat-card-delta up">Basado en tus reseñas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon red">💰</div>
+            <div class="stat-card-value" id="statRevenue">Q0</div>
+            <div class="stat-card-label">Ingresos estimados</div>
+            <div class="stat-card-delta" style="color:var(--gris-texto);">Comisión 10% incluida</div>
+          </div>
+        </div>
+
+        <!-- Mis destinos (resumen) -->
+        <div class="dash-table-wrap">
+          <div class="dash-table-header">
+            <span class="dash-table-title">Mis destinos activos</span>
+            <button class="btn btn-outline btn-sm" data-section="destinations">Ver todos</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Destino</th>
+                <th>Categoría</th>
+                <th>Precio desde</th>
+                <th>Rating</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="overviewDestTable">
+              <tr><td colspan="6" style="text-align:center; color:var(--gris-texto); padding:2rem;">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- ────────────────────────────────────────────────────
+           SECCIÓN: MIS DESTINOS
+      ──────────────────────────────────────────────────────── -->
+      <section class="dash-section" id="section-destinations">
+
+        <div class="dash-section-header">
+          <h2 class="dash-section-title">Mis destinos</h2>
+          <button class="btn btn-primary btn-sm" data-section="create">+ Nuevo destino</button>
+        </div>
+
+        <div class="dash-table-wrap">
+          <div class="dash-table-header">
+            <span class="dash-table-title" id="destTableCount">0 destinos</span>
+            <div style="display:flex; gap:0.5rem;">
+              <select class="form-select" id="destStatusFilter" style="font-size:0.8rem; padding:0.35rem 0.75rem;">
+                <option value="">Todos los estados</option>
+                <option value="active">Activos</option>
+                <option value="inactive">Pausados</option>
+                <option value="pending">Pendientes</option>
+              </select>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Destino</th>
+                <th>Depto.</th>
+                <th>Precio</th>
+                <th>Rating</th>
+                <th>Reservas</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="destTable">
+              <tr><td colspan="7" style="text-align:center; color:var(--gris-texto); padding:2rem;">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- ────────────────────────────────────────────────────
+           SECCIÓN: NUEVO DESTINO
+      ──────────────────────────────────────────────────────── -->
+      <section class="dash-section" id="section-create">
+
+        <div class="dash-section-header">
+          <h2 class="dash-section-title">Nuevo destino</h2>
+        </div>
+
+        <div style="background:#fff; border-radius:16px; padding:2rem; box-shadow:var(--shadow-sm); border:1px solid var(--gris-borde);">
+          <form id="createDestForm" novalidate>
+
+            <div class="dash-form-grid">
+
+              <!-- Título ES -->
+              <div class="form-group">
+                <label class="form-label">Título (Español) *</label>
+                <input type="text" class="form-input" id="destTitle" placeholder="Ej: Tour Colonial Antigua Guatemala" required />
+              </div>
+
+              <!-- Título EN -->
+              <div class="form-group">
+                <label class="form-label">Title (English)</label>
+                <input type="text" class="form-input" id="destTitleEn" placeholder="Eg: Colonial Tour Antigua Guatemala" />
+              </div>
+
+              <!-- Categoría -->
+              <div class="form-group">
+                <label class="form-label">Categoría *</label>
+                <select class="form-select" id="destCategory" required>
+                  <option value="">Selecciona una categoría</option>
+                  <option value="nature">🌿 Naturaleza</option>
+                  <option value="culture">🏛️ Cultura</option>
+                  <option value="adventure">🧗 Aventura</option>
+                  <option value="gastronomy">🍽️ Gastronomía</option>
+                  <option value="wellness">🧘 Bienestar</option>
+                </select>
+              </div>
+
+              <!-- Departamento -->
+              <div class="form-group">
+                <label class="form-label">Departamento *</label>
+                <select class="form-select" id="destDepartment" required>
+                  <option value="">Selecciona un departamento</option>
+                  <option value="Antigua Guatemala">Antigua Guatemala</option>
+                  <option value="Lago Atitlán">Lago Atitlán / Sololá</option>
+                  <option value="Petén">Petén</option>
+                  <option value="Alta Verapaz">Alta Verapaz</option>
+                  <option value="Quetzaltenango">Quetzaltenango</option>
+                  <option value="Huehuetenango">Huehuetenango</option>
+                  <option value="Guatemala">Ciudad de Guatemala</option>
+                  <option value="Izabal">Izabal / Río Dulce</option>
+                  <option value="El Progreso">El Progreso</option>
+                  <option value="Retalhuleu">Retalhuleu</option>
+                  <option value="Chiquimula">Chiquimula</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+
+              <!-- Descripción ES -->
+              <div class="form-group span-2">
+                <label class="form-label">Descripción (Español) *</label>
+                <textarea class="form-input" id="destDescEs" rows="4"
+                  placeholder="Describe la experiencia en detalle: qué incluye, cómo es el recorrido, qué pueden esperar los visitantes..." required
+                  style="resize:vertical;"></textarea>
+              </div>
+
+              <!-- Descripción EN -->
+              <div class="form-group span-2">
+                <label class="form-label">Description (English)</label>
+                <textarea class="form-input" id="destDescEn" rows="3"
+                  placeholder="Describe the experience in detail..."
+                  style="resize:vertical;"></textarea>
+              </div>
+
+              <!-- Dirección -->
+              <div class="form-group span-2">
+                <label class="form-label">Dirección / Punto de encuentro *</label>
+                <input type="text" class="form-input" id="destAddress"
+                  placeholder="Ej: Parque Central, Antigua Guatemala, Sacatepéquez" required />
+              </div>
+
+              <!-- Lat / Lng -->
+              <div class="form-group">
+                <label class="form-label">Latitud</label>
+                <input type="number" class="form-input" id="destLat" step="0.0001" placeholder="Ej: 14.5586" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Longitud</label>
+                <input type="number" class="form-input" id="destLng" step="0.0001" placeholder="Ej: -90.7295" />
+              </div>
+
+              <!-- Precio desde / hasta -->
+              <div class="form-group">
+                <label class="form-label">Precio desde (Q) *</label>
+                <input type="number" class="form-input" id="destPriceFrom" min="0" placeholder="Ej: 150" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Precio hasta (Q)</label>
+                <input type="number" class="form-input" id="destPriceTo" min="0" placeholder="Ej: 300" />
+              </div>
+
+              <!-- Duración / Personas -->
+              <div class="form-group">
+                <label class="form-label">Duración</label>
+                <input type="text" class="form-input" id="destDuration" placeholder="Ej: 4 horas, 2 días" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Máximo de personas</label>
+                <input type="number" class="form-input" id="destMaxPeople" min="1" placeholder="Ej: 12" />
+              </div>
+
+              <!-- Imagen de portada -->
+              <div class="form-group span-2">
+                <label class="form-label">URL de imagen de portada *</label>
+                <input type="url" class="form-input" id="destCoverImage"
+                  placeholder="https://..." required />
+                <p style="font-size:0.72rem; color:var(--gris-texto); margin-top:0.35rem;">
+                  💡 Sube tu imagen a <a href="https://imgur.com" target="_blank" style="color:var(--verde-quetzal);">imgur.com</a> o 
+                  <a href="https://cloudinary.com" target="_blank" style="color:var(--verde-quetzal);">Cloudinary</a> y pega la URL aquí.
+                </p>
+              </div>
+
+            </div><!-- /form-grid -->
+
+            <div style="display:flex; gap:0.75rem; margin-top:1.5rem; justify-content:flex-end;">
+              <button type="button" class="btn btn-outline" data-section="destinations">Cancelar</button>
+              <button type="submit" class="btn btn-primary" id="createDestBtn">Publicar destino</button>
+            </div>
+
+          </form>
+        </div>
+
+      </section>
+
+      <!-- ────────────────────────────────────────────────────
+           SECCIÓN: RESERVAS
+      ──────────────────────────────────────────────────────── -->
+      <section class="dash-section" id="section-bookings">
+
+        <div class="dash-section-header">
+          <h2 class="dash-section-title">Reservas recibidas</h2>
+          <select class="form-select" id="bookingStatusFilter" style="font-size:0.8rem; padding:0.4rem 0.75rem; width:auto;">
+            <option value="">Todos los estados</option>
+            <option value="pending">Pendientes</option>
+            <option value="confirmed">Confirmadas</option>
+            <option value="cancelled">Canceladas</option>
+          </select>
+        </div>
+
+        <div class="dash-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Destino</th>
+                <th>Turista</th>
+                <th>Fecha solicitada</th>
+                <th>Personas</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="bookingsTable">
+              <tr><td colspan="8" style="text-align:center; color:var(--gris-texto); padding:2rem;">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- ────────────────────────────────────────────────────
+           SECCIÓN: MI PLAN
+      ──────────────────────────────────────────────────────── -->
+      <section class="dash-section" id="section-plan">
+
+        <div class="dash-section-header">
+          <h2 class="dash-section-title">Mi plan</h2>
+        </div>
+
+        <div style="background:#fff; border-radius:16px; padding:1.5rem; box-shadow:var(--shadow-sm); border:1px solid var(--gris-borde); margin-bottom:1.5rem;">
+          <p style="font-size:0.9rem; color:var(--gris-texto);">
+            Plan actual: <strong id="currentPlanName" style="color:var(--verde-quetzal);">Cargando...</strong>
+            &nbsp;·&nbsp; Vence: <span id="planExpiry">—</span>
+          </p>
+        </div>
+
+        <div class="plans-grid">
+
+          <!-- Gratuito -->
+          <div class="plan-card" id="planFree">
+            <div class="plan-name">🆓 Gratuito</div>
+            <div class="plan-price">Q0</div>
+            <div class="plan-price-sub">para siempre</div>
+            <ul class="plan-features">
+              <li>Hasta 2 destinos publicados</li>
+              <li>Perfil básico de empresa</li>
+              <li>Aparecer en resultados de búsqueda</li>
+              <li class="no">Destinos destacados</li>
+              <li class="no">Estadísticas de visitas</li>
+              <li class="no">Soporte prioritario</li>
+            </ul>
+            <span class="plan-current-tag" id="freeCurrent" style="display:none;">Plan actual ✓</span>
+            <button class="btn btn-outline btn-block" disabled id="freeBtn">Plan actual</button>
+          </div>
+
+          <!-- Premium -->
+          <div class="plan-card popular" id="planPremium">
+            <div class="plan-popular-tag">⭐ Más popular</div>
+            <div class="plan-name">💎 Premium</div>
+            <div class="plan-price">Q199</div>
+            <div class="plan-price-sub">por mes</div>
+            <ul class="plan-features">
+              <li>Hasta 10 destinos publicados</li>
+              <li>Perfil verificado con badge</li>
+              <li>Aparecer en destinos destacados</li>
+              <li>Estadísticas básicas de visitas</li>
+              <li class="no">Estadísticas avanzadas</li>
+              <li class="no">Soporte prioritario 24/7</li>
+            </ul>
+            <button class="btn btn-primary btn-block" id="premiumBtn">Contratar Premium</button>
+          </div>
+
+          <!-- Elite -->
+          <div class="plan-card" id="planElite">
+            <div class="plan-name">🏆 Elite</div>
+            <div class="plan-price">Q399</div>
+            <div class="plan-price-sub">por mes</div>
+            <ul class="plan-features">
+              <li>Destinos ilimitados</li>
+              <li>Perfil verificado destacado</li>
+              <li>Posición prioritaria en búsquedas</li>
+              <li>Estadísticas avanzadas completas</li>
+              <li>Soporte prioritario 24/7</li>
+              <li>Gestión de reservas avanzada</li>
+            </ul>
+            <button class="btn btn-accent btn-block" id="eliteBtn">Contratar Elite</button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ────────────────────────────────────────────────────
+           SECCIÓN: PERFIL
+      ──────────────────────────────────────────────────────── -->
+      <section class="dash-section" id="section-profile">
+
+        <div class="dash-section-header">
+          <h2 class="dash-section-title">Mi perfil</h2>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="profile-avatar-big" id="profileAvatar">QT</div>
+            <h2 id="profileBusinessName">Mi empresa</h2>
+            <p id="profileEmail">empresa@email.com</p>
+          </div>
+          <div class="profile-body">
+            <form id="profileForm">
+              <div class="dash-form-grid">
+
+                <div class="form-group">
+                  <label class="form-label">Nombre de la empresa</label>
+                  <input type="text" class="form-input" id="profileBusinessInput" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">WhatsApp de contacto</label>
+                  <input type="tel" class="form-input" id="profileWhatsapp" placeholder="+502 5555-0000" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Correo de contacto</label>
+                  <input type="email" class="form-input" id="profileEmailInput" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Idioma preferido</label>
+                  <select class="form-select" id="profileLang">
+                    <option value="es">🇬🇹 Español</option>
+                    <option value="en">🇺🇸 English</option>
+                  </select>
+                </div>
+
+                <div class="form-group span-2">
+                  <label class="form-label">Descripción de la empresa (Español)</label>
+                  <textarea class="form-input" id="profileDescEs" rows="3" style="resize:vertical;"></textarea>
+                </div>
+
+                <div class="form-group span-2">
+                  <label class="form-label">Business description (English)</label>
+                  <textarea class="form-input" id="profileDescEn" rows="3" style="resize:vertical;"></textarea>
+                </div>
+
+              </div>
+
+              <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toggle sidebar mobile -->
+  <button class="dash-sidebar-toggle" id="sidebarToggle" aria-label="Menú">☰</button>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+
+  <!-- ── JAVASCRIPT ────────────────────────────────────────── -->
+  <script type="module">
+    import { getCurrentUser, logoutUser, requireAuth } from '../js/auth.js';
+    import { getDestinationsByProvider, getBookingsByProvider, getProviderById } from '../js/api.js';
+    import { showToast } from '../js/ui.js';
+
+    // ── Proteger ruta ────────────────────────────────────────
+    requireAuth('provider');
+
+    const user     = getCurrentUser();
+    const provider = await getProviderById(1); // En producción: buscar por user.id
+
+    // ── Poblar nombre y plan ─────────────────────────────────
+    const businessName = provider?.business_name || user?.name || 'Mi empresa';
+    const plan         = provider?.plan || 'free';
+
+    document.getElementById('navProviderName').textContent  = businessName;
+    document.getElementById('sidebarProviderName').textContent = businessName;
+    document.getElementById('overviewTitle').textContent    = `Hola, ${businessName} 👋`;
+    document.getElementById('profileAvatar').textContent    = businessName.slice(0,2).toUpperCase();
+    document.getElementById('profileBusinessName').textContent = businessName;
+    document.getElementById('profileEmail').textContent     = user?.email || '';
+    document.getElementById('profileBusinessInput').value   = businessName;
+    document.getElementById('profileEmailInput').value      = user?.email || '';
+
+    const planBadge = document.getElementById('sidebarPlanBadge');
+    planBadge.textContent = plan.charAt(0).toUpperCase() + plan.slice(1);
+    planBadge.className   = `dash-plan-badge ${plan}`;
+
+    document.getElementById('currentPlanName').textContent = plan.toUpperCase();
+    document.getElementById('planExpiry').textContent      = provider?.plan_expiry || '—';
+
+    // Marcar plan actual en la sección planes
+    if (plan === 'free')    { document.getElementById('freeBtn').textContent = 'Plan actual ✓'; }
+    if (plan === 'premium') { document.getElementById('premiumBtn').textContent = 'Plan actual ✓'; document.getElementById('premiumBtn').disabled = true; }
+    if (plan === 'elite')   { document.getElementById('eliteBtn').textContent  = 'Plan actual ✓'; document.getElementById('eliteBtn').disabled = true; }
+
+    // ── Cargar destinos ──────────────────────────────────────
+    const destinations = await getDestinationsByProvider(provider?.id || 1);
+
+    function statusBadge(s) {
+      const map = { active:'status-active', pending:'status-pending', inactive:'status-inactive' };
+      const labels = { active:'Activo', pending:'Pendiente', inactive:'Pausado' };
+      return `<span class="status-badge ${map[s]||''}">${labels[s]||s}</span>`;
+    }
+
+    function renderDestRow(d, includeBookings = true) {
+      return `
+        <tr>
+          <td>
+            <div class="dest-cell">
+              <img class="dest-cell-img" src="${d.cover_image}" alt="${d.title}" />
+              <div>
+                <div class="dest-cell-name">${d.title}</div>
+                <div class="dest-cell-cat">${d.category}</div>
+              </div>
+            </div>
+          </td>
+          <td>${d.department}</td>
+          <td>Q${d.price_from}</td>
+          <td>★ ${d.rating_avg ?? '—'}</td>
+          ${includeBookings ? `<td>${d.reviews_count ?? 0}</td>` : ''}
+          <td>${statusBadge(d.status)}</td>
+          <td>
+            <div class="table-actions">
+              <button class="table-btn" onclick="window.open('destination.html?id=${d.id}','_blank')">Ver</button>
+              <button class="table-btn" onclick="showToast('Editor disponible en la versión con backend 🚧','info')">Editar</button>
+              <button class="table-btn danger" onclick="showToast('Eliminar disponible en la versión con backend 🚧','warning')">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    // Overview table (max 3)
+    document.getElementById('overviewDestTable').innerHTML =
+      destinations.length
+        ? destinations.slice(0,3).map(d => renderDestRow(d, false)).join('')
+        : '<tr><td colspan="6" style="text-align:center;color:var(--gris-texto);padding:2rem;">Aún no tienes destinos publicados</td></tr>';
+
+    // Full table
+    document.getElementById('destTable').innerHTML =
+      destinations.length
+        ? destinations.map(d => renderDestRow(d)).join('')
+        : '<tr><td colspan="7" style="text-align:center;color:var(--gris-texto);padding:2rem;">Aún no tienes destinos publicados</td></tr>';
+
+    document.getElementById('destTableCount').textContent = `${destinations.length} destino${destinations.length !== 1 ? 's' : ''}`;
+
+    // ── Stats ────────────────────────────────────────────────
+    document.getElementById('statBookings').textContent = '—'; // requiere backend
+
+    // ── Cargar reservas ──────────────────────────────────────
+    const bookings = await getBookingsByProvider(provider?.id || 1);
+
+    function bookingStatusBadge(s) {
+      const map = { pending:'status-pending', confirmed:'status-confirmed', cancelled:'status-cancelled' };
+      const labels = { pending:'Pendiente', confirmed:'Confirmada', cancelled:'Cancelada' };
+      return `<span class="status-badge ${map[s]||''}">${labels[s]||s}</span>`;
+    }
+
+    document.getElementById('bookingsTable').innerHTML = bookings.length
+      ? bookings.map((b, i) => {
+          const dest = destinations.find(d => d.id === b.destination_id);
+          return `
+            <tr>
+              <td>#${b.id}</td>
+              <td>${dest?.title || '—'}</td>
+              <td>Turista #${b.user_id}</td>
+              <td>${b.date_requested || '—'}</td>
+              <td>${b.people_count}</td>
+              <td>Q${(dest?.price_from || 0) * b.people_count}</td>
+              <td>${bookingStatusBadge(b.status)}</td>
+              <td>
+                <div class="table-actions">
+                  <button class="table-btn" onclick="showToast('Confirmación disponible con backend 🚧','info')">Confirmar</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('')
+      : '<tr><td colspan="8" style="text-align:center;color:var(--gris-texto);padding:2rem;">No tienes reservas aún</td></tr>';
+
+    document.getElementById('statBookings').textContent = bookings.length;
+
+    // ── Navegación entre secciones ───────────────────────────
+    function goTo(sectionId) {
+      document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.dash-nav-item').forEach(b => b.classList.remove('active'));
+
+      const section = document.getElementById(`section-${sectionId}`);
+      if (section) section.classList.add('active');
+
+      document.querySelectorAll(`[data-section="${sectionId}"]`).forEach(b => {
+        if (b.classList.contains('dash-nav-item')) b.classList.add('active');
+      });
+
+      // Cerrar sidebar en mobile
+      document.getElementById('dashSidebar').classList.remove('open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('[data-section]').forEach(btn => {
+      btn.addEventListener('click', () => goTo(btn.dataset.section));
+    });
+
+    // Leer hash de URL
+    if (window.location.hash) {
+      const section = window.location.hash.replace('#', '');
+      goTo(section);
+    }
+
+    // ── Logout ───────────────────────────────────────────────
+    document.getElementById('logoutBtn').addEventListener('click', logoutUser);
+    document.getElementById('sidebarLogout').addEventListener('click', logoutUser);
+
+    // ── Sidebar mobile toggle ────────────────────────────────
+    document.getElementById('sidebarToggle').addEventListener('click', () => {
+      document.getElementById('dashSidebar').classList.toggle('open');
+    });
+
+    // ── Formulario: nuevo destino (mock) ─────────────────────
+    document.getElementById('createDestForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('createDestBtn');
+      btn.textContent = 'Publicando...';
+      btn.disabled = true;
+      await new Promise(r => setTimeout(r, 1200));
+      showToast('¡Destino creado! Estará visible una vez aprobado. 🎉', 'success');
+      btn.textContent = 'Publicar destino';
+      btn.disabled = false;
+      e.target.reset();
+      goTo('destinations');
+    });
+
+    // ── Planes (mock) ────────────────────────────────────────
+    document.getElementById('premiumBtn').addEventListener('click', () => {
+      showToast('Pasarela de pago disponible próximamente 💳', 'info');
+    });
+    document.getElementById('eliteBtn').addEventListener('click', () => {
+      showToast('Pasarela de pago disponible próximamente 💳', 'info');
+    });
+
+    // ── Perfil (mock) ────────────────────────────────────────
+    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await new Promise(r => setTimeout(r, 800));
+      showToast('Perfil actualizado correctamente ✓', 'success');
+    });
+
+    // ── Filtro de destinos ───────────────────────────────────
+    document.getElementById('destStatusFilter').addEventListener('change', (e) => {
+      const val = e.target.value;
+      document.querySelectorAll('#destTable tr').forEach(row => {
+        if (!val) { row.style.display = ''; return; }
+        row.style.display = row.textContent.includes(val === 'active' ? 'Activo' : val === 'inactive' ? 'Pausado' : 'Pendiente') ? '' : 'none';
+      });
+    });
+
+    // Exponer showToast globalmente para los onclick inline
+    window.showToast = showToast;
+  </script>
+
+</body>
+</html>

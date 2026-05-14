@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Detalle del destino turístico — Quetzal Routes Guatemala" />
+  <title>Destino — Quetzal Routes</title>
+
+  <!-- Leaflet.js para el mapa -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/pages/destination.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav class="navbar navbar-solid" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-icon">🦜</span>
+        <span class="logo-text">Quetzal <span>Routes</span></span>
+      </a>
+
+      <ul class="navbar-links">
+        <li><a href="explore.html">Explorar</a></li>
+        <li><a href="explore.html?cat=adventure">Aventura</a></li>
+        <li><a href="explore.html?cat=culture">Cultura</a></li>
+        <li><a href="explore.html?cat=gastronomy">Gastronomía</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <button class="lang-toggle" id="langToggle">
+          <span class="lang-active">ES</span>
+          <span style="color:var(--gris-borde)">|</span>
+          <span>EN</span>
+        </button>
+        <a href="login.html" class="btn btn-outline btn-sm">Iniciar sesión</a>
+        <a href="register.html" class="btn btn-accent btn-sm">Registrarse</a>
+      </div>
+
+      <button class="navbar-toggle" id="navToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Menú móvil -->
+  <div class="navbar-mobile-menu" id="mobileMenu">
+    <a href="explore.html">Explorar destinos</a>
+    <a href="login.html">Iniciar sesión</a>
+    <a href="register.html" class="btn btn-accent btn-sm btn-block">Registrarse gratis</a>
+  </div>
+
+
+  <!-- ============================================================
+       BREADCRUMB
+  ============================================================ -->
+  <div class="destination-breadcrumb">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ruta de navegación">
+        <a href="index.html">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="explore.html">Explorar</a>
+        <span class="breadcrumb-sep">›</span>
+        <span id="breadcrumbTitle">Tour Colonial Antigua Guatemala</span>
+      </nav>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       GALERÍA DE FOTOS
+  ============================================================ -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="gallery-grid" id="galleryGrid">
+
+        <!-- Imagen principal -->
+        <div class="gallery-main" id="galleryMain">
+          <img
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"
+            alt="Tour Colonial Antigua Guatemala"
+            id="galleryMainImg"
+          />
+          <button class="gallery-fullscreen-btn" id="galleryFullscreenBtn" aria-label="Ver todas las fotos">
+            📷 Ver todas las fotos
+          </button>
+        </div>
+
+        <!-- Miniaturas -->
+        <div class="gallery-thumbs" id="galleryThumbs">
+          <div class="gallery-thumb active" data-index="0">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70" alt="Foto 1" />
+          </div>
+          <div class="gallery-thumb" data-index="1">
+            <img src="https://images.unsplash.com/photo-1547558902-c0e053aca5b6?w=400&q=70" alt="Foto 2" />
+          </div>
+          <div class="gallery-thumb" data-index="2">
+            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&q=70" alt="Foto 3" />
+            <div class="gallery-thumb-more">+2</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTENIDO PRINCIPAL
+  ============================================================ -->
+  <main class="destination-main">
+    <div class="container">
+      <div class="destination-layout">
+
+        <!-- ------------------------------------------------
+             COLUMNA IZQUIERDA — Info principal
+        ------------------------------------------------ -->
+        <div class="destination-content">
+
+          <!-- Encabezado -->
+          <div class="dest-header">
+            <div class="dest-header-meta">
+              <span class="badge badge-green" id="destCategory">Cultura</span>
+              <span class="dest-location" id="destLocation">📍 Antigua, Sacatepéquez</span>
+            </div>
+
+            <div class="dest-header-top">
+              <h1 id="destTitle">Tour Colonial Antigua Guatemala</h1>
+              <div class="dest-actions">
+                <button class="dest-action-btn" id="favBtn" aria-label="Guardar en favoritos">
+                  <span>♡</span> Guardar
+                </button>
+                <button class="dest-action-btn" id="shareBtn" aria-label="Compartir">
+                  <span>↗</span> Compartir
+                </button>
+              </div>
+            </div>
+
+            <div class="dest-rating-row">
+              <span class="stars dest-stars" id="destStars">★★★★★</span>
+              <strong id="destRatingScore">4.8</strong>
+              <span class="dest-reviews-link" id="destReviewsLink">(34 reseñas)</span>
+              <span class="dest-separator">·</span>
+              <span class="dest-duration" id="destDuration">⏱ 6 horas</span>
+              <span class="dest-separator">·</span>
+              <span class="dest-people" id="destPeople">👥 Máx. 12 personas</span>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- Descripción -->
+          <div class="dest-section">
+            <h2 class="dest-section-title">Acerca de esta experiencia</h2>
+            <div class="dest-description" id="destDescription">
+              <p>
+                Recorre las calles empedradas de la Ciudad Colonial más bella de Centroamérica. Visita conventos, iglesias barrocas, mercados de artesanías y disfruta de una degustación de café de altura. Nuestro guía experto te contará 500 años de historia viva.
+              </p>
+              <p>
+                El tour incluye paradas en los principales sitios históricos: el Arco de Santa Catalina, la Catedral de Santiago, el Convento de las Capuchinas y el Cerro de la Cruz con vista panorámica del volcán Agua.
+              </p>
+            </div>
+            <button class="dest-description-toggle" id="descToggle">Leer más ▾</button>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- Qué incluye -->
+          <div class="dest-section">
+            <h2 class="dest-section-title">¿Qué incluye?</h2>
+            <div class="dest-includes-grid">
+              <div class="dest-include-item dest-include-yes">
+                <span>✓</span> Guía bilingüe certificado
+              </div>
+              <div class="dest-include-item dest-include-yes">
+                <span>✓</span> Degustación de café
+              </div>
+              <div class="dest-include-item dest-include-yes">
+                <span>✓</span> Transporte al punto de inicio
+              </div>
+              <div class="dest-include-item dest-include-yes">
+                <span>✓</span> Entrada a museos incluida
+              </div>
+              <div class="dest-include-item dest-include-no">
+                <span>✗</span> Alimentación (no incluida)
+              </div>
+              <div class="dest-include-item dest-include-no">
+                <span>✗</span> Hospedaje
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- Mapa -->
+          <div class="dest-section">
+            <h2 class="dest-section-title">Ubicación</h2>
+            <p class="dest-address" id="destAddress">
+              📍 Parque Central, Antigua Guatemala, Sacatepéquez
+            </p>
+            <div class="dest-map" id="destMap"></div>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- Reseñas -->
+          <div class="dest-section" id="reviewsSection">
+            <div class="reviews-header">
+              <h2 class="dest-section-title">Reseñas</h2>
+              <div class="reviews-summary">
+                <div class="reviews-score-big">
+                  <strong id="reviewsAvg">4.8</strong>
+                  <span class="stars">★★★★★</span>
+                </div>
+                <p id="reviewsTotal">Basado en 34 opiniones</p>
+              </div>
+            </div>
+
+            <!-- Lista de reseñas -->
+            <div class="reviews-list" id="reviewsList">
+
+              <div class="review-item">
+                <div class="review-header">
+                  <div class="review-avatar">EJ</div>
+                  <div class="review-meta">
+                    <strong>Emily Johnson</strong>
+                    <span>Nueva York, EE.UU.</span>
+                  </div>
+                  <div class="review-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-date">Febrero 2024</span>
+                  </div>
+                </div>
+                <p class="review-text">
+                  Absolutely incredible experience! Our guide Carlos knew every corner of Antigua. The coffee tasting at the end was a perfect touch. Highly recommend!
+                </p>
+              </div>
+
+              <div class="review-item">
+                <div class="review-header">
+                  <div class="review-avatar">CM</div>
+                  <div class="review-meta">
+                    <strong>Carlos Mendoza</strong>
+                    <span>Ciudad de Guatemala</span>
+                  </div>
+                  <div class="review-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-date">Marzo 2024</span>
+                  </div>
+                </div>
+                <p class="review-text">
+                  Una experiencia que no olvidaré. La guía conoce la historia de cada piedra. El tour del mercado de artesanías fue lo mejor del día.
+                </p>
+              </div>
+
+            </div>
+
+            <!-- Formulario de reseña -->
+            <div class="review-form-container">
+              <h3>¿Ya visitaste este lugar? Deja tu reseña</h3>
+
+              <div class="star-rating-input" id="starRatingInput">
+                <button class="star-input" data-value="1">★</button>
+                <button class="star-input" data-value="2">★</button>
+                <button class="star-input" data-value="3">★</button>
+                <button class="star-input" data-value="4">★</button>
+                <button class="star-input" data-value="5">★</button>
+                <span class="star-rating-label" id="starLabel">Selecciona una calificación</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="reviewComment">Tu comentario</label>
+                <textarea
+                  class="form-textarea"
+                  id="reviewComment"
+                  rows="4"
+                  placeholder="Cuéntanos sobre tu experiencia..."
+                ></textarea>
+              </div>
+
+              <button class="btn btn-primary" id="submitReview">
+                Publicar reseña
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ------------------------------------------------
+             COLUMNA DERECHA — Reserva + Proveedor
+        ------------------------------------------------ -->
+        <aside class="destination-sidebar">
+
+          <!-- Card de reserva -->
+          <div class="booking-card" id="bookingCard">
+            <div class="booking-card-header">
+              <div class="booking-price">
+                <span class="booking-price-label">Desde</span>
+                <span class="booking-price-amount" id="bookingPrice">Q150</span>
+                <span class="booking-price-currency">GTQ / persona</span>
+              </div>
+              <div class="booking-rating">
+                <span class="stars">★</span>
+                <strong id="bookingRating">4.8</strong>
+                <span id="bookingReviewCount">(34)</span>
+              </div>
+            </div>
+
+            <div class="booking-form">
+
+              <div class="form-group">
+                <label class="form-label" for="bookingDate">
+                  Fecha <span class="required">*</span>
+                </label>
+                <input
+                  type="date"
+                  class="form-input"
+                  id="bookingDate"
+                  min=""
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="bookingPeople">
+                  Número de personas <span class="required">*</span>
+                </label>
+                <div class="people-counter">
+                  <button class="people-btn" id="peopleMinus" aria-label="Restar">−</button>
+                  <span class="people-count" id="peopleCount">2</span>
+                  <button class="people-btn" id="peoplePlus" aria-label="Sumar">+</button>
+                </div>
+              </div>
+
+              <div class="booking-summary" id="bookingSummary">
+                <div class="booking-summary-row">
+                  <span>Q150 × <span id="summaryPeople">2</span> personas</span>
+                  <span id="summarySubtotal">Q300</span>
+                </div>
+                <div class="booking-summary-row">
+                  <span>Cargo por servicio</span>
+                  <span id="summaryFee">Q30</span>
+                </div>
+                <hr class="divider" />
+                <div class="booking-summary-row booking-summary-total">
+                  <strong>Total</strong>
+                  <strong id="summaryTotal">Q330</strong>
+                </div>
+              </div>
+
+              <button class="btn btn-accent btn-block btn-lg" id="bookingBtn">
+                Reservar ahora
+              </button>
+
+              <p class="booking-note">
+                Sin cargos adicionales · Confirmación inmediata
+              </p>
+            </div>
+          </div>
+
+          <!-- Card del proveedor -->
+          <div class="provider-card" id="providerCard">
+            <div class="provider-card-header">
+              <div class="provider-avatar" id="providerAvatar">QT</div>
+              <div class="provider-info">
+                <strong id="providerName">Quetzal Tours Antigua</strong>
+                <span class="badge badge-green">✓ Verificado</span>
+              </div>
+            </div>
+
+            <p class="provider-description" id="providerDesc">
+              Empresa familiar con 15 años de experiencia en turismo cultural en Antigua Guatemala.
+            </p>
+
+            <div class="provider-stats">
+              <div class="provider-stat">
+                <strong>15</strong>
+                <span>Años de exp.</span>
+              </div>
+              <div class="provider-stat">
+                <strong>4.8 ⭐</strong>
+                <span>Calificación</span>
+              </div>
+              <div class="provider-stat">
+                <strong>34</strong>
+                <span>Reseñas</span>
+              </div>
+            </div>
+
+            <a
+              href="https://wa.me/50255551234"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-outline btn-block"
+              id="whatsappBtn"
+            >
+              <span>💬</span> Contactar por WhatsApp
+            </a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+
+  <!-- ============================================================
+       MODAL — RESERVA CONFIRMADA
+  ============================================================ -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">¡Reserva solicitada! 🎉</h3>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="booking-confirm">
+          <div class="booking-confirm-icon">✅</div>
+          <h3 id="confirmDestName">Tour Colonial Antigua Guatemala</h3>
+          <div class="booking-confirm-details">
+            <div class="booking-confirm-row">
+              <span>📅 Fecha</span>
+              <strong id="confirmDate">—</strong>
+            </div>
+            <div class="booking-confirm-row">
+              <span>👥 Personas</span>
+              <strong id="confirmPeople">—</strong>
+            </div>
+            <div class="booking-confirm-row">
+              <span>💰 Total</span>
+              <strong id="confirmTotal">—</strong>
+            </div>
+          </div>
+          <p class="booking-confirm-note">
+            El proveedor se pondrá en contacto contigo para confirmar la reserva. También puedes contactarlos directamente por WhatsApp.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="modalClosBtn">Cerrar</button>
+        <a href="explore.html" class="btn btn-primary">Seguir explorando</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">🦜 Quetzal Routes</a>
+          <p>El marketplace turístico de Guatemala.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="TikTok">🎵</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Explorar</h4>
+          <ul>
+            <li><a href="explore.html">Todos los destinos</a></li>
+            <li><a href="explore.html?cat=nature">Naturaleza</a></li>
+            <li><a href="explore.html?cat=culture">Cultura</a></li>
+            <li><a href="explore.html?cat=adventure">Aventura</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Proveedores</h4>
+          <ul>
+            <li><a href="register.html?role=provider">Registrar empresa</a></li>
+            <li><a href="dashboard-provider.html">Panel de gestión</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Quetzal Routes. Hecho con 💚 en Guatemala.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module">
+
+    /* ----------------------------------------------------------
+       DATOS DE DESTINOS (mock — reemplazar con api.js)
+    ---------------------------------------------------------- */
+    const destinations = {
+      1: {
+        title: 'Tour Colonial Antigua Guatemala',
+        category: 'Cultura',
+        location: 'Antigua, Sacatepéquez',
+        address: 'Parque Central, Antigua Guatemala, Sacatepéquez',
+        lat: 14.5586, lng: -90.7295,
+        price: 150, rating: 4.8, reviews: 34,
+        duration: '6 horas', maxPeople: 12,
+        images: [
+          'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
+          'https://images.unsplash.com/photo-1547558902-c0e053aca5b6?w=1200&q=80',
+          'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1200&q=80',
+        ],
+        provider: {
+          name: 'Quetzal Tours Antigua', initials: 'QT',
+          desc: 'Empresa familiar con 15 años de experiencia en turismo cultural en Antigua Guatemala.',
+          whatsapp: '+50255551234',
+        }
+      },
+      2: {
+        title: 'Amanecer en Tikal — Tour Madrugada',
+        category: 'Cultura',
+        location: 'Tikal, Petén',
+        address: 'Parque Nacional Tikal, Petén',
+        lat: 17.2220, lng: -89.6237,
+        price: 450, rating: 4.9, reviews: 58,
+        duration: '8 horas', maxPeople: 8,
+        images: [
+          'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1200&q=80',
+          'https://images.unsplash.com/photo-1570979733461-e5945efc9e8f?w=1200&q=80',
+        ],
+        provider: {
+          name: 'Petén Explorer', initials: 'PE',
+          desc: 'Aventuras en la selva del Petén. Guías bilingües certificados.',
+          whatsapp: '+50255555678',
+        }
+      },
+      3: {
+        title: 'Kayak en Lago de Atitlán',
+        category: 'Aventura',
+        location: 'Panajachel, Sololá',
+        address: 'Panajachel, Sololá',
+        lat: 14.7444, lng: -91.1542,
+        price: 200, rating: 4.7, reviews: 21,
+        duration: '4 horas', maxPeople: 10,
+        images: [
+          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80',
+        ],
+        provider: {
+          name: 'Quetzal Tours Antigua', initials: 'QT',
+          desc: 'Empresa familiar con 15 años de experiencia en turismo guatemalteco.',
+          whatsapp: '+50255551234',
+        }
+      },
+      4: {
+        title: 'Senderismo Volcán Acatenango',
+        category: 'Aventura',
+        location: 'Chimaltenango',
+        address: 'La Soledad, Chimaltenango',
+        lat: 14.5012, lng: -90.8757,
+        price: 380, rating: 4.9, reviews: 47,
+        duration: '2 días', maxPeople: 15,
+        images: [
+          'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80',
+        ],
+        provider: {
+          name: 'Petén Explorer', initials: 'PE',
+          desc: 'Aventuras extremas en Guatemala con guías certificados.',
+          whatsapp: '+50255555678',
+        }
+      },
+      5: {
+        title: 'Ruta del Cacao y Chocolate Artesanal',
+        category: 'Gastronomía',
+        location: 'Cobán, Alta Verapaz',
+        address: 'Cobán, Alta Verapaz',
+        lat: 15.4697, lng: -90.3795,
+        price: 175, rating: 4.6, reviews: 19,
+        duration: '5 horas', maxPeople: 20,
+        images: [
+          'https://images.unsplash.com/photo-1511381939415-e44015466834?w=1200&q=80',
+        ],
+        provider: {
+          name: 'Quetzal Tours Antigua', initials: 'QT',
+          desc: 'Especialistas en turismo gastronómico y cultural de Guatemala.',
+          whatsapp: '+50255551234',
+        }
+      }
+    };
+
+    /* ----------------------------------------------------------
+       CARGAR DESTINO SEGÚN ID EN URL
+    ---------------------------------------------------------- */
+    const params  = new URLSearchParams(window.location.search);
+    const destId  = parseInt(params.get('id')) || 1;
+    const dest    = destinations[destId] || destinations[1];
+
+    // Rellenar datos en el DOM
+    document.title = `${dest.title} — Quetzal Routes`;
+    document.getElementById('breadcrumbTitle').textContent  = dest.title;
+    document.getElementById('destTitle').textContent        = dest.title;
+    document.getElementById('destCategory').textContent     = dest.category;
+    document.getElementById('destLocation').textContent     = `📍 ${dest.location}`;
+    document.getElementById('destDuration').textContent     = `⏱ ${dest.duration}`;
+    document.getElementById('destPeople').textContent       = `👥 Máx. ${dest.maxPeople} personas`;
+    document.getElementById('destRatingScore').textContent  = dest.rating;
+    document.getElementById('destReviewsLink').textContent  = `(${dest.reviews} reseñas)`;
+    document.getElementById('destAddress').textContent      = `📍 ${dest.address}`;
+    document.getElementById('bookingPrice').textContent     = `Q${dest.price}`;
+    document.getElementById('bookingRating').textContent    = dest.rating;
+    document.getElementById('bookingReviewCount').textContent = `(${dest.reviews})`;
+    document.getElementById('reviewsAvg').textContent       = dest.rating;
+    document.getElementById('reviewsTotal').textContent     = `Basado en ${dest.reviews} opiniones`;
+    document.getElementById('confirmDestName').textContent  = dest.title;
+    document.getElementById('providerName').textContent     = dest.provider.name;
+    document.getElementById('providerAvatar').textContent   = dest.provider.initials;
+    document.getElementById('providerDesc').textContent     = dest.provider.desc;
+    document.getElementById('whatsappBtn').href = `https://wa.me/${dest.provider.whatsapp.replace(/\D/g,'')}`;
+
+    /* ----------------------------------------------------------
+       GALERÍA
+    ---------------------------------------------------------- */
+    const mainImg  = document.getElementById('galleryMainImg');
+    const thumbs   = document.querySelectorAll('.gallery-thumb');
+
+    // Construir miniaturas dinámicamente
+    const thumbsContainer = document.getElementById('galleryThumbs');
+    thumbsContainer.innerHTML = '';
+    dest.images.forEach((src, i) => {
+      const div = document.createElement('div');
+      div.className = `gallery-thumb${i === 0 ? ' active' : ''}`;
+      div.dataset.index = i;
+      div.innerHTML = `<img src="${src.replace('w=1200','w=400')}" alt="Foto ${i+1}" loading="lazy" />`;
+      if (i === 2 && dest.images.length > 3) {
+        div.innerHTML += `<div class="gallery-thumb-more">+${dest.images.length - 3}</div>`;
+      }
+      thumbsContainer.appendChild(div);
+    });
+
+    // Cambiar imagen principal al click en miniatura
+    thumbsContainer.addEventListener('click', (e) => {
+      const thumb = e.target.closest('.gallery-thumb');
+      if (!thumb) return;
+      const idx = parseInt(thumb.dataset.index);
+      mainImg.src = dest.images[idx];
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+
+    /* ----------------------------------------------------------
+       MAPA — Leaflet.js
+    ---------------------------------------------------------- */
+    const map = L.map('destMap').setView([dest.lat, dest.lng], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    const customIcon = L.divIcon({
+      html: `<div class="map-marker-icon">📍</div>`,
+      className: '',
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+    });
+
+    L.marker([dest.lat, dest.lng], { icon: customIcon })
+      .addTo(map)
+      .bindPopup(`<strong>${dest.title}</strong><br>${dest.address}`)
+      .openPopup();
+
+    /* ----------------------------------------------------------
+       CONTADOR DE PERSONAS
+    ---------------------------------------------------------- */
+    let people = 2;
+    const maxPeople = dest.maxPeople;
+    const serviceFeeRate = 0.10;
+
+    function updateBookingSummary() {
+      const subtotal = dest.price * people;
+      const fee      = Math.round(subtotal * serviceFeeRate);
+      const total    = subtotal + fee;
+
+      document.getElementById('peopleCount').textContent   = people;
+      document.getElementById('summaryPeople').textContent = people;
+      document.getElementById('summarySubtotal').textContent = `Q${subtotal}`;
+      document.getElementById('summaryFee').textContent    = `Q${fee}`;
+      document.getElementById('summaryTotal').textContent  = `Q${total}`;
+    }
+
+    document.getElementById('peopleMinus').addEventListener('click', () => {
+      if (people > 1) { people--; updateBookingSummary(); }
+    });
+
+    document.getElementById('peoplePlus').addEventListener('click', () => {
+      if (people < maxPeople) { people++; updateBookingSummary(); }
+    });
+
+    updateBookingSummary();
+
+    // Fecha mínima = hoy
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('bookingDate').min = today;
+
+    /* ----------------------------------------------------------
+       RESERVA
+    ---------------------------------------------------------- */
+    document.getElementById('bookingBtn').addEventListener('click', () => {
+      const date = document.getElementById('bookingDate').value;
+      if (!date) {
+        document.getElementById('bookingDate').classList.add('error');
+        document.getElementById('bookingDate').focus();
+        return;
+      }
+      document.getElementById('bookingDate').classList.remove('error');
+
+      // Rellenar modal de confirmación
+      const subtotal = dest.price * people;
+      const fee      = Math.round(subtotal * serviceFeeRate);
+      const total    = subtotal + fee;
+      const dateFormatted = new Date(date + 'T12:00:00').toLocaleDateString('es-GT', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+
+      document.getElementById('confirmDate').textContent   = dateFormatted;
+      document.getElementById('confirmPeople').textContent = `${people} persona${people > 1 ? 's' : ''}`;
+      document.getElementById('confirmTotal').textContent  = `Q${total} GTQ`;
+
+      // Abrir modal
+      document.getElementById('bookingModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Cerrar modal
+    ['modalClose', 'modalClosBtn'].forEach(id => {
+      document.getElementById(id).addEventListener('click', () => {
+        document.getElementById('bookingModal').classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    document.getElementById('bookingModal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) {
+        e.currentTarget.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+
+    /* ----------------------------------------------------------
+       CALIFICACIÓN CON ESTRELLAS
+    ---------------------------------------------------------- */
+    let selectedRating = 0;
+    const starBtns  = document.querySelectorAll('.star-input');
+    const starLabel = document.getElementById('starLabel');
+    const labels    = ['', 'Terrible', 'Malo', 'Regular', 'Bueno', '¡Excelente!'];
+
+    starBtns.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        const val = parseInt(btn.dataset.value);
+        starBtns.forEach((b, i) => b.classList.toggle('hover', i < val));
+      });
+      btn.addEventListener('mouseleave', () => {
+        starBtns.forEach(b => b.classList.remove('hover'));
+      });
+      btn.addEventListener('click', () => {
+        selectedRating = parseInt(btn.dataset.value);
+        starBtns.forEach((b, i) => b.classList.toggle('selected', i < selectedRating));
+        starLabel.textContent = labels[selectedRating];
+      });
+    });
+
+    /* ----------------------------------------------------------
+       ENVIAR RESEÑA
+    ---------------------------------------------------------- */
+    document.getElementById('submitReview').addEventListener('click', () => {
+      const comment = document.getElementById('reviewComment').value.trim();
+      if (!selectedRating) {
+        starLabel.textContent = '⚠ Selecciona una calificación';
+        starLabel.style.color = 'var(--rojo-huipil)';
+        return;
+      }
+      if (!comment) {
+        document.getElementById('reviewComment').classList.add('error');
+        return;
+      }
+
+      // Agregar reseña al DOM (demo)
+      const list    = document.getElementById('reviewsList');
+      const newItem = document.createElement('div');
+      newItem.className = 'review-item review-item-new';
+      newItem.innerHTML = `
+        <div class="review-header">
+          <div class="review-avatar" style="background:var(--rojo-huipil)">Tú</div>
+          <div class="review-meta">
+            <strong>Tu reseña</strong>
+            <span>Ahora mismo</span>
+          </div>
+          <div class="review-rating">
+            <span class="stars">${'★'.repeat(selectedRating)}${'☆'.repeat(5-selectedRating)}</span>
+          </div>
+        </div>
+        <p class="review-text">${comment}</p>
+      `;
+      list.prepend(newItem);
+
+      // Limpiar formulario
+      document.getElementById('reviewComment').value = '';
+      selectedRating = 0;
+      starBtns.forEach(b => b.classList.remove('selected'));
+      starLabel.textContent = 'Selecciona una calificación';
+      starLabel.style.color = '';
+      document.getElementById('reviewComment').classList.remove('error');
+
+      // Toast de confirmación
+      showToast('¡Reseña publicada! Gracias por tu opinión.', 'success');
+    });
+
+    /* ----------------------------------------------------------
+       FAVORITO
+    ---------------------------------------------------------- */
+    const favBtn = document.getElementById('favBtn');
+    favBtn.addEventListener('click', () => {
+      const active = favBtn.classList.toggle('active');
+      favBtn.innerHTML = active ? '<span>♥</span> Guardado' : '<span>♡</span> Guardar';
+    });
+
+    /* ----------------------------------------------------------
+       COMPARTIR
+    ---------------------------------------------------------- */
+    document.getElementById('shareBtn').addEventListener('click', async () => {
+      if (navigator.share) {
+        await navigator.share({
+          title: dest.title,
+          text: `Mira este destino en Quetzal Routes: ${dest.title}`,
+          url: window.location.href,
+        });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('Enlace copiado al portapapeles', 'success');
+      }
+    });
+
+    /* ----------------------------------------------------------
+       LEER MÁS en descripción
+    ---------------------------------------------------------- */
+    const descEl     = document.getElementById('destDescription');
+    const descToggle = document.getElementById('descToggle');
+    descEl.classList.add('collapsed');
+
+    descToggle.addEventListener('click', () => {
+      const open = descEl.classList.toggle('collapsed');
+      descToggle.textContent = open ? 'Leer más ▾' : 'Leer menos ▴';
+    });
+
+    /* ----------------------------------------------------------
+       NAVBAR móvil
+    ---------------------------------------------------------- */
+    const navToggle  = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    /* ----------------------------------------------------------
+       TOAST helper simple (hasta que esté ui.js)
+    ---------------------------------------------------------- */
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `
+        <span class="toast-icon">${icons[type]}</span>
+        <span class="toast-message">${msg}</span>
+        <button class="toast-dismiss" onclick="this.parentElement.remove()">✕</button>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+  </script>
+
+</body>
+</html>

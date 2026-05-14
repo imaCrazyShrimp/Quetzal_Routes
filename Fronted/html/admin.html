@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Quetzal Routes | Panel de Administración</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (gratuito) para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Estilos base y componentes -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    /* Estilos específicos del panel de admin */
+    :root {
+      --admin-sidebar-width: 260px;
+      --admin-header-height: 70px;
+    }
+
+    body {
+      background-color: var(--blanco-crudo);
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-cuerpo);
+    }
+
+    /* Header de admin */
+    .admin-header {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      height: var(--admin-header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-area h1 {
+      font-family: var(--font-titulo);
+      font-size: 1.5rem;
+      color: var(--verde-quetzal);
+      margin: 0;
+    }
+    .logo-area span {
+      font-size: 0.8rem;
+      color: var(--gris-texto);
+      font-weight: normal;
+    }
+
+    .admin-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .admin-user span {
+      font-weight: 600;
+      color: var(--negro-suave);
+    }
+    .btn-logout {
+      background: none;
+      border: 1px solid var(--rojo-huipil);
+      color: var(--rojo-huipil);
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover {
+      background: var(--rojo-huipil);
+      color: white;
+    }
+
+    /* Layout con sidebar */
+    .admin-layout {
+      display: flex;
+      min-height: calc(100vh - var(--admin-header-height));
+    }
+
+    .admin-sidebar {
+      width: var(--admin-sidebar-width);
+      background: white;
+      border-right: 1px solid #e0e0e0;
+      padding: 2rem 0;
+    }
+
+    .admin-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .admin-sidebar li {
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 600;
+      color: var(--negro-suave);
+      cursor: pointer;
+      transition: all 0.2s;
+      border-left: 4px solid transparent;
+    }
+
+    .admin-sidebar li i {
+      width: 24px;
+      color: var(--verde-quetzal);
+    }
+
+    .admin-sidebar li.active {
+      background-color: rgba(45, 106, 79, 0.08);
+      border-left-color: var(--verde-quetzal);
+      color: var(--verde-quetzal);
+    }
+
+    .admin-sidebar li:hover:not(.active) {
+      background-color: #f5f5f5;
+    }
+
+    /* Contenido principal */
+    .admin-content {
+      flex: 1;
+      padding: 2rem;
+      overflow-x: auto;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .stat-card i {
+      font-size: 2.5rem;
+      color: var(--verde-quetzal);
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin: 0.5rem 0;
+      color: var(--negro-suave);
+    }
+    .stat-label {
+      color: var(--gris-texto);
+    }
+
+    .admin-table {
+      width: 100%;
+      background: white;
+      border-radius: 16px;
+      border-collapse: collapse;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .admin-table th, .admin-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    .admin-table th {
+      background-color: #f9f9f9;
+      font-weight: 700;
+      color: var(--negro-suave);
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-success {
+      background: #e0f2e9;
+      color: var(--verde-quetzal);
+    }
+    .badge-warning {
+      background: #fff3e0;
+      color: #e67e22;
+    }
+    .badge-danger {
+      background: #ffe6e5;
+      color: var(--rojo-huipil);
+    }
+    .btn-sm {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      margin: 0 0.2rem;
+    }
+    .btn-approve {
+      background: var(--verde-claro);
+      color: white;
+    }
+    .btn-reject {
+      background: #ccc;
+      color: #333;
+    }
+    .btn-suspend {
+      background: var(--rojo-huipil);
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .admin-layout {
+        flex-direction: column;
+      }
+      .admin-sidebar {
+        width: 100%;
+        padding: 0;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .admin-sidebar ul {
+        display: flex;
+        overflow-x: auto;
+      }
+      .admin-sidebar li {
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+      }
+      .admin-sidebar li.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--verde-quetzal);
+      }
+      .admin-content {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="admin-header">
+  <div class="logo-area">
+    <h1>Quetzal Routes <span>Admin</span></h1>
+  </div>
+  <div class="admin-user">
+    <span id="adminName">Administrador</span>
+    <button id="logoutBtn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+  </div>
+</header>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <ul>
+      <li data-tab="providers" class="active">
+        <i class="fas fa-building"></i> <span>Proveedores</span>
+      </li>
+      <li data-tab="destinations">
+        <i class="fas fa-map-marked-alt"></i> <span>Destinos</span>
+      </li>
+      <li data-tab="subscriptions">
+        <i class="fas fa-credit-card"></i> <span>Suscripciones</span>
+      </li>
+      <li data-tab="stats">
+        <i class="fas fa-chart-line"></i> <span>Estadísticas</span>
+      </li>
+    </ul>
+  </aside>
+
+  <main class="admin-content" id="adminContent">
+    <!-- El contenido se carga dinámicamente con JS -->
+    <div style="text-align: center; padding: 3rem;">Cargando panel...</div>
+  </main>
+</div>
+
+<script>
+  // --------------------------------------------------------------
+  // MOCK DATA (simula respuesta del backend)
+  // En producción, reemplazar por llamadas reales a api.js
+  // --------------------------------------------------------------
+  const mockProviders = [
+    { id: 1, business_name: "Aventuras Mayas", contact_email: "contacto@aventurasmayas.com", whatsapp: "+50212345678", verified: false, plan: "free", status: "active" },
+    { id: 2, business_name: "Lago de Atitlán Tours", contact_email: "info@atitlantours.com", whatsapp: "+50287654321", verified: true, plan: "premium", status: "active" },
+    { id: 3, business_name: "Tikal Expeditions", contact_email: "tikal@expeditions.com", whatsapp: "+50299887766", verified: false, plan: "elite", status: "pending" }
+  ];
+
+  const mockDestinations = [
+    { id: 1, title: "Pacaya Volcano Hike", provider: "Aventuras Mayas", category: "aventura", department: "Escuintla", status: "active", verified: true },
+    { id: 2, title: "Chichicastenango Market", provider: "Lago de Atitlán Tours", category: "cultura", department: "Quiché", status: "pending", verified: false },
+    { id: 3, title: "Semuc Champey", provider: "Tikal Expeditions", category: "naturaleza", department: "Alta Verapaz", status: "active", verified: true }
+  ];
+
+  const mockSubscriptions = [
+    { id: 1, provider: "Aventuras Mayas", plan: "free", amount: 0, start_date: "2025-01-01", end_date: "2026-01-01", status: "active" },
+    { id: 2, provider: "Lago de Atitlán Tours", plan: "premium", amount: 299, start_date: "2025-02-01", end_date: "2025-08-01", status: "active" },
+    { id: 3, provider: "Tikal Expeditions", plan: "elite", amount: 599, start_date: "2025-03-01", end_date: "2025-09-01", status: "active" }
+  ];
+
+  const mockStats = {
+    totalProviders: 12,
+    totalTourists: 345,
+    totalDestinations: 48,
+    pendingDestinations: 5,
+    totalBookings: 187,
+    totalCommission: 4580.50
+  };
+
+  // Funciones simuladas de API (reemplazar con tus módulos reales)
+  async function fetchProviders() { return [...mockProviders]; }
+  async function fetchDestinations() { return [...mockDestinations]; }
+  async function fetchSubscriptions() { return [...mockSubscriptions]; }
+  async function fetchStats() { return {...mockStats}; }
+  async function updateProviderVerification(providerId, verified) { 
+    console.log(`Actualizar proveedor ${providerId} verified=${verified}`);
+    // Simular éxito
+    return true;
+  }
+  async function updateDestinationStatus(destId, approved) {
+    console.log(`Aprobar destino ${destId} => ${approved}`);
+    return true;
+  }
+
+  // Utilidad para mostrar notificaciones
+  function showToast(message, type = 'success') {
+    // Si existe la función global de ui.js se puede usar, si no, alert simple
+    if (typeof window.showToast === 'function') {
+      window.showToast(message, type);
+    } else {
+      alert(message);
+    }
+  }
+
+  // Renderizado de cada tab
+  let currentTab = 'providers';
+
+  function renderProvidersTab() {
+    fetchProviders().then(providers => {
+      const html = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h2><i class="fas fa-building"></i> Gestión de Proveedores</h2>
+          <button class="btn btn-primary" id="refreshProviders"><i class="fas fa-sync-alt"></i> Refrescar</button>
+        </div>
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr><th>ID</th><th>Negocio</th><th>Email</th><th>WhatsApp</th><th>Plan</th><th>Verificado</th><th>Estado</th><th>Acciones</th></tr>
+            </thead>
+            <tbody>
+              ${providers.map(p => `
+                <tr>
+                  <td>${p.id}</td>
+                  <td><strong>${p.business_name}</strong></td>
+                  <td>${p.contact_email}</td>
+                  <td>${p.whatsapp}</td>
+                  <td><span class="badge ${p.plan === 'premium' ? 'badge-success' : (p.plan === 'elite' ? 'badge-warning' : 'badge')}">${p.plan.toUpperCase()}</span></td>
+                  <td>${p.verified ? '<i class="fas fa-check-circle" style="color: var(--verde-quetzal);"></i> Sí' : '<i class="fas fa-times-circle" style="color: var(--rojo-huipil);"></i> No'}</td>
+                  <td><span class="badge ${p.status === 'active' ? 'badge-success' : 'badge-warning'}">${p.status}</span></td>
+                  <td>
+                    ${!p.verified ? `<button class="btn-sm btn-approve" data-id="${p.id}" data-action="verify">Verificar</button>` : ''}
+                    ${p.status === 'active' ? `<button class="btn-sm btn-suspend" data-id="${p.id}" data-action="suspend">Suspender</button>` : ''}
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      document.getElementById('adminContent').innerHTML = html;
+
+      // Bind eventos
+      document.querySelectorAll('[data-action="verify"]').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const id = parseInt(btn.dataset.id);
+          await updateProviderVerification(id, true);
+          showToast('Proveedor verificado correctamente', 'success');
+          renderProvidersTab(); // recargar
+        });
+      });
+      document.querySelectorAll('[data-action="suspend"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          showToast('Función de suspensión implementada en backend', 'info');
+        });
+      });
+      if(document.getElementById('refreshProviders')) {
+        document.getElementById('refreshProviders').addEventListener('click', () => renderProvidersTab());
+      }
+    });
+  }
+
+  function renderDestinationsTab() {
+    fetchDestinations().then(dests => {
+      const html = `
+        <h2><i class="fas fa-map-marked-alt"></i> Moderación de Destinos</h2>
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead><tr><th>ID</th><th>Título</th><th>Proveedor</th><th>Categoría</th><th>Departamento</th><th>Estado</th><th>Verificado</th><th>Acciones</th></tr></thead>
+            <tbody>
+              ${dests.map(d => `
+                <tr>
+                  <td>${d.id}</td>
+                  <td>${d.title}</td>
+                  <td>${d.provider}</td>
+                  <td>${d.category}</td>
+                  <td>${d.department}</td>
+                  <td><span class="badge ${d.status === 'active' ? 'badge-success' : 'badge-warning'}">${d.status}</span></td>
+                  <td>${d.verified ? '✅' : '❌'}</td>
+                  <td>
+                    ${d.status === 'pending' ? `<button class="btn-sm btn-approve" data-id="${d.id}" data-action="approve">Aprobar</button>
+                    <button class="btn-sm btn-reject" data-id="${d.id}" data-action="reject">Rechazar</button>` : '—'}
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      document.getElementById('adminContent').innerHTML = html;
+      document.querySelectorAll('[data-action="approve"]').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const id = parseInt(btn.dataset.id);
+          await updateDestinationStatus(id, true);
+          showToast('Destino aprobado y visible en la web', 'success');
+          renderDestinationsTab();
+        });
+      });
+      document.querySelectorAll('[data-action="reject"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          showToast('Destino rechazado (simulado)', 'info');
+        });
+      });
+    });
+  }
+
+  function renderSubscriptionsTab() {
+    fetchSubscriptions().then(subs => {
+      const html = `
+        <h2><i class="fas fa-credit-card"></i> Planes y Suscripciones Activas</h2>
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead><tr><th>Proveedor</th><th>Plan</th><th>Monto (Q)</th><th>Inicio</th><th>Fin</th><th>Estado</th></tr></thead>
+            <tbody>
+              ${subs.map(s => `
+                <tr>
+                  <td><strong>${s.provider}</strong></td>
+                  <td><span class="badge ${s.plan === 'premium' ? 'badge-success' : (s.plan === 'elite' ? 'badge-warning' : '')}">${s.plan.toUpperCase()}</span></td>
+                  <td>Q${s.amount}</td>
+                  <td>${s.start_date}</td>
+                  <td>${s.end_date}</td>
+                  <td><span class="badge badge-success">${s.status}</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+        <div class="note" style="margin-top: 2rem; background: #fef9e6; padding: 1rem; border-radius: 16px;">
+          <i class="fas fa-info-circle"></i> Los pagos se procesan vía sistema externo. Aquí solo visualización.
+        </div>
+      `;
+      document.getElementById('adminContent').innerHTML = html;
+    });
+  }
+
+  function renderStatsTab() {
+    fetchStats().then(stats => {
+      const html = `
+        <h2><i class="fas fa-chart-line"></i> Estadísticas Generales</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><i class="fas fa-users"></i><div class="stat-number">${stats.totalProviders + stats.totalTourists}</div><div class="stat-label">Usuarios totales</div><small>${stats.totalProviders} proveedores · ${stats.totalTourists} turistas</small></div>
+          <div class="stat-card"><i class="fas fa-map-marker-alt"></i><div class="stat-number">${stats.totalDestinations}</div><div class="stat-label">Destinos activos</div><small>${stats.pendingDestinations} pendientes de aprobar</small></div>
+          <div class="stat-card"><i class="fas fa-calendar-check"></i><div class="stat-number">${stats.totalBookings}</div><div class="stat-label">Reservas realizadas</div></div>
+          <div class="stat-card"><i class="fas fa-coins"></i><div class="stat-number">Q${stats.totalCommission.toFixed(2)}</div><div class="stat-label">Comisiones generadas (10%)</div></div>
+        </div>
+        <div style="background: white; border-radius: 20px; padding: 1.5rem; margin-top: 1rem;">
+          <h3>Resumen ejecutivo</h3>
+          <p>El marketplace ha generado ${stats.totalBookings} reservas en el último mes. El plan Elite es el más demandado entre proveedores verificados. Guatemala sigue creciendo como destino turístico.</p>
+        </div>
+      `;
+      document.getElementById('adminContent').innerHTML = html;
+    });
+  }
+
+  function loadTab(tabName) {
+    currentTab = tabName;
+    // Actualizar clase activa en sidebar
+    document.querySelectorAll('.admin-sidebar li').forEach(li => {
+      li.classList.remove('active');
+      if(li.dataset.tab === tabName) li.classList.add('active');
+    });
+    switch(tabName) {
+      case 'providers': renderProvidersTab(); break;
+      case 'destinations': renderDestinationsTab(); break;
+      case 'subscriptions': renderSubscriptionsTab(); break;
+      case 'stats': renderStatsTab(); break;
+      default: renderProvidersTab();
+    }
+  }
+
+  // Eventos sidebar
+  document.querySelectorAll('.admin-sidebar li').forEach(li => {
+    li.addEventListener('click', () => {
+      loadTab(li.dataset.tab);
+    });
+  });
+
+  // Logout simulado (debe integrarse con auth.js)
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    if(confirm('¿Cerrar sesión de administración?')) {
+      // Llamada a logout real: window.location.href = 'login.html';
+      alert('Sesión cerrada. Redirigiendo al login...');
+      // window.location.href = 'login.html';
+    }
+  });
+
+  // Simular nombre de admin (desde localStorage o sesión)
+  document.getElementById('adminName').innerText = 'Admin Quetzal';
+
+  // Cargar pestaña inicial
+  loadTab('providers');
+</script>
+</body>
+</html>

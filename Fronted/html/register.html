@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Crear cuenta en Quetzal Routes" />
+  <title>Crear cuenta — Quetzal Routes</title>
+
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/pages/auth.css" />
+</head>
+<body class="auth-body">
+
+  <!-- ============================================================
+       NAVBAR SIMPLE
+  ============================================================ -->
+  <nav class="auth-nav">
+    <a href="index.html" class="navbar-logo">
+      <span class="logo-icon">🦜</span>
+      <span class="logo-text">Quetzal <span>Routes</span></span>
+    </a>
+    <a href="login.html" class="btn btn-outline btn-sm">Iniciar sesión</a>
+  </nav>
+
+
+  <!-- ============================================================
+       LAYOUT SPLIT
+  ============================================================ -->
+  <div class="auth-layout">
+
+    <!-- Panel izquierdo — imagen + beneficios -->
+    <div class="auth-visual">
+      <img
+        src="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1200&q=80"
+        alt="Tikal Guatemala"
+        class="auth-visual-img"
+      />
+      <div class="auth-visual-overlay"></div>
+      <div class="auth-visual-content">
+        <div class="auth-visual-tag">🦜 Únete gratis</div>
+        <h2>Empieza tu aventura guatemalteca hoy</h2>
+        <p>Crea tu cuenta en menos de 2 minutos y accede a experiencias únicas.</p>
+
+        <div class="auth-benefits">
+          <div class="auth-benefit">
+            <span class="auth-benefit-icon">✓</span>
+            <span>Acceso a más de 150 destinos</span>
+          </div>
+          <div class="auth-benefit">
+            <span class="auth-benefit-icon">✓</span>
+            <span>Reservas directas con proveedores</span>
+          </div>
+          <div class="auth-benefit">
+            <span class="auth-benefit-icon">✓</span>
+            <span>Guarda tus favoritos</span>
+          </div>
+          <div class="auth-benefit">
+            <span class="auth-benefit-icon">✓</span>
+            <span>Reseñas verificadas de viajeros reales</span>
+          </div>
+          <div class="auth-benefit">
+            <span class="auth-benefit-icon">✓</span>
+            <span>Interfaz en español e inglés</span>
+          </div>
+        </div>
+
+        <div class="auth-stats-row">
+          <div class="auth-stat-mini">
+            <strong>2,000+</strong>
+            <span>Viajeros</span>
+          </div>
+          <div class="auth-stat-mini">
+            <strong>150+</strong>
+            <span>Destinos</span>
+          </div>
+          <div class="auth-stat-mini">
+            <strong>4.8 ⭐</strong>
+            <span>Calificación</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel derecho — formulario -->
+    <div class="auth-form-panel">
+      <div class="auth-form-container">
+
+        <div class="auth-form-header">
+          <h1>Crea tu cuenta</h1>
+          <p>Gratis para siempre. Sin tarjeta de crédito.</p>
+        </div>
+
+        <!-- Selector de rol -->
+        <div class="auth-role-selector" id="roleSelectorWrap">
+          <p class="auth-role-label">¿Cómo quieres usar Quetzal Routes?</p>
+          <div class="auth-role-cards" id="roleCards">
+
+            <div class="auth-role-card active" data-role="tourist">
+              <span class="auth-role-icon">🧳</span>
+              <strong>Soy turista</strong>
+              <p>Quiero explorar y reservar experiencias en Guatemala</p>
+            </div>
+
+            <div class="auth-role-card" data-role="provider">
+              <span class="auth-role-icon">🏢</span>
+              <strong>Soy proveedor</strong>
+              <p>Tengo una empresa turística y quiero publicar mis servicios</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Formulario turista -->
+        <form class="auth-form" id="registerForm" novalidate>
+
+          <!-- Campos comunes -->
+          <div class="form-group">
+            <label class="form-label" for="regName">
+              Nombre completo <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              class="form-input"
+              id="regName"
+              placeholder="Tu nombre completo"
+              autocomplete="name"
+              required
+            />
+            <span class="form-error hidden" id="nameError">Ingresa tu nombre</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regEmail">
+              Correo electrónico <span class="required">*</span>
+            </label>
+            <input
+              type="email"
+              class="form-input"
+              id="regEmail"
+              placeholder="tu@correo.com"
+              autocomplete="email"
+              required
+            />
+            <span class="form-error hidden" id="regEmailError">Ingresa un correo válido</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="regPassword">
+                Contraseña <span class="required">*</span>
+              </label>
+              <div class="input-password-wrapper">
+                <input
+                  type="password"
+                  class="form-input"
+                  id="regPassword"
+                  placeholder="Mínimo 8 caracteres"
+                  autocomplete="new-password"
+                  required
+                />
+                <button type="button" class="password-toggle" id="regPasswordToggle" aria-label="Mostrar">👁</button>
+              </div>
+              <span class="form-error hidden" id="regPasswordError">Mínimo 8 caracteres</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="regPasswordConfirm">
+                Confirmar contraseña <span class="required">*</span>
+              </label>
+              <div class="input-password-wrapper">
+                <input
+                  type="password"
+                  class="form-input"
+                  id="regPasswordConfirm"
+                  placeholder="Repite tu contraseña"
+                  autocomplete="new-password"
+                  required
+                />
+                <button type="button" class="password-toggle" id="regPasswordConfirmToggle" aria-label="Mostrar">👁</button>
+              </div>
+              <span class="form-error hidden" id="regPasswordConfirmError">Las contraseñas no coinciden</span>
+            </div>
+          </div>
+
+          <!-- Indicador de fortaleza de contraseña -->
+          <div class="password-strength" id="passwordStrength">
+            <div class="password-strength-bar">
+              <div class="password-strength-fill" id="strengthFill"></div>
+            </div>
+            <span class="password-strength-label" id="strengthLabel">Ingresa una contraseña</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regLanguage">Idioma preferido</label>
+            <select class="form-select" id="regLanguage">
+              <option value="es">🇬🇹 Español</option>
+              <option value="en">🇺🇸 English</option>
+            </select>
+          </div>
+
+          <!-- Campos extra para proveedor -->
+          <div class="provider-fields hidden" id="providerFields">
+            <div class="provider-fields-divider">
+              <span>Información de tu empresa</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="businessName">
+                Nombre de tu empresa <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                class="form-input"
+                id="businessName"
+                placeholder="Ej: Quetzal Tours Guatemala"
+              />
+              <span class="form-error hidden" id="businessError">Ingresa el nombre de tu empresa</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="businessWhatsapp">
+                WhatsApp de contacto <span class="required">*</span>
+              </label>
+              <input
+                type="tel"
+                class="form-input"
+                id="businessWhatsapp"
+                placeholder="+502 5555-0000"
+              />
+              <span class="form-hint">Los turistas te contactarán por aquí para reservas</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="businessDesc">Descripción breve</label>
+              <textarea
+                class="form-textarea"
+                id="businessDesc"
+                rows="3"
+                placeholder="Describe tu empresa y los servicios que ofreces..."
+              ></textarea>
+            </div>
+
+            <!-- Plan selector -->
+            <div class="plan-selector" id="planSelector">
+              <p class="form-label">Elige tu plan inicial</p>
+              <div class="plan-cards">
+
+                <div class="plan-card active" data-plan="free">
+                  <div class="plan-card-header">
+                    <strong>Gratuito</strong>
+                    <span class="plan-price">Q0<small>/mes</small></span>
+                  </div>
+                  <ul class="plan-features">
+                    <li>✓ 3 destinos publicados</li>
+                    <li>✓ Perfil básico</li>
+                    <li>✓ Reservas por WhatsApp</li>
+                    <li class="plan-feature-no">✗ Sin posición destacada</li>
+                  </ul>
+                </div>
+
+                <div class="plan-card" data-plan="premium">
+                  <div class="plan-card-badge">Popular</div>
+                  <div class="plan-card-header">
+                    <strong>Premium</strong>
+                    <span class="plan-price">Q299<small>/mes</small></span>
+                  </div>
+                  <ul class="plan-features">
+                    <li>✓ 10 destinos publicados</li>
+                    <li>✓ Posición destacada</li>
+                    <li>✓ Reservas directas</li>
+                    <li>✓ Estadísticas básicas</li>
+                  </ul>
+                </div>
+
+                <div class="plan-card" data-plan="elite">
+                  <div class="plan-card-header">
+                    <strong>Elite</strong>
+                    <span class="plan-price">Q599<small>/mes</small></span>
+                  </div>
+                  <ul class="plan-features">
+                    <li>✓ Destinos ilimitados</li>
+                    <li>✓ Top de búsquedas</li>
+                    <li>✓ Dashboard avanzado</li>
+                    <li>✓ Soporte prioritario</li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Términos -->
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" id="acceptTerms" required />
+              <span class="form-check-label">
+                Acepto los <a href="#" class="auth-link">Términos de uso</a>
+                y la <a href="#" class="auth-link">Política de privacidad</a>
+              </span>
+            </label>
+            <span class="form-error hidden" id="termsError">Debes aceptar los términos</span>
+          </div>
+
+          <button type="submit" class="btn btn-accent btn-block btn-lg" id="registerBtn">
+            Crear cuenta gratis →
+          </button>
+
+          <div class="auth-divider">
+            <span>o regístrate con</span>
+          </div>
+
+          <div class="auth-social">
+            <button type="button" class="auth-social-btn">
+              <span>🌐</span> Google
+            </button>
+            <button type="button" class="auth-social-btn">
+              <span>📘</span> Facebook
+            </button>
+          </div>
+
+        </form>
+
+        <p class="auth-switch">
+          ¿Ya tienes cuenta?
+          <a href="login.html">Iniciar sesión →</a>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script type="module">
+
+    /* ----------------------------------------------------------
+       SELECTOR DE ROL
+    ---------------------------------------------------------- */
+    let selectedRole = 'tourist';
+    const providerFields = document.getElementById('providerFields');
+
+    document.querySelectorAll('.auth-role-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.auth-role-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        selectedRole = card.dataset.role;
+
+        if (selectedRole === 'provider') {
+          providerFields.classList.remove('hidden');
+          document.getElementById('registerBtn').textContent = 'Crear cuenta de proveedor →';
+        } else {
+          providerFields.classList.add('hidden');
+          document.getElementById('registerBtn').textContent = 'Crear cuenta gratis →';
+        }
+      });
+    });
+
+    // Leer rol desde URL si viene de la landing
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('role') === 'provider') {
+      document.querySelector('[data-role="provider"]').click();
+    }
+
+    /* ----------------------------------------------------------
+       SELECTOR DE PLAN
+    ---------------------------------------------------------- */
+    let selectedPlan = 'free';
+    document.querySelectorAll('.plan-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        selectedPlan = card.dataset.plan;
+      });
+    });
+
+    /* ----------------------------------------------------------
+       MOSTRAR / OCULTAR CONTRASEÑAS
+    ---------------------------------------------------------- */
+    function setupPasswordToggle(inputId, btnId) {
+      document.getElementById(btnId).addEventListener('click', () => {
+        const input  = document.getElementById(inputId);
+        const isText = input.type === 'text';
+        input.type = isText ? 'password' : 'text';
+        document.getElementById(btnId).textContent = isText ? '👁' : '🙈';
+      });
+    }
+
+    setupPasswordToggle('regPassword', 'regPasswordToggle');
+    setupPasswordToggle('regPasswordConfirm', 'regPasswordConfirmToggle');
+
+    /* ----------------------------------------------------------
+       INDICADOR DE FORTALEZA DE CONTRASEÑA
+    ---------------------------------------------------------- */
+    const strengthFill  = document.getElementById('strengthFill');
+    const strengthLabel = document.getElementById('strengthLabel');
+
+    document.getElementById('regPassword').addEventListener('input', (e) => {
+      const pwd = e.target.value;
+      let score = 0;
+      if (pwd.length >= 8)           score++;
+      if (/[A-Z]/.test(pwd))         score++;
+      if (/[0-9]/.test(pwd))         score++;
+      if (/[^A-Za-z0-9]/.test(pwd))  score++;
+
+      const levels = [
+        { label: 'Muy débil',  color: '#C1121F', width: '25%' },
+        { label: 'Débil',      color: '#FF9800', width: '50%' },
+        { label: 'Buena',      color: '#FFB703', width: '75%' },
+        { label: 'Excelente',  color: '#52B788', width: '100%' },
+      ];
+
+      if (pwd.length === 0) {
+        strengthFill.style.width = '0%';
+        strengthLabel.textContent = 'Ingresa una contraseña';
+        return;
+      }
+
+      const level = levels[Math.min(score - 1, 3)] || levels[0];
+      strengthFill.style.width       = level.width;
+      strengthFill.style.background  = level.color;
+      strengthLabel.textContent      = level.label;
+      strengthLabel.style.color      = level.color;
+    });
+
+    /* ----------------------------------------------------------
+       VALIDACIÓN
+    ---------------------------------------------------------- */
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function showError(fieldId, errorId, msg) {
+      document.getElementById(fieldId).classList.add('error');
+      const errEl = document.getElementById(errorId);
+      if (msg) errEl.textContent = msg;
+      errEl.classList.remove('hidden');
+    }
+
+    function clearError(fieldId, errorId) {
+      document.getElementById(fieldId)?.classList.remove('error');
+      document.getElementById(errorId)?.classList.add('hidden');
+    }
+
+    // Limpiar errores en tiempo real
+    ['regName', 'regEmail', 'regPassword', 'regPasswordConfirm'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        clearError(id, id.replace('reg', 'reg') + 'Error'
+          .replace('regNameError', 'nameError')
+        );
+      });
+    });
+
+    /* ----------------------------------------------------------
+       SUBMIT
+    ---------------------------------------------------------- */
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name     = document.getElementById('regName').value.trim();
+      const email    = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirm  = document.getElementById('regPasswordConfirm').value;
+      const terms    = document.getElementById('acceptTerms').checked;
+      let valid      = true;
+
+      if (!name) {
+        showError('regName', 'nameError');
+        valid = false;
+      }
+
+      if (!validateEmail(email)) {
+        showError('regEmail', 'regEmailError');
+        valid = false;
+      }
+
+      if (password.length < 8) {
+        showError('regPassword', 'regPasswordError');
+        valid = false;
+      }
+
+      if (password !== confirm) {
+        showError('regPasswordConfirm', 'regPasswordConfirmError');
+        valid = false;
+      }
+
+      if (selectedRole === 'provider') {
+        const biz = document.getElementById('businessName').value.trim();
+        if (!biz) {
+          showError('businessName', 'businessError');
+          valid = false;
+        }
+      }
+
+      if (!terms) {
+        document.getElementById('termsError').classList.remove('hidden');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Estado cargando
+      const btn = document.getElementById('registerBtn');
+      btn.textContent = 'Creando tu cuenta...';
+      btn.disabled    = true;
+
+      await new Promise(r => setTimeout(r, 1400));
+
+      // Guardar sesión mock
+      sessionStorage.setItem('qr_user', JSON.stringify({
+        email, name, role: selectedRole, plan: selectedPlan
+      }));
+
+      showToast('¡Cuenta creada! Bienvenido a Quetzal Routes 🎉', 'success');
+
+      setTimeout(() => {
+        window.location.href = selectedRole === 'provider'
+          ? 'dashboard-provider.html'
+          : 'explore.html';
+      }, 1200);
+    });
+
+    /* ----------------------------------------------------------
+       TOAST
+    ---------------------------------------------------------- */
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `
+        <span class="toast-icon">${icons[type]}</span>
+        <span class="toast-message">${msg}</span>
+        <button class="toast-dismiss" onclick="this.parentElement.remove()">✕</button>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+  </script>
+
+</body>
+</html>

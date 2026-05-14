@@ -1,0 +1,334 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Carlos Mendoza",
+      "email": "carlos@example.com",
+      "password_hash": "hashed_password_1",
+      "language": "es",
+      "role": "tourist",
+      "created_at": "2024-01-15"
+    },
+    {
+      "id": 2,
+      "name": "Emily Johnson",
+      "email": "emily@example.com",
+      "password_hash": "hashed_password_2",
+      "language": "en",
+      "role": "tourist",
+      "created_at": "2024-02-10"
+    },
+    {
+      "id": 3,
+      "name": "Ana López",
+      "email": "ana@quetzaltours.gt",
+      "password_hash": "hashed_password_3",
+      "language": "es",
+      "role": "provider",
+      "created_at": "2024-01-05"
+    },
+    {
+      "id": 4,
+      "name": "Marco Tzul",
+      "email": "marco@petenexplorer.gt",
+      "password_hash": "hashed_password_4",
+      "language": "es",
+      "role": "provider",
+      "created_at": "2024-01-20"
+    },
+    {
+      "id": 5,
+      "name": "Admin Quetzal",
+      "email": "admin@quetzalroutes.gt",
+      "password_hash": "hashed_password_admin",
+      "language": "es",
+      "role": "admin",
+      "created_at": "2024-01-01"
+    }
+  ],
+
+  "providers": [
+    {
+      "id": 1,
+      "user_id": 3,
+      "business_name": "Quetzal Tours Antigua",
+      "description": "Empresa familiar con 15 años de experiencia en turismo cultural en Antigua Guatemala. Especializados en tours históricos, talleres de textiles y gastronomía local.",
+      "description_en": "Family business with 15 years of experience in cultural tourism in Antigua Guatemala. Specialized in historical tours, textile workshops and local gastronomy.",
+      "contact_email": "ana@quetzaltours.gt",
+      "whatsapp": "+502 5555-1234",
+      "plan": "premium",
+      "plan_expiry": "2025-12-31",
+      "verified": true,
+      "created_at": "2024-01-05"
+    },
+    {
+      "id": 2,
+      "user_id": 4,
+      "business_name": "Petén Explorer",
+      "description": "Aventuras en la selva del Petén. Recorridos a Tikal, Yaxhá y comunidades mayas. Guías bilingües certificados.",
+      "description_en": "Adventures in the Petén jungle. Tours to Tikal, Yaxhá and Mayan communities. Certified bilingual guides.",
+      "contact_email": "marco@petenexplorer.gt",
+      "whatsapp": "+502 5555-5678",
+      "plan": "elite",
+      "plan_expiry": "2025-12-31",
+      "verified": true,
+      "created_at": "2024-01-20"
+    }
+  ],
+
+  "destinations": [
+    {
+      "id": 1,
+      "provider_id": 1,
+      "title": "Tour Colonial Antigua Guatemala",
+      "title_en": "Colonial Tour Antigua Guatemala",
+      "description_es": "Recorre las calles empedradas de la Ciudad Colonial más bella de Centroamérica. Visita conventos, iglesias barrocas, mercados de artesanías y disfruta de una degustación de café de altura. Nuestro guía experto te contará 500 años de historia viva.",
+      "description_en": "Walk the cobblestone streets of the most beautiful Colonial City in Central America. Visit convents, baroque churches, craft markets and enjoy a highland coffee tasting. Our expert guide will tell you 500 years of living history.",
+      "category": "culture",
+      "department": "Antigua",
+      "address": "Parque Central, Antigua Guatemala, Sacatepéquez",
+      "lat": 14.5586,
+      "lng": -90.7295,
+      "price_from": 150,
+      "price_to": 280,
+      "currency": "GTQ",
+      "cover_image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
+      "duration": "6 horas",
+      "max_people": 12,
+      "rating_avg": 4.8,
+      "reviews_count": 34,
+      "status": "active",
+      "featured": true,
+      "created_at": "2024-01-10",
+      "updated_at": "2024-03-01"
+    },
+    {
+      "id": 2,
+      "provider_id": 2,
+      "title": "Amanecer en Tikal — Tour Madrugada",
+      "title_en": "Sunrise at Tikal — Dawn Tour",
+      "description_es": "Vive la experiencia más mágica del Petén: observar el amanecer desde lo alto del Templo IV, mientras la selva cobra vida con el canto de los animales. Incluye ingreso nocturno especial, guía arqueológico certificado y desayuno típico.",
+      "description_en": "Experience the most magical moment in Petén: watch the sunrise from the top of Temple IV, while the jungle comes alive with the sound of animals. Includes special night entry, certified archaeological guide and typical breakfast.",
+      "category": "culture",
+      "department": "Peten",
+      "address": "Parque Nacional Tikal, Petén",
+      "lat": 17.2220,
+      "lng": -89.6237,
+      "price_from": 450,
+      "price_to": 650,
+      "currency": "GTQ",
+      "cover_image": "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800",
+      "duration": "8 horas",
+      "max_people": 8,
+      "rating_avg": 4.9,
+      "reviews_count": 58,
+      "status": "active",
+      "featured": true,
+      "created_at": "2024-01-22",
+      "updated_at": "2024-03-05"
+    },
+    {
+      "id": 3,
+      "provider_id": 1,
+      "title": "Kayak en Lago de Atitlán",
+      "title_en": "Kayak on Lake Atitlán",
+      "description_es": "Explora el lago más hermoso del mundo en kayak. Rodeado de tres volcanes y pueblos indígenas, cada palada es una postal. Recorrido de 3 horas con parada en Santiago Atitlán y visita al tejedor local.",
+      "description_en": "Explore the most beautiful lake in the world by kayak. Surrounded by three volcanoes and indigenous villages, every paddle stroke is a postcard. 3-hour tour with a stop in Santiago Atitlán and visit to the local weaver.",
+      "category": "adventure",
+      "department": "Atitlan",
+      "address": "Panajachel, Sololá",
+      "lat": 14.7444,
+      "lng": -91.1542,
+      "price_from": 200,
+      "price_to": 350,
+      "currency": "GTQ",
+      "cover_image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+      "duration": "4 horas",
+      "max_people": 10,
+      "rating_avg": 4.7,
+      "reviews_count": 21,
+      "status": "active",
+      "featured": true,
+      "created_at": "2024-02-01",
+      "updated_at": "2024-03-10"
+    },
+    {
+      "id": 4,
+      "provider_id": 2,
+      "title": "Senderismo Volcán Acatenango",
+      "title_en": "Acatenango Volcano Hiking",
+      "description_es": "Conquista uno de los volcanes más imponentes de Guatemala. Ascenso de 2 días con campamento en el cráter, frente al Volcán de Fuego en erupción. Incluye equipo de camping, guías y alimentación completa.",
+      "description_en": "Conquer one of Guatemala's most imposing volcanoes. 2-day ascent with crater camping, facing the erupting Fuego Volcano. Includes camping gear, guides and full meals.",
+      "category": "adventure",
+      "department": "Antigua",
+      "address": "La Soledad, Chimaltenango",
+      "lat": 14.5012,
+      "lng": -90.8757,
+      "price_from": 380,
+      "price_to": 520,
+      "currency": "GTQ",
+      "cover_image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800",
+      "duration": "2 días",
+      "max_people": 15,
+      "rating_avg": 4.9,
+      "reviews_count": 47,
+      "status": "active",
+      "featured": false,
+      "created_at": "2024-02-05",
+      "updated_at": "2024-03-12"
+    },
+    {
+      "id": 5,
+      "provider_id": 1,
+      "title": "Ruta del Cacao y Chocolate Artesanal",
+      "title_en": "Cacao and Artisan Chocolate Route",
+      "description_es": "Descubre el origen del chocolate en la tierra que lo inventó. Visita una finca de cacao en Alta Verapaz, aprende el proceso ancestral de tostado y molido, y elabora tu propio chocolate con receta maya.",
+      "description_en": "Discover the origin of chocolate in the land that invented it. Visit a cacao farm in Alta Verapaz, learn the ancestral roasting and grinding process, and make your own chocolate with a Mayan recipe.",
+      "category": "gastronomy",
+      "department": "Verapaz",
+      "address": "Cobán, Alta Verapaz",
+      "lat": 15.4697,
+      "lng": -90.3795,
+      "price_from": 175,
+      "price_to": 250,
+      "currency": "GTQ",
+      "cover_image": "https://images.unsplash.com/photo-1511381939415-e44015466834?w=800",
+      "duration": "5 horas",
+      "max_people": 20,
+      "rating_avg": 4.6,
+      "reviews_count": 19,
+      "status": "active",
+      "featured": false,
+      "created_at": "2024-02-15",
+      "updated_at": "2024-03-08"
+    }
+  ],
+
+  "destination_images": [
+    { "id": 1, "destination_id": 1, "image_url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800", "order_index": 1 },
+    { "id": 2, "destination_id": 1, "image_url": "https://images.unsplash.com/photo-1547558902-c0e053aca5b6?w=800", "order_index": 2 },
+    { "id": 3, "destination_id": 1, "image_url": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800", "order_index": 3 },
+    { "id": 4, "destination_id": 2, "image_url": "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800", "order_index": 1 },
+    { "id": 5, "destination_id": 2, "image_url": "https://images.unsplash.com/photo-1570979733461-e5945efc9e8f?w=800", "order_index": 2 },
+    { "id": 6, "destination_id": 3, "image_url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800", "order_index": 1 },
+    { "id": 7, "destination_id": 4, "image_url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800", "order_index": 1 },
+    { "id": 8, "destination_id": 5, "image_url": "https://images.unsplash.com/photo-1511381939415-e44015466834?w=800", "order_index": 1 }
+  ],
+
+  "reviews": [
+    {
+      "id": 1,
+      "destination_id": 1,
+      "user_id": 2,
+      "rating": 5,
+      "comment": "Absolutely incredible experience! Our guide Carlos knew every corner of Antigua. The coffee tasting at the end was a perfect touch. Highly recommend!",
+      "created_at": "2024-02-20"
+    },
+    {
+      "id": 2,
+      "destination_id": 1,
+      "user_id": 1,
+      "rating": 5,
+      "comment": "Una experiencia que no olvidaré. La guía conoce la historia de cada piedra. El tour del mercado de artesanías fue lo mejor.",
+      "created_at": "2024-03-01"
+    },
+    {
+      "id": 3,
+      "destination_id": 2,
+      "user_id": 2,
+      "rating": 5,
+      "comment": "Waking up at 3am was SO worth it. Watching the sunrise over the jungle from Temple IV is something you cannot put into words. Life-changing.",
+      "created_at": "2024-02-28"
+    },
+    {
+      "id": 4,
+      "destination_id": 3,
+      "user_id": 1,
+      "rating": 4,
+      "comment": "El lago es una maravilla. El kayak estuvo perfecto, aunque el viento de la tarde complicó un poco el regreso. La visita al tejedor fue un extra increíble.",
+      "created_at": "2024-03-10"
+    },
+    {
+      "id": 5,
+      "destination_id": 4,
+      "user_id": 2,
+      "rating": 5,
+      "comment": "Best experience of my life. Camping next to an active volcano while watching lava shoot into the night sky is something out of this world. The guides were top-notch.",
+      "created_at": "2024-03-15"
+    }
+  ],
+
+  "bookings": [
+    {
+      "id": 1,
+      "destination_id": 1,
+      "user_id": 2,
+      "date_requested": "2024-04-10",
+      "people_count": 2,
+      "status": "confirmed",
+      "total_amount": 560,
+      "commission_amount": 56,
+      "created_at": "2024-03-20"
+    },
+    {
+      "id": 2,
+      "destination_id": 2,
+      "user_id": 1,
+      "date_requested": "2024-04-15",
+      "people_count": 3,
+      "status": "pending",
+      "total_amount": 1350,
+      "commission_amount": 135,
+      "created_at": "2024-03-22"
+    },
+    {
+      "id": 3,
+      "destination_id": 4,
+      "user_id": 2,
+      "date_requested": "2024-04-20",
+      "people_count": 1,
+      "status": "confirmed",
+      "total_amount": 380,
+      "commission_amount": 38,
+      "created_at": "2024-03-25"
+    }
+  ],
+
+  "subscriptions": [
+    {
+      "id": 1,
+      "provider_id": 1,
+      "plan": "premium",
+      "amount_quetzales": 299,
+      "start_date": "2025-01-01",
+      "end_date": "2025-12-31",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "provider_id": 2,
+      "plan": "elite",
+      "amount_quetzales": 599,
+      "start_date": "2025-01-01",
+      "end_date": "2025-12-31",
+      "status": "active"
+    }
+  ],
+
+  "categories": [
+    { "id": "nature",     "label_es": "Naturaleza",    "label_en": "Nature",      "icon": "🌿" },
+    { "id": "culture",    "label_es": "Cultura",       "label_en": "Culture",     "icon": "🏛️" },
+    { "id": "adventure",  "label_es": "Aventura",      "label_en": "Adventure",   "icon": "🧗" },
+    { "id": "gastronomy", "label_es": "Gastronomía",   "label_en": "Gastronomy",  "icon": "🍫" },
+    { "id": "wellness",   "label_es": "Bienestar",     "label_en": "Wellness",    "icon": "🧘" }
+  ],
+
+  "departments": [
+    { "id": "Antigua",  "label": "Antigua Guatemala", "region": "Sur-Occidente" },
+    { "id": "Atitlan",  "label": "Lago de Atitlán",   "region": "Sur-Occidente" },
+    { "id": "Peten",    "label": "Petén",              "region": "Norte" },
+    { "id": "Verapaz",  "label": "Alta Verapaz",       "region": "Norte-Centro" },
+    { "id": "Izabal",   "label": "Izabal",             "region": "Nororiente" },
+    { "id": "Quiche",   "label": "Quiché",             "region": "Nor-Occidente" }
+  ]
+}

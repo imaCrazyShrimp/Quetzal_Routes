@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Iniciar sesión en Quetzal Routes" />
+  <title>Iniciar sesión — Quetzal Routes</title>
+
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/pages/auth.css" />
+</head>
+<body class="auth-body">
+
+  <!-- ============================================================
+       NAVBAR SIMPLE
+  ============================================================ -->
+  <nav class="auth-nav">
+    <a href="index.html" class="navbar-logo">
+      <span class="logo-icon">🦜</span>
+      <span class="logo-text">Quetzal <span>Routes</span></span>
+    </a>
+    <a href="register.html" class="btn btn-outline btn-sm">Crear cuenta</a>
+  </nav>
+
+
+  <!-- ============================================================
+       LAYOUT SPLIT
+  ============================================================ -->
+  <div class="auth-layout">
+
+    <!-- Panel izquierdo — imagen + mensaje -->
+    <div class="auth-visual">
+      <img
+        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80"
+        alt="Lago de Atitlán"
+        class="auth-visual-img"
+      />
+      <div class="auth-visual-overlay"></div>
+      <div class="auth-visual-content">
+        <div class="auth-visual-tag">🌿 Guatemala te espera</div>
+        <h2>Cientos de aventuras a un clic de distancia</h2>
+        <p>Inicia sesión y accede a los mejores destinos turísticos de Guatemala seleccionados para ti.</p>
+
+        <div class="auth-testimonial">
+          <div class="auth-testimonial-avatar">EJ</div>
+          <div>
+            <p>"Quetzal Routes cambió la forma en que experimento Guatemala. ¡Increíble!"</p>
+            <strong>Emily Johnson · Nueva York</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel derecho — formulario -->
+    <div class="auth-form-panel">
+      <div class="auth-form-container">
+
+        <div class="auth-form-header">
+          <h1>Bienvenido de nuevo</h1>
+          <p>Ingresa tus datos para continuar</p>
+        </div>
+
+        <!-- Tabs rol -->
+        <div class="auth-tabs" id="authTabs">
+          <button class="auth-tab active" data-role="tourist">🧳 Soy turista</button>
+          <button class="auth-tab" data-role="provider">🏢 Soy proveedor</button>
+        </div>
+
+        <!-- Formulario -->
+        <form class="auth-form" id="loginForm" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="loginEmail">
+              Correo electrónico <span class="required">*</span>
+            </label>
+            <input
+              type="email"
+              class="form-input"
+              id="loginEmail"
+              placeholder="tu@correo.com"
+              autocomplete="email"
+              required
+            />
+            <span class="form-error hidden" id="emailError">Ingresa un correo válido</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">
+              Contraseña <span class="required">*</span>
+            </label>
+            <div class="input-password-wrapper">
+              <input
+                type="password"
+                class="form-input"
+                id="loginPassword"
+                placeholder="Tu contraseña"
+                autocomplete="current-password"
+                required
+              />
+              <button type="button" class="password-toggle" id="passwordToggle" aria-label="Mostrar contraseña">
+                👁
+              </button>
+            </div>
+            <span class="form-error hidden" id="passwordError">Ingresa tu contraseña</span>
+          </div>
+
+          <div class="auth-form-options">
+            <label class="form-check">
+              <input type="checkbox" id="rememberMe" />
+              <span class="form-check-label">Recordarme</span>
+            </label>
+            <a href="#" class="auth-forgot">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="loginBtn">
+            Iniciar sesión
+          </button>
+
+          <div class="auth-divider">
+            <span>o continúa con</span>
+          </div>
+
+          <div class="auth-social">
+            <button type="button" class="auth-social-btn">
+              <span>🌐</span> Google
+            </button>
+            <button type="button" class="auth-social-btn">
+              <span>📘</span> Facebook
+            </button>
+          </div>
+
+        </form>
+
+        <p class="auth-switch">
+          ¿No tienes cuenta?
+          <a href="register.html">Regístrate gratis →</a>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script type="module">
+
+    /* ----------------------------------------------------------
+       TABS DE ROL
+    ---------------------------------------------------------- */
+    let selectedRole = 'tourist';
+    document.querySelectorAll('.auth-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        selectedRole = tab.dataset.role;
+      });
+    });
+
+    /* ----------------------------------------------------------
+       MOSTRAR / OCULTAR CONTRASEÑA
+    ---------------------------------------------------------- */
+    document.getElementById('passwordToggle').addEventListener('click', () => {
+      const input = document.getElementById('loginPassword');
+      const isText = input.type === 'text';
+      input.type = isText ? 'password' : 'text';
+      document.getElementById('passwordToggle').textContent = isText ? '👁' : '🙈';
+    });
+
+    /* ----------------------------------------------------------
+       VALIDACIÓN
+    ---------------------------------------------------------- */
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function showError(fieldId, errorId) {
+      document.getElementById(fieldId).classList.add('error');
+      document.getElementById(errorId).classList.remove('hidden');
+    }
+
+    function clearError(fieldId, errorId) {
+      document.getElementById(fieldId).classList.remove('error');
+      document.getElementById(errorId).classList.add('hidden');
+    }
+
+    document.getElementById('loginEmail').addEventListener('input', () => {
+      clearError('loginEmail', 'emailError');
+    });
+
+    document.getElementById('loginPassword').addEventListener('input', () => {
+      clearError('loginPassword', 'passwordError');
+    });
+
+    /* ----------------------------------------------------------
+       SUBMIT
+    ---------------------------------------------------------- */
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email    = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      let valid      = true;
+
+      if (!validateEmail(email)) {
+        showError('loginEmail', 'emailError');
+        valid = false;
+      }
+
+      if (!password) {
+        showError('loginPassword', 'passwordError');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Estado de carga
+      const btn = document.getElementById('loginBtn');
+      btn.textContent = 'Iniciando sesión...';
+      btn.disabled    = true;
+
+      // Simulación de login (reemplazar con auth.js cuando esté listo)
+      await new Promise(r => setTimeout(r, 1200));
+
+      // Demo: credenciales de prueba
+      const mockUsers = {
+        'carlos@example.com':    { role: 'tourist',  redirect: 'explore.html' },
+        'ana@quetzaltours.gt':   { role: 'provider', redirect: 'dashboard-provider.html' },
+        'admin@quetzalroutes.gt':{ role: 'admin',    redirect: 'admin.html' },
+      };
+
+      const user = mockUsers[email];
+      if (user && password.length >= 6) {
+        // Guardar sesión mock
+        sessionStorage.setItem('qr_user', JSON.stringify({ email, role: user.role }));
+        showToast('¡Bienvenido! Redirigiendo...', 'success');
+        setTimeout(() => window.location.href = user.redirect, 1000);
+      } else {
+        btn.textContent = 'Iniciar sesión';
+        btn.disabled    = false;
+        showToast('Credenciales incorrectas. Intenta de nuevo.', 'error');
+        showError('loginEmail', 'emailError');
+        document.getElementById('emailError').textContent = 'Correo o contraseña incorrectos';
+      }
+    });
+
+    /* ----------------------------------------------------------
+       TOAST
+    ---------------------------------------------------------- */
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `
+        <span class="toast-icon">${icons[type]}</span>
+        <span class="toast-message">${msg}</span>
+        <button class="toast-dismiss" onclick="this.parentElement.remove()">✕</button>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+  </script>
+
+</body>
+</html>

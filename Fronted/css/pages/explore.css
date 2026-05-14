@@ -1,0 +1,549 @@
+/* ============================================================
+   QUETZAL ROUTES — explore.css
+   Estilos específicos de la página exploradora
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. HEADER DE EXPLORAR
+   ------------------------------------------------------------ */
+.explore-header {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--gris-borde);
+  padding-top: calc(68px + var(--space-8));
+  padding-bottom: var(--space-6);
+}
+
+.explore-header-content {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.explore-header h1 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--negro-suave);
+  margin-bottom: var(--space-1);
+}
+
+.explore-header p {
+  font-size: var(--text-base);
+  color: var(--gris-texto);
+}
+
+/* Barra de búsqueda del header */
+.explore-search {
+  flex-shrink: 0;
+}
+
+.explore-search-inner {
+  display: flex;
+  align-items: center;
+  background: var(--bg-principal);
+  border: 1.5px solid var(--gris-borde);
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1rem;
+  gap: var(--space-2);
+  width: 300px;
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.explore-search-inner:focus-within {
+  border-color: var(--verde-claro);
+  box-shadow: 0 0 0 3px rgba(82,183,136,0.15);
+}
+
+.explore-search-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.explore-search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: var(--text-sm);
+  color: var(--negro-suave);
+  outline: none;
+}
+
+.explore-search-input::placeholder {
+  color: #BABABA;
+}
+
+.explore-search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--text-xs);
+  color: var(--gris-texto);
+  padding: 2px;
+  border-radius: var(--radius-full);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.explore-search-clear:hover {
+  background: var(--gris-claro);
+}
+
+/* Chips de filtro rápido */
+.explore-quick-filters {
+  padding-bottom: var(--space-2);
+}
+
+
+/* ------------------------------------------------------------
+   2. LAYOUT PRINCIPAL — SIDEBAR + RESULTADOS
+   ------------------------------------------------------------ */
+.explore-main {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-16);
+  background: var(--bg-principal);
+}
+
+.explore-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-8);
+  align-items: flex-start;
+}
+
+
+/* ------------------------------------------------------------
+   3. PANEL DE FILTROS (sidebar)
+   ------------------------------------------------------------ */
+.filters-panel {
+  background: #FFFFFF;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+  position: sticky;
+  top: calc(68px + var(--space-4));
+  max-height: calc(100vh - 68px - var(--space-8));
+  overflow-y: auto;
+}
+
+/* Scrollbar del panel */
+.filters-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.filters-panel::-webkit-scrollbar-thumb {
+  background: var(--gris-borde);
+  border-radius: var(--radius-full);
+}
+
+.filters-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--gris-claro);
+}
+
+.filters-header h3 {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--negro-suave);
+}
+
+.filters-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--text-xs);
+  color: var(--rojo-huipil);
+  font-weight: 600;
+  font-family: var(--font-titulo);
+  transition: opacity var(--transition-fast);
+}
+
+.filters-clear:hover {
+  opacity: 0.7;
+}
+
+/* Tags de filtros activos */
+.filters-active {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  min-height: 0;
+}
+
+.filters-active:empty {
+  display: none;
+}
+
+.active-filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(45, 106, 79, 0.08);
+  color: var(--verde-quetzal);
+  border: 1px solid rgba(45, 106, 79, 0.2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 3px 10px;
+  font-family: var(--font-titulo);
+}
+
+.active-filter-tag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.7rem;
+  color: var(--verde-quetzal);
+  padding: 0;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.active-filter-tag button:hover {
+  opacity: 1;
+}
+
+/* Grupos de filtros */
+.filter-group {
+  border-bottom: 1px solid var(--gris-claro);
+  padding: var(--space-4) 0;
+}
+
+.filter-group:last-of-type {
+  border-bottom: none;
+}
+
+.filter-group-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--negro-suave);
+  margin-bottom: var(--space-4);
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-group-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--gris-texto);
+  padding: 0;
+  transition: transform var(--transition-fast);
+}
+
+.filter-group-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: opacity var(--transition-fast);
+}
+
+.filter-group-body.collapsed {
+  display: none;
+}
+
+/* Rango de precio */
+.price-range {
+  margin-bottom: var(--space-3);
+}
+
+.price-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--negro-suave);
+  margin-bottom: var(--space-2);
+}
+
+.range-input {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: var(--verde-claro);
+  border-radius: var(--radius-full);
+  outline: none;
+  margin-bottom: var(--space-2);
+  cursor: pointer;
+}
+
+.range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--verde-quetzal);
+  cursor: pointer;
+  border: 2px solid #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+
+.price-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip-sm {
+  padding: 0.3rem 0.75rem;
+  font-size: var(--text-xs);
+}
+
+/* Botón aplicar filtros (mobile) */
+.filters-apply-btn {
+  margin-top: var(--space-5);
+  display: none;
+}
+
+
+/* ------------------------------------------------------------
+   4. ÁREA DE RESULTADOS
+   ------------------------------------------------------------ */
+.results-area {
+  min-width: 0;
+}
+
+/* Barra superior */
+.results-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.results-count {
+  font-size: var(--text-sm);
+  color: var(--gris-texto);
+}
+
+.results-count strong {
+  color: var(--negro-suave);
+  font-weight: 700;
+}
+
+.results-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Select de ordenar */
+.results-sort {
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-md);
+  min-width: 200px;
+}
+
+/* Toggle de vista */
+.view-toggle {
+  display: flex;
+  background: var(--gris-claro);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.view-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.45rem 0.75rem;
+  font-size: 1rem;
+  color: var(--gris-texto);
+  transition: background var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.view-btn.active {
+  background: #FFFFFF;
+  color: var(--verde-quetzal);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Botón de filtros (solo mobile) */
+.filters-toggle-btn {
+  display: none;
+}
+
+/* Vista lista */
+.results-grid.view-list {
+  grid-template-columns: 1fr !important;
+  gap: var(--space-4);
+}
+
+.results-grid.view-list .card {
+  flex-direction: row;
+  height: 160px;
+}
+
+.results-grid.view-list .card-image {
+  width: 200px;
+  min-width: 200px;
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+.results-grid.view-list .card-body {
+  flex: 1;
+  padding: var(--space-4) var(--space-5);
+}
+
+.results-grid.view-list .card-footer {
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-4);
+  border-top: none;
+  border-left: 1px solid var(--gris-claro);
+  min-width: 120px;
+  gap: var(--space-2);
+}
+
+/* Estado vacío */
+.results-empty {
+  text-align: center;
+  padding: var(--space-16) var(--space-8);
+  background: #FFFFFF;
+  border-radius: var(--radius-xl);
+}
+
+.results-empty-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
+}
+
+.results-empty h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2);
+}
+
+.results-empty p {
+  color: var(--gris-texto);
+  margin-bottom: var(--space-6);
+}
+
+
+/* ------------------------------------------------------------
+   5. RESPONSIVE
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .explore-layout {
+    grid-template-columns: 240px 1fr;
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 768px) {
+
+  .explore-header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .explore-search-inner {
+    width: 100%;
+  }
+
+  .explore-search {
+    width: 100%;
+  }
+
+  /* Layout en mobile: una sola columna */
+  .explore-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Panel de filtros flotante en mobile */
+  .filters-panel {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    bottom: 0;
+    width: 85%;
+    max-width: 320px;
+    z-index: var(--z-modal);
+    border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+    max-height: 100vh;
+    transition: left var(--transition-base);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .filters-panel.open {
+    left: 0;
+  }
+
+  .filters-apply-btn {
+    display: flex;
+  }
+
+  .filters-toggle-btn {
+    display: flex;
+  }
+
+  /* Vista lista en mobile se vuelve grid */
+  .results-grid.view-list .card {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .results-grid.view-list .card-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+  }
+
+  .results-grid.view-list .card-footer {
+    flex-direction: row;
+    border-left: none;
+    border-top: 1px solid var(--gris-claro);
+  }
+
+  /* Overlay al abrir filtros */
+  body.filters-open::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(26,26,46,0.5);
+    z-index: calc(var(--z-modal) - 1);
+  }
+
+  .results-sort {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .results-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .results-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .results-sort {
+    flex: 1;
+    min-width: 0;
+  }
+}

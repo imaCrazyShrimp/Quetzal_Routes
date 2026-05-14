@@ -1,0 +1,578 @@
+{
+  "meta": {
+    "version": "1.0",
+    "app": "Quetzal Routes",
+    "description": "Base de datos mock con datos reales de Guatemala para desarrollo",
+    "currency": "USD",
+    "last_updated": "2025-01-01"
+  },
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin Quetzal Routes",
+      "email": "admin@quetzalroutes.com",
+      "password_hash": "$2b$10$PLACEHOLDER_ADMIN_HASH",
+      "language": "es",
+      "role": "admin",
+      "avatar_url": null,
+      "created_at": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Carlos Tun",
+      "email": "carlos@aventuraatitlan.com",
+      "password_hash": "$2b$10$PLACEHOLDER_HASH_2",
+      "language": "es",
+      "role": "provider",
+      "avatar_url": null,
+      "created_at": "2025-01-05T10:00:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Maria Ajú",
+      "email": "maria@petentours.com",
+      "password_hash": "$2b$10$PLACEHOLDER_HASH_3",
+      "language": "es",
+      "role": "provider",
+      "avatar_url": null,
+      "created_at": "2025-01-06T09:00:00Z"
+    },
+    {
+      "id": 4,
+      "name": "James Wilson",
+      "email": "james@email.com",
+      "password_hash": "$2b$10$PLACEHOLDER_HASH_4",
+      "language": "en",
+      "role": "tourist",
+      "avatar_url": null,
+      "created_at": "2025-02-10T15:30:00Z"
+    },
+    {
+      "id": 5,
+      "name": "Sophie Müller",
+      "email": "sophie@email.de",
+      "password_hash": "$2b$10$PLACEHOLDER_HASH_5",
+      "language": "en",
+      "role": "tourist",
+      "avatar_url": null,
+      "created_at": "2025-02-15T11:00:00Z"
+    },
+    {
+      "id": 6,
+      "name": "Pedro Xoyón",
+      "email": "pedro@antiguaheritage.com",
+      "password_hash": "$2b$10$PLACEHOLDER_HASH_6",
+      "language": "es",
+      "role": "provider",
+      "avatar_url": null,
+      "created_at": "2025-01-08T08:00:00Z"
+    }
+  ],
+  "providers": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "business_name": "Aventura Atitlán",
+      "description_es": "Empresa familiar con 10 años de experiencia ofreciendo tours en kayak, senderismo y visitas a comunidades indígenas alrededor del Lago de Atitlán. Trabajamos directamente con las comunidades locales para garantizar una experiencia auténtica.",
+      "description_en": "Family-run company with 10 years of experience offering kayak tours, hiking and visits to indigenous communities around Lake Atitlán. We work directly with local communities for an authentic experience.",
+      "contact_email": "carlos@aventuraatitlan.com",
+      "whatsapp": "+50255551234",
+      "website": "aventuraatitlan.com",
+      "logo_url": "assets/providers/aventura-atitlan-logo.jpg",
+      "plan": "premium",
+      "plan_expiry": "2025-12-31T23:59:59Z",
+      "verified": 1,
+      "created_at": "2025-01-05T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "user_id": 3,
+      "business_name": "Petén Explorers",
+      "description_es": "Agencia especializada en expediciones a la selva del Petén y ruinas mayas. Guías certificados, equipo de seguridad completo y compromiso con el turismo sostenible.",
+      "description_en": "Agency specialized in expeditions to the Petén jungle and Mayan ruins. Certified guides, full safety equipment and commitment to sustainable tourism.",
+      "contact_email": "maria@petentours.com",
+      "whatsapp": "+50266667890",
+      "website": null,
+      "logo_url": "assets/providers/peten-explorers-logo.jpg",
+      "plan": "elite",
+      "plan_expiry": "2025-12-31T23:59:59Z",
+      "verified": 1,
+      "created_at": "2025-01-06T09:00:00Z"
+    },
+    {
+      "id": 3,
+      "user_id": 6,
+      "business_name": "Antigua Heritage Tours",
+      "description_es": "Recorridos culturales e históricos por la Antigua Guatemala declarada Patrimonio de la Humanidad. Tours a pie, en bicicleta y visitas a talleres de artesanía local.",
+      "description_en": "Cultural and historical tours through Antigua Guatemala, a UNESCO World Heritage Site. Walking tours, bicycle rides and visits to local craft workshops.",
+      "contact_email": "pedro@antiguaheritage.com",
+      "whatsapp": "+50299998765",
+      "website": "antiguaheritage.com",
+      "logo_url": "assets/providers/antigua-heritage-logo.jpg",
+      "plan": "free",
+      "plan_expiry": null,
+      "verified": 1,
+      "created_at": "2025-01-08T08:00:00Z"
+    }
+  ],
+  "destinations": [
+    {
+      "id": 1,
+      "provider_id": 1,
+      "title": "Kayak Tour — Lago de Atitlán al Amanecer",
+      "description_es": "Vive la magia del Lago de Atitlán desde el agua al amanecer. Nuestro tour en kayak de 3 horas te lleva desde Panajachel hasta las orillas de San Juan La Laguna, rodeado de los tres volcanes: San Pedro, Tolimán y Atitlán. Incluye guía bilingüe, equipo completo y desayuno típico al finalizar.",
+      "description_en": "Experience the magic of Lake Atitlán from the water at sunrise. Our 3-hour kayak tour takes you from Panajachel to the shores of San Juan La Laguna, surrounded by three volcanoes: San Pedro, Tolimán and Atitlán. Includes bilingual guide, full equipment and traditional breakfast at the end.",
+      "category": "adventure",
+      "department": "Solola",
+      "address": "Embarcadero Principal, Panajachel, Sololá, Guatemala",
+      "lat": 14.748,
+      "lng": -91.1607,
+      "price_from": 35,
+      "price_to": 50,
+      "currency": "USD",
+      "cover_image": "assets/destinations/atitlan-kayak-cover.jpg",
+      "duration_hours": 3,
+      "max_people": 8,
+      "status": "active",
+      "featured": 1,
+      "views_count": 342,
+      "created_at": "2025-01-10T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "provider_id": 2,
+      "title": "Expedición Tikal — Ciudad Perdida Maya",
+      "description_es": "Adéntrate en la jungla del Petén para descubrir Tikal, una de las ciudades mayas más imponentes del mundo. Recorre templos milenarios, observa fauna silvestre y sube al Templo IV para ver el amanecer sobre el dosel de la selva. Tour de día completo con transporte desde Flores.",
+      "description_en": "Enter the Petén jungle to discover Tikal, one of the most imposing Mayan cities in the world. Walk through ancient temples, observe wildlife and climb Temple IV to watch the sunrise over the jungle canopy. Full-day tour with transport from Flores.",
+      "category": "history",
+      "department": "Peten",
+      "address": "Parque Nacional Tikal, Petén, Guatemala",
+      "lat": 17.222,
+      "lng": -89.6237,
+      "price_from": 75,
+      "price_to": 110,
+      "currency": "USD",
+      "cover_image": "assets/destinations/tikal-cover.jpg",
+      "duration_hours": 10,
+      "max_people": 12,
+      "status": "active",
+      "featured": 1,
+      "views_count": 589,
+      "created_at": "2025-01-12T09:00:00Z"
+    },
+    {
+      "id": 3,
+      "provider_id": 3,
+      "title": "Tour Histórico por Antigua Guatemala",
+      "description_es": "Descubre la joya colonial de Centroamérica a pie con un guía local experto. Visita la Catedral Metropolitana, el Arco de Santa Catalina, conventos coloniales y el Mercado de Artesanías. El tour incluye degustación de chocolate guatemalteco y café de altura.",
+      "description_en": "Discover Central America's colonial gem on foot with an expert local guide. Visit the Metropolitan Cathedral, Santa Catalina Arch, colonial convents and the Artisan Market. The tour includes a Guatemalan chocolate and highland coffee tasting.",
+      "category": "culture",
+      "department": "Sacatepequez",
+      "address": "Parque Central, Antigua Guatemala, Sacatepéquez",
+      "lat": 14.5586,
+      "lng": -90.7345,
+      "price_from": 20,
+      "price_to": 30,
+      "currency": "USD",
+      "cover_image": "assets/destinations/antigua-tour-cover.jpg",
+      "duration_hours": 4,
+      "max_people": 15,
+      "status": "active",
+      "featured": 0,
+      "views_count": 210,
+      "created_at": "2025-01-15T10:00:00Z"
+    },
+    {
+      "id": 4,
+      "provider_id": 1,
+      "title": "Senderismo Volcán San Pedro — Cima a 3,020 msnm",
+      "description_es": "Conquista el Volcán San Pedro con vistas panorámicas del Lago de Atitlán y los volcanes vecinos desde la cima a 3,020 metros sobre el nivel del mar. Un reto moderado-difícil de 6 horas con guía certificado, equipo de senderismo y almuerzo incluido.",
+      "description_en": "Conquer Volcán San Pedro with panoramic views of Lake Atitlán and neighboring volcanoes from the summit at 3,020 meters above sea level. A moderate-difficult 6-hour challenge with certified guide, hiking gear and lunch included.",
+      "category": "nature",
+      "department": "Solola",
+      "address": "Pueblo de San Pedro La Laguna, Sololá, Guatemala",
+      "lat": 14.6937,
+      "lng": -91.2683,
+      "price_from": 45,
+      "price_to": 65,
+      "currency": "USD",
+      "cover_image": "assets/destinations/volcan-san-pedro-cover.jpg",
+      "duration_hours": 6,
+      "max_people": 10,
+      "status": "active",
+      "featured": 1,
+      "views_count": 278,
+      "created_at": "2025-01-18T07:00:00Z"
+    },
+    {
+      "id": 5,
+      "provider_id": 2,
+      "title": "Semuc Champey — Las Piscinas Naturales de Lanquín",
+      "description_es": "Descubre Semuc Champey, un puente natural de piedra caliza sobre el río Cahabón con piscinas de agua esmeralda escalonadas, considerado uno de los paisajes más hermosos de Guatemala. Incluye visita a las cuevas de Lanquín con linternas y nado en las piscinas naturales.",
+      "description_en": "Discover Semuc Champey, a natural limestone bridge over the Cahabón River with turquoise stepped pools, considered one of Guatemala's most beautiful landscapes. Includes a visit to Lanquín caves with lanterns and swimming in natural pools.",
+      "category": "nature",
+      "department": "AltaVerapaz",
+      "address": "Semuc Champey, Lanquín, Alta Verapaz, Guatemala",
+      "lat": 15.5333,
+      "lng": -89.9667,
+      "price_from": 55,
+      "price_to": 80,
+      "currency": "USD",
+      "cover_image": "assets/destinations/semuc-champey-cover.jpg",
+      "duration_hours": 8,
+      "max_people": 12,
+      "status": "active",
+      "featured": 1,
+      "views_count": 415,
+      "created_at": "2025-01-20T08:00:00Z"
+    }
+  ],
+  "destination_images": [
+    {
+      "id": 1,
+      "destination_id": 1,
+      "image_url": "assets/destinations/atitlan-kayak-1.jpg",
+      "caption": "Salida desde Panajachel al amanecer",
+      "order_index": 0
+    },
+    {
+      "id": 2,
+      "destination_id": 1,
+      "image_url": "assets/destinations/atitlan-kayak-2.jpg",
+      "caption": "Volcán Atitlán desde el lago",
+      "order_index": 1
+    },
+    {
+      "id": 3,
+      "destination_id": 1,
+      "image_url": "assets/destinations/atitlan-kayak-3.jpg",
+      "caption": "Desayuno típico al finalizar",
+      "order_index": 2
+    },
+    {
+      "id": 4,
+      "destination_id": 2,
+      "image_url": "assets/destinations/tikal-1.jpg",
+      "caption": "Templo I - El Gran Jaguar",
+      "order_index": 0
+    },
+    {
+      "id": 5,
+      "destination_id": 2,
+      "image_url": "assets/destinations/tikal-2.jpg",
+      "caption": "Vista desde el Templo IV sobre la selva",
+      "order_index": 1
+    },
+    {
+      "id": 6,
+      "destination_id": 2,
+      "image_url": "assets/destinations/tikal-3.jpg",
+      "caption": "Fauna silvestre en el parque nacional",
+      "order_index": 2
+    },
+    {
+      "id": 7,
+      "destination_id": 3,
+      "image_url": "assets/destinations/antigua-1.jpg",
+      "caption": "Arco de Santa Catalina",
+      "order_index": 0
+    },
+    {
+      "id": 8,
+      "destination_id": 3,
+      "image_url": "assets/destinations/antigua-2.jpg",
+      "caption": "Catedral en ruinas y el Volcán de Agua",
+      "order_index": 1
+    },
+    {
+      "id": 9,
+      "destination_id": 4,
+      "image_url": "assets/destinations/san-pedro-1.jpg",
+      "caption": "Ascenso entre el bosque nuboso",
+      "order_index": 0
+    },
+    {
+      "id": 10,
+      "destination_id": 4,
+      "image_url": "assets/destinations/san-pedro-2.jpg",
+      "caption": "Cima con vista al lago",
+      "order_index": 1
+    },
+    {
+      "id": 11,
+      "destination_id": 5,
+      "image_url": "assets/destinations/semuc-1.jpg",
+      "caption": "Piscinas naturales esmeralda",
+      "order_index": 0
+    },
+    {
+      "id": 12,
+      "destination_id": 5,
+      "image_url": "assets/destinations/semuc-2.jpg",
+      "caption": "Cuevas de Lanquín",
+      "order_index": 1
+    },
+    {
+      "id": 13,
+      "destination_id": 5,
+      "image_url": "assets/destinations/semuc-3.jpg",
+      "caption": "Vista aérea del puente natural",
+      "order_index": 2
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "destination_id": 1,
+      "user_id": 4,
+      "rating": 5,
+      "comment": "Absolutely magical experience. Watching the sunrise over the volcanoes from a kayak is something I will never forget. Carlos was an amazing guide.",
+      "language": "en",
+      "created_at": "2025-02-12T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "destination_id": 1,
+      "user_id": 5,
+      "rating": 5,
+      "comment": "One of the best mornings of my life. The lake is breathtaking, and the traditional breakfast at the end was delicious. Highly recommend!",
+      "language": "en",
+      "created_at": "2025-02-16T09:30:00Z"
+    },
+    {
+      "id": 3,
+      "destination_id": 2,
+      "user_id": 4,
+      "rating": 5,
+      "comment": "Tikal exceeded all my expectations. Standing on Temple IV above the jungle canopy at dawn was surreal. The guide's knowledge of Mayan history was exceptional.",
+      "language": "en",
+      "created_at": "2025-02-20T15:00:00Z"
+    },
+    {
+      "id": 4,
+      "destination_id": 3,
+      "user_id": 5,
+      "rating": 4,
+      "comment": "Pedro was very knowledgeable about Antigua's history. The chocolate tasting was a highlight! The tour could be a bit longer to cover more sites.",
+      "language": "en",
+      "created_at": "2025-02-22T14:00:00Z"
+    },
+    {
+      "id": 5,
+      "destination_id": 5,
+      "user_id": 4,
+      "rating": 5,
+      "comment": "Semuc Champey is one of the most beautiful places I have ever seen. The cave exploration was thrilling and the turquoise pools are unreal. Do not miss this!",
+      "language": "en",
+      "created_at": "2025-03-01T11:00:00Z"
+    }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "destination_id": 1,
+      "user_id": 4,
+      "date_requested": "2025-02-10",
+      "people_count": 2,
+      "total_amount": 90.0,
+      "commission_amount": 9.0,
+      "net_to_provider": 81.0,
+      "status": "completed",
+      "notes": "Two adults, intermediate kayaking level",
+      "created_at": "2025-02-01T12:00:00Z"
+    },
+    {
+      "id": 2,
+      "destination_id": 2,
+      "user_id": 4,
+      "date_requested": "2025-02-18",
+      "people_count": 1,
+      "total_amount": 85.0,
+      "commission_amount": 8.5,
+      "net_to_provider": 76.5,
+      "status": "completed",
+      "notes": null,
+      "created_at": "2025-02-10T09:00:00Z"
+    },
+    {
+      "id": 3,
+      "destination_id": 5,
+      "user_id": 5,
+      "date_requested": "2025-03-10",
+      "people_count": 3,
+      "total_amount": 195.0,
+      "commission_amount": 19.5,
+      "net_to_provider": 175.5,
+      "status": "confirmed",
+      "notes": "Group of 3 friends, all experienced swimmers",
+      "created_at": "2025-02-28T16:00:00Z"
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": 1,
+      "provider_id": 1,
+      "plan": "premium",
+      "amount_quetzales": 150.0,
+      "start_date": "2025-01-01",
+      "end_date": "2025-12-31",
+      "status": "active",
+      "payment_ref": "PAY-2025-001",
+      "created_at": "2025-01-01T00:00:00Z",
+      "currency": "GTQ"
+    },
+    {
+      "id": 2,
+      "provider_id": 2,
+      "plan": "elite",
+      "amount_quetzales": 450.0,
+      "start_date": "2025-01-01",
+      "end_date": "2025-12-31",
+      "status": "active",
+      "payment_ref": "PAY-2025-002",
+      "created_at": "2025-01-01T00:00:00Z",
+      "currency": "GTQ"
+    },
+    {
+      "id": 3,
+      "provider_id": 3,
+      "plan": "free",
+      "amount_quetzales": 0.0,
+      "start_date": "2025-01-08",
+      "end_date": null,
+      "status": "active",
+      "payment_ref": null,
+      "created_at": "2025-01-08T08:00:00Z",
+      "currency": "GTQ"
+    }
+  ],
+  "plan_limits": {
+    "free": {
+      "name_es": "Plan Explorador",
+      "name_en": "Explorer Plan",
+      "price_quetzales": 0,
+      "max_destinations": 1,
+      "max_images_per_destination": 3,
+      "featured": false,
+      "whatsapp_link": false,
+      "analytics": false,
+      "banner_ads": false,
+      "search_priority": 3,
+      "bilingual_support": false
+    },
+    "premium": {
+      "name_es": "Plan Ruta Premium",
+      "name_en": "Premium Route Plan",
+      "price_quetzales": 150,
+      "max_destinations": 5,
+      "max_images_per_destination": null,
+      "featured": true,
+      "whatsapp_link": true,
+      "analytics": false,
+      "banner_ads": false,
+      "search_priority": 2,
+      "bilingual_support": true
+    },
+    "elite": {
+      "name_es": "Plan Alianza Elite",
+      "name_en": "Elite Alliance Plan",
+      "price_quetzales": 450,
+      "max_destinations": null,
+      "max_images_per_destination": null,
+      "featured": true,
+      "whatsapp_link": true,
+      "analytics": true,
+      "banner_ads": true,
+      "search_priority": 1,
+      "bilingual_support": true
+    }
+  },
+  "departments": [
+    {
+      "id": "Guatemala",
+      "name": "Guatemala (Ciudad)",
+      "lat": 14.6349,
+      "lng": -90.5069
+    },
+    {
+      "id": "Sacatepequez",
+      "name": "Antigua Guatemala",
+      "lat": 14.5586,
+      "lng": -90.7345
+    },
+    {
+      "id": "Solola",
+      "name": "Lago de Atitlán",
+      "lat": 14.748,
+      "lng": -91.1607
+    },
+    {
+      "id": "Peten",
+      "name": "Petén / Tikal",
+      "lat": 17.222,
+      "lng": -89.6237
+    },
+    {
+      "id": "AltaVerapaz",
+      "name": "Alta Verapaz",
+      "lat": 15.4667,
+      "lng": -90.3667
+    },
+    {
+      "id": "Quetzaltenango",
+      "name": "Quetzaltenango (Xela)",
+      "lat": 14.834,
+      "lng": -91.518
+    },
+    {
+      "id": "IzabalNorte",
+      "name": "Izabal / Río Dulce",
+      "lat": 15.65,
+      "lng": -88.95
+    },
+    {
+      "id": "Huehuetenango",
+      "name": "Huehuetenango",
+      "lat": 15.3197,
+      "lng": -91.4737
+    }
+  ],
+  "categories": [
+    {
+      "id": "nature",
+      "name_es": "Naturaleza",
+      "name_en": "Nature",
+      "icon": "🌿"
+    },
+    {
+      "id": "adventure",
+      "name_es": "Aventura",
+      "name_en": "Adventure",
+      "icon": "🧗"
+    },
+    {
+      "id": "culture",
+      "name_es": "Cultura",
+      "name_en": "Culture",
+      "icon": "🏛️"
+    },
+    {
+      "id": "history",
+      "name_es": "Historia Maya",
+      "name_en": "Mayan History",
+      "icon": "🏯"
+    },
+    {
+      "id": "gastronomy",
+      "name_es": "Gastronomía",
+      "name_en": "Gastronomy",
+      "icon": "🌽"
+    },
+    {
+      "id": "wellness",
+      "name_es": "Bienestar",
+      "name_en": "Wellness",
+      "icon": "🧘"
+    }
+  ]
+}

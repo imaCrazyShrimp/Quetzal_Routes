@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Quetzal Routes — Descubre Guatemala auténtica. Conectamos viajeros con experiencias únicas en Antigua, Atitlán, Petén y más." />
+  <title>Quetzal Routes — Descubre Guatemala</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/pages/home.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav class="navbar navbar-transparent" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-icon">
+        <img src="../assets/img/logo-quetzal-removebg-preview.png" alt="Logo Quetzal" height="100px" />
+      </span>
+      <span class="logo-text">Quetzal <span>Routes</span></span>
+
+      </a>
+
+      <ul class="navbar-links">
+        <li><a href="explore.html">Explorar</a></li>
+        <li><a href="explore.html?cat=adventure">Aventura</a></li>
+        <li><a href="explore.html?cat=culture">Cultura</a></li>
+        <li><a href="explore.html?cat=gastronomy">Gastronomía</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Cambiar idioma">
+          <span class="lang-active" id="langCurrent">ES</span>
+          <span style="color:var(--gris-borde)">|</span>
+          <span id="langOther">EN</span>
+        </button>
+        <a href="login.html" class="btn btn-outline btn-sm" id="navLoginBtn">Iniciar sesión</a>
+        <a href="register.html" class="btn btn-accent btn-sm" id="navRegisterBtn">Registrarse</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="navbar-toggle" id="navToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Menú móvil -->
+  <div class="navbar-mobile-menu" id="mobileMenu">
+    <a href="explore.html">Explorar destinos</a>
+    <a href="explore.html?cat=adventure">Aventura</a>
+    <a href="explore.html?cat=culture">Cultura</a>
+    <a href="explore.html?cat=gastronomy">Gastronomía</a>
+    <a href="login.html">Iniciar sesión</a>
+    <a href="register.html" class="btn btn-accent btn-sm btn-block">Registrarse gratis</a>
+  </div>
+
+
+  <!-- ============================================================
+       SECCIÓN 1 — HERO
+  ============================================================ -->
+  <section class="hero" id="hero">
+    <!-- Fondo con overlay -->
+    <div class="hero-bg">
+      <img
+        src="../assets/img/Fondo Santiago Atitaln.png"
+        alt="Antigua Guatemala"
+        class="hero-img"
+        id="heroBgImg"
+      />
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Indicadores de slide -->
+    <div class="hero-slides-dots" id="heroSlidesDots">
+      <button class="hero-dot active" data-index="0"></button>
+      <button class="hero-dot" data-index="1"></button>
+      <button class="hero-dot" data-index="2"></button>
+    </div>
+
+    <!-- Contenido hero -->
+    <div class="container hero-content">
+      <div class="hero-tag" id="heroTag">
+        <span>🌿</span>
+        <span data-i18n="hero.tag">Destinos auténticos en Guatemala</span>
+      </div>
+
+      <h1 class="hero-title" id="heroTitle">
+        <span data-i18n="hero.title1">Vive Guatemala</span><br>
+        <em data-i18n="hero.title2">como nunca antes</em>
+      </h1>
+
+      <p class="hero-subtitle" data-i18n="hero.subtitle">
+        Conectamos viajeros con experiencias únicas en Antigua, Atitlán, Petén y más.<br>
+        Guías locales. Aventuras reales. Recuerdos para siempre.
+      </p>
+
+      <!-- Search bar -->
+      <div class="hero-search">
+        <div class="search-bar">
+          <input
+            type="text"
+            class="search-bar-input"
+            id="heroSearch"
+            placeholder="¿A dónde quieres ir?"
+            data-i18n-placeholder="hero.searchPlaceholder"
+          />
+          <div class="search-bar-divider"></div>
+          <select class="search-bar-select" id="heroCategory">
+            <option value="">Todas las categorías</option>
+            <option value="nature">🌿 Naturaleza</option>
+            <option value="culture">🏛️ Cultura</option>
+            <option value="adventure">🧗 Aventura</option>
+            <option value="gastronomy">🍫 Gastronomía</option>
+            <option value="wellness">🧘 Bienestar</option>
+          </select>
+          <div class="search-bar-divider"></div>
+          <select class="search-bar-select" id="heroDepartment">
+            <option value="">Todos los destinos</option>
+            <option value="Antigua">Antigua Guatemala</option>
+            <option value="Atitlan">Lago de Atitlán</option>
+            <option value="Peten">Petén</option>
+            <option value="Verapaz">Alta Verapaz</option>
+          </select>
+          <button class="search-bar-btn" id="heroSearchBtn">
+            <span>🔍</span>
+            <span data-i18n="hero.searchBtn">Buscar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats rápidas -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong>150+</strong>
+          <span data-i18n="hero.stat1">Destinos</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <strong>40+</strong>
+          <span data-i18n="hero.stat2">Proveedores</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <strong>2,000+</strong>
+          <span data-i18n="hero.stat3">Viajeros felices</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <strong>4.8 ⭐</strong>
+          <span data-i18n="hero.stat4">Calificación media</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll">
+      <div class="hero-scroll-icon"></div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 2 — CATEGORÍAS
+  ============================================================ -->
+  <section class="section section-categories" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="categories.title">Explora por categoría</h2>
+        <p data-i18n="categories.subtitle">Encuentra la experiencia que más te emociona</p>
+      </div>
+
+      <div class="categories-grid">
+        <a href="explore.html?cat=nature" class="category-card" style="--cat-color: #2D6A4F; --cat-bg: #D8F3DC;">
+          <div class="category-icon">🌿</div>
+          <h3 data-i18n="cat.nature">Naturaleza</h3>
+          <p data-i18n="cat.natureDesc">Lagos, selvas y volcanes</p>
+          <span class="category-arrow">→</span>
+        </a>
+        <a href="explore.html?cat=culture" class="category-card" style="--cat-color: #7B2D8B; --cat-bg: #F3E5F5;">
+          <div class="category-icon">🏛️</div>
+          <h3 data-i18n="cat.culture">Cultura</h3>
+          <p data-i18n="cat.cultureDesc">Mayas, coloniales e historia viva</p>
+          <span class="category-arrow">→</span>
+        </a>
+        <a href="explore.html?cat=adventure" class="category-card" style="--cat-color: #C1121F; --cat-bg: #FFE5E7;">
+          <div class="category-icon">🧗</div>
+          <h3 data-i18n="cat.adventure">Aventura</h3>
+          <p data-i18n="cat.adventureDesc">Senderismo, kayak y volcanes</p>
+          <span class="category-arrow">→</span>
+        </a>
+        <a href="explore.html?cat=gastronomy" class="category-card" style="--cat-color: #9A4700; --cat-bg: #FFF3E0;">
+          <div class="category-icon">🍫</div>
+          <h3 data-i18n="cat.gastronomy">Gastronomía</h3>
+          <p data-i18n="cat.gastronomyDesc">Cacao, café y cocina maya</p>
+          <span class="category-arrow">→</span>
+        </a>
+        <a href="explore.html?cat=wellness" class="category-card" style="--cat-color: #1565C0; --cat-bg: #E3F2FD;">
+          <div class="category-icon">🧘</div>
+          <h3 data-i18n="cat.wellness">Bienestar</h3>
+          <p data-i18n="cat.wellnessDesc">Retiros, spa y meditación</p>
+          <span class="category-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 3 — DESTINOS DESTACADOS
+  ============================================================ -->
+  <section class="section section-featured" id="featured">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="featured.title">Destinos destacados</h2>
+        <p data-i18n="featured.subtitle">Experiencias seleccionadas por nuestros mejores proveedores</p>
+      </div>
+
+      <!-- Grid de cards — se llena dinámicamente con JS -->
+      <div class="grid grid-3" id="featuredGrid">
+
+        <!-- Card 1 -->
+        <article class="card" data-id="1">
+          <div class="card-image">
+            <img
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
+              alt="Tour Colonial Antigua Guatemala"
+              loading="lazy"
+            />
+            <span class="card-category">Cultura</span>
+            <span class="card-featured-badge">⭐ Destacado</span>
+            <button class="card-favorite" aria-label="Guardar favorito">♡</button>
+          </div>
+          <div class="card-body">
+            <p class="card-location">Antigua, Sacatepéquez</p>
+            <h3 class="card-title">Tour Colonial Antigua Guatemala</h3>
+            <div class="card-rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating-score">4.8</span>
+              <span class="reviews-count">(34 reseñas)</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">
+              <span class="price-label">Desde</span>
+              <span class="price-amount">Q150 <span class="price-currency">GTQ</span></span>
+            </div>
+            <span class="card-duration">6 horas</span>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card" data-id="2">
+          <div class="card-image">
+            <img
+              src="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80"
+              alt="Amanecer en Tikal"
+              loading="lazy"
+            />
+            <span class="card-category">Cultura</span>
+            <span class="card-featured-badge">⭐ Destacado</span>
+            <button class="card-favorite" aria-label="Guardar favorito">♡</button>
+          </div>
+          <div class="card-body">
+            <p class="card-location">Tikal, Petén</p>
+            <h3 class="card-title">Amanecer en Tikal — Tour Madrugada</h3>
+            <div class="card-rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating-score">4.9</span>
+              <span class="reviews-count">(58 reseñas)</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">
+              <span class="price-label">Desde</span>
+              <span class="price-amount">Q450 <span class="price-currency">GTQ</span></span>
+            </div>
+            <span class="card-duration">8 horas</span>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" data-id="3">
+          <div class="card-image">
+            <img
+              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
+              alt="Kayak en Lago de Atitlán"
+              loading="lazy"
+            />
+            <span class="card-category">Aventura</span>
+            <span class="card-featured-badge">⭐ Destacado</span>
+            <button class="card-favorite" aria-label="Guardar favorito">♡</button>
+          </div>
+          <div class="card-body">
+            <p class="card-location">Panajachel, Sololá</p>
+            <h3 class="card-title">Kayak en Lago de Atitlán</h3>
+            <div class="card-rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating-score">4.7</span>
+              <span class="reviews-count">(21 reseñas)</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">
+              <span class="price-label">Desde</span>
+              <span class="price-amount">Q200 <span class="price-currency">GTQ</span></span>
+            </div>
+            <span class="card-duration">4 horas</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="featured-cta">
+        <a href="explore.html" class="btn btn-outline btn-lg" data-i18n="featured.cta">
+          Ver todos los destinos →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 4 — POR DEPARTAMENTO
+  ============================================================ -->
+  <section class="section section-departments" id="departments">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="departments.title">Explora por región</h2>
+        <p data-i18n="departments.subtitle">Guatemala en toda su diversidad</p>
+      </div>
+
+      <div class="departments-grid">
+
+        <a href="explore.html?dept=Antigua" class="dept-card dept-card-lg">
+          <img src="https://images.unsplash.com/photo-1547558902-c0e053aca5b6?w=800&q=80" alt="Antigua Guatemala" loading="lazy" />
+          <div class="dept-card-overlay">
+            <h3>Antigua Guatemala</h3>
+            <p>Ciudad Colonial · Patrimonio UNESCO</p>
+          </div>
+        </a>
+
+        <a href="explore.html?dept=Atitlan" class="dept-card">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Lago de Atitlán" loading="lazy" />
+          <div class="dept-card-overlay">
+            <h3>Lago de Atitlán</h3>
+            <p>El lago más bello del mundo</p>
+          </div>
+        </a>
+
+        <a href="explore.html?dept=Peten" class="dept-card">
+          <img src="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80" alt="Petén" loading="lazy" />
+          <div class="dept-card-overlay">
+            <h3>Petén</h3>
+            <p>Selva maya · Tikal · Yaxhá</p>
+          </div>
+        </a>
+
+        <a href="explore.html?dept=Verapaz" class="dept-card">
+          <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80" alt="Alta Verapaz" loading="lazy" />
+          <div class="dept-card-overlay">
+            <h3>Alta Verapaz</h3>
+            <p>Cacao · Quetzales · Semuc</p>
+          </div>
+        </a>
+
+        <a href="explore.html?dept=Antigua" class="dept-card">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Volcanes" loading="lazy" />
+          <div class="dept-card-overlay">
+            <h3>Volcanes</h3>
+            <p>Acatenango · Santiaguito · Tajumulco</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 5 — CÓMO FUNCIONA
+  ============================================================ -->
+  <section class="section section-how" id="how">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="how.title">¿Cómo funciona?</h2>
+        <p data-i18n="how.subtitle">Reserva tu experiencia en 3 simples pasos</p>
+      </div>
+
+      <div class="how-steps">
+
+        <div class="how-step">
+          <div class="how-step-number">01</div>
+          <div class="how-step-icon">🔍</div>
+          <h3 data-i18n="how.step1Title">Explora y filtra</h3>
+          <p data-i18n="how.step1Desc">
+            Navega cientos de experiencias. Filtra por categoría, departamento, precio y calificación para encontrar la aventura perfecta.
+          </p>
+        </div>
+
+        <div class="how-connector"></div>
+
+        <div class="how-step">
+          <div class="how-step-number">02</div>
+          <div class="how-step-icon">📅</div>
+          <h3 data-i18n="how.step2Title">Reserva fácil</h3>
+          <p data-i18n="how.step2Desc">
+            Elige fecha, número de personas y confirma tu reserva directamente con el proveedor local. Sin intermediarios innecesarios.
+          </p>
+        </div>
+
+        <div class="how-connector"></div>
+
+        <div class="how-step">
+          <div class="how-step-number">03</div>
+          <div class="how-step-icon">🌄</div>
+          <h3 data-i18n="how.step3Title">¡Vive la experiencia!</h3>
+          <p data-i18n="how.step3Desc">
+            Disfruta tu aventura en Guatemala con guías locales expertos. Luego comparte tu reseña para ayudar a otros viajeros.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="how-cta">
+        <a href="explore.html" class="btn btn-primary btn-lg" data-i18n="how.cta">
+          Empezar a explorar
+        </a>
+        <a href="register.html?role=provider" class="btn btn-ghost btn-lg" data-i18n="how.ctaProvider">
+          ¿Tienes un negocio turístico? →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 6 — TESTIMONIOS
+  ============================================================ -->
+  <section class="section section-testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="testimonials.title">Lo que dicen los viajeros</h2>
+        <p data-i18n="testimonials.subtitle">Miles de experiencias reales en Guatemala</p>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "Watching the sunrise from Temple IV in Tikal was the most magical experience of my life. The guide knew every story of every stone. Absolutely incredible."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">EJ</div>
+            <div>
+              <strong>Emily Johnson</strong>
+              <span>Nueva York, EE.UU. · Tikal Sunrise Tour</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card testimonial-card-featured">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "Acampar frente al Volcán de Fuego en erupción fue algo que jamás olvidaré. Los guías de Petén Explorer son los mejores. Seguridad, conocimiento y pasión."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">CM</div>
+            <div>
+              <strong>Carlos Mendoza</strong>
+              <span>Ciudad de Guatemala · Volcán Acatenango</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "The kayak tour on Lake Atitlán surrounded by three volcanoes was breathtaking. The stop in Santiago Atitlán to meet local weavers was a beautiful bonus."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SL</div>
+            <div>
+              <strong>Sophie Laurent</strong>
+              <span>París, Francia · Kayak Atitlán</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 7 — CTA PARA PROVEEDORES
+  ============================================================ -->
+  <section class="section-provider-cta" id="providerCta">
+    <div class="container">
+      <div class="provider-cta-content">
+        <div class="provider-cta-text">
+          <span class="provider-cta-tag">Para empresas turísticas</span>
+          <h2 data-i18n="providerCta.title">¿Tienes una empresa turística en Guatemala?</h2>
+          <p data-i18n="providerCta.desc">
+            Únete a Quetzal Routes y lleva tu negocio al siguiente nivel. Llega a miles de turistas extranjeros que buscan exactamente lo que tú ofreces.
+          </p>
+          <ul class="provider-cta-list">
+            <li>✓ Perfil gratuito para comenzar</li>
+            <li>✓ Recibe reservas directas con comisión del 10%</li>
+            <li>✓ Panel de gestión completo</li>
+            <li>✓ Visibilidad en 2 idiomas (ES/EN)</li>
+          </ul>
+          <div class="provider-cta-actions">
+            <a href="register.html?role=provider" class="btn btn-accent btn-lg">
+              Registrar mi empresa →
+            </a>
+            <a href="#how" class="btn btn-outline-white btn-lg">
+              Ver planes
+            </a>
+          </div>
+        </div>
+        <div class="provider-cta-visual">
+          <div class="provider-cta-card">
+            <div class="pcc-header">
+              <span class="pcc-avatar">QT</span>
+              <div>
+                <strong>Quetzal Tours Antigua</strong>
+                <span class="badge badge-green">✓ Verificado</span>
+              </div>
+            </div>
+            <div class="pcc-stats">
+              <div class="pcc-stat">
+                <strong>1,240</strong>
+                <span>Visitas este mes</span>
+              </div>
+              <div class="pcc-stat">
+                <strong>34</strong>
+                <span>Reservas activas</span>
+              </div>
+              <div class="pcc-stat">
+                <strong>4.8 ⭐</strong>
+                <span>Calificación</span>
+              </div>
+            </div>
+            <div class="pcc-plan">
+              <span class="badge badge-gold">Plan Premium</span>
+              <span style="font-size:var(--text-xs);color:var(--gris-texto)">Q299/mes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Columna 1 — Marca -->
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">🦜 Quetzal Routes</a>
+          <p>El marketplace turístico de Guatemala. Conectamos viajeros del mundo con experiencias auténticas y proveedores locales de confianza.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="TikTok">🎵</a>
+            <a href="#" aria-label="YouTube">▶️</a>
+          </div>
+        </div>
+
+        <!-- Columna 2 — Explorar -->
+        <div class="footer-col">
+          <h4>Explorar</h4>
+          <ul>
+            <li><a href="explore.html">Todos los destinos</a></li>
+            <li><a href="explore.html?cat=nature">Naturaleza</a></li>
+            <li><a href="explore.html?cat=culture">Cultura</a></li>
+            <li><a href="explore.html?cat=adventure">Aventura</a></li>
+            <li><a href="explore.html?cat=gastronomy">Gastronomía</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3 — Proveedores -->
+        <div class="footer-col">
+          <h4>Proveedores</h4>
+          <ul>
+            <li><a href="register.html?role=provider">Registrar empresa</a></li>
+            <li><a href="dashboard-provider.html">Panel de gestión</a></li>
+            <li><a href="#">Planes y precios</a></li>
+            <li><a href="#">Centro de ayuda</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 4 — Empresa -->
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Cómo funciona</a></li>
+            <li><a href="#">Blog de viajes</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Quetzal Routes. Hecho con 💚 en Guatemala.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       TOAST CONTAINER
+  ============================================================ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Loader overlay -->
+  <div class="loader-overlay" id="loaderOverlay">
+    <div class="spinner"></div>
+    <p class="loader-text">Cargando...</p>
+  </div>
+
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script type="module">
+    import { t, setLanguage, getCurrentLang } from '../js/i18n.js';
+    import { toggleLoader, showToast } from '../js/ui.js';
+
+    /* ----------------------------------------------------------
+       NAVBAR — scroll effect
+    ---------------------------------------------------------- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    /* ----------------------------------------------------------
+       NAVBAR — menú móvil
+    ---------------------------------------------------------- */
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Cerrar menú al hacer click en un enlace
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    /* ----------------------------------------------------------
+       HERO — slideshow de fondo
+    ---------------------------------------------------------- */
+    const heroImages = [
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80',
+      'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1600&q=80',
+    ];
+    let currentSlide = 0;
+    const heroBgImg   = document.getElementById('heroBgImg');
+    const herosDots   = document.querySelectorAll('.hero-dot');
+
+    function goToSlide(index) {
+      currentSlide = index;
+      heroBgImg.style.opacity = '0';
+      setTimeout(() => {
+        heroBgImg.src = heroImages[currentSlide];
+        heroBgImg.style.opacity = '1';
+      }, 400);
+      herosDots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+    }
+
+    herosDots.forEach(dot => {
+      dot.addEventListener('click', () => goToSlide(Number(dot.dataset.index)));
+    });
+
+    setInterval(() => {
+      goToSlide((currentSlide + 1) % heroImages.length);
+    }, 5000);
+
+    /* ----------------------------------------------------------
+       BÚSQUEDA — hero search bar
+    ---------------------------------------------------------- */
+    document.getElementById('heroSearchBtn').addEventListener('click', () => {
+      const q    = document.getElementById('heroSearch').value.trim();
+      const cat  = document.getElementById('heroCategory').value;
+      const dept = document.getElementById('heroDepartment').value;
+      const params = new URLSearchParams();
+      if (q)    params.set('q', q);
+      if (cat)  params.set('cat', cat);
+      if (dept) params.set('dept', dept);
+      window.location.href = `explore.html?${params.toString()}`;
+    });
+
+    // Buscar también con Enter
+    document.getElementById('heroSearch').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('heroSearchBtn').click();
+    });
+
+    /* ----------------------------------------------------------
+       CARDS — favoritos (UI demo, sin backend aún)
+    ---------------------------------------------------------- */
+    document.querySelectorAll('.card-favorite').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isActive = btn.classList.toggle('active');
+        btn.textContent = isActive ? '♥' : '♡';
+      });
+    });
+
+    /* ----------------------------------------------------------
+       CARDS — navegar al detalle
+    ---------------------------------------------------------- */
+    document.querySelectorAll('.card[data-id]').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.card-favorite')) return;
+        const id = card.dataset.id;
+        window.location.href = `destination.html?id=${id}`;
+      });
+    });
+
+    /* ----------------------------------------------------------
+       IDIOMA
+    ---------------------------------------------------------- */
+    const langToggle  = document.getElementById('langToggle');
+    const langCurrent = document.getElementById('langCurrent');
+    const langOther   = document.getElementById('langOther');
+
+    langToggle.addEventListener('click', () => {
+      const next = getCurrentLang() === 'es' ? 'en' : 'es';
+      setLanguage(next);
+      langCurrent.textContent = next.toUpperCase();
+      langOther.textContent   = next === 'es' ? 'EN' : 'ES';
+    });
+
+    /* ----------------------------------------------------------
+       ANIMACIÓN DE ENTRADA — Intersection Observer
+    ---------------------------------------------------------- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(
+      '.card, .category-card, .dept-card, .how-step, .testimonial-card, .provider-cta-content'
+    ).forEach(el => {
+      el.classList.add('animate-on-scroll');
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

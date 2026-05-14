@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explora todos los destinos turísticos de Guatemala — filtra por categoría, región y precio." />
+  <title>Explorar Destinos — Quetzal Routes</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/pages/explore.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav class="navbar navbar-solid" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-icon">🦜</span>
+        <span class="logo-text">Quetzal <span>Routes</span></span>
+      </a>
+
+      <ul class="navbar-links">
+        <li><a href="explore.html" class="active">Explorar</a></li>
+        <li><a href="explore.html?cat=adventure">Aventura</a></li>
+        <li><a href="explore.html?cat=culture">Cultura</a></li>
+        <li><a href="explore.html?cat=gastronomy">Gastronomía</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <button class="lang-toggle" id="langToggle">
+          <span class="lang-active" id="langCurrent">ES</span>
+          <span style="color:var(--gris-borde)">|</span>
+          <span id="langOther">EN</span>
+        </button>
+        <a href="login.html" class="btn btn-outline btn-sm">Iniciar sesión</a>
+        <a href="register.html" class="btn btn-accent btn-sm">Registrarse</a>
+      </div>
+
+      <button class="navbar-toggle" id="navToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Menú móvil -->
+  <div class="navbar-mobile-menu" id="mobileMenu">
+    <a href="explore.html">Explorar destinos</a>
+    <a href="explore.html?cat=adventure">Aventura</a>
+    <a href="explore.html?cat=culture">Cultura</a>
+    <a href="explore.html?cat=gastronomy">Gastronomía</a>
+    <a href="login.html">Iniciar sesión</a>
+    <a href="register.html" class="btn btn-accent btn-sm btn-block">Registrarse gratis</a>
+  </div>
+
+
+  <!-- ============================================================
+       HEADER DE PÁGINA
+  ============================================================ -->
+  <section class="explore-header">
+    <div class="container">
+      <div class="explore-header-content">
+        <div>
+          <h1 data-i18n="explore.title">Explora Guatemala</h1>
+          <p data-i18n="explore.subtitle">Descubre experiencias auténticas en cada rincón del país</p>
+        </div>
+
+        <!-- Barra de búsqueda rápida -->
+        <div class="explore-search">
+          <div class="explore-search-inner">
+            <span class="explore-search-icon">🔍</span>
+            <input
+              type="text"
+              id="searchInput"
+              class="explore-search-input"
+              placeholder="Buscar destinos..."
+            />
+            <button class="explore-search-clear hidden" id="searchClear">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chips de categoría rápidos -->
+      <div class="filter-chips explore-quick-filters" id="quickFilters">
+        <button class="chip chip-category active" data-cat="">
+          <span class="chip-icon">🗺️</span> Todos
+        </button>
+        <button class="chip chip-category" data-cat="nature">
+          <span class="chip-icon">🌿</span> Naturaleza
+        </button>
+        <button class="chip chip-category" data-cat="culture">
+          <span class="chip-icon">🏛️</span> Cultura
+        </button>
+        <button class="chip chip-category" data-cat="adventure">
+          <span class="chip-icon">🧗</span> Aventura
+        </button>
+        <button class="chip chip-category" data-cat="gastronomy">
+          <span class="chip-icon">🍫</span> Gastronomía
+        </button>
+        <button class="chip chip-category" data-cat="wellness">
+          <span class="chip-icon">🧘</span> Bienestar
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTENIDO PRINCIPAL — Filtros + Grid
+  ============================================================ -->
+  <main class="explore-main">
+    <div class="container">
+      <div class="explore-layout">
+
+        <!-- ------------------------------------------------
+             PANEL DE FILTROS (sidebar izquierdo)
+        ------------------------------------------------ -->
+        <aside class="filters-panel" id="filtersPanel">
+
+          <div class="filters-header">
+            <h3>Filtros</h3>
+            <button class="filters-clear" id="filtersClear">Limpiar todo</button>
+          </div>
+
+          <!-- Resultados activos -->
+          <div class="filters-active" id="filtersActive"></div>
+
+          <!-- Filtro: Departamento -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">
+              <span>📍 Región</span>
+              <button class="filter-group-toggle" aria-label="Expandir">▾</button>
+            </h4>
+            <div class="filter-group-body">
+              <label class="form-check">
+                <input type="checkbox" name="dept" value="Antigua" />
+                <span class="form-check-label">Antigua Guatemala</span>
+              </label>
+              <label class="form-check">
+                <input type="checkbox" name="dept" value="Atitlan" />
+                <span class="form-check-label">Lago de Atitlán</span>
+              </label>
+              <label class="form-check">
+                <input type="checkbox" name="dept" value="Peten" />
+                <span class="form-check-label">Petén</span>
+              </label>
+              <label class="form-check">
+                <input type="checkbox" name="dept" value="Verapaz" />
+                <span class="form-check-label">Alta Verapaz</span>
+              </label>
+              <label class="form-check">
+                <input type="checkbox" name="dept" value="Izabal" />
+                <span class="form-check-label">Izabal</span>
+              </label>
+              <label class="form-check">
+                <input type="checkbox" name="dept" value="Quiche" />
+                <span class="form-check-label">Quiché</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Filtro: Precio -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">
+              <span>💰 Precio (GTQ)</span>
+              <button class="filter-group-toggle" aria-label="Expandir">▾</button>
+            </h4>
+            <div class="filter-group-body">
+              <div class="price-range">
+                <div class="price-range-labels">
+                  <span>Q<span id="priceMin">0</span></span>
+                  <span>Q<span id="priceMax">1000</span></span>
+                </div>
+                <input
+                  type="range"
+                  id="priceRangeMin"
+                  class="range-input"
+                  min="0" max="1000" value="0" step="50"
+                />
+                <input
+                  type="range"
+                  id="priceRangeMax"
+                  class="range-input"
+                  min="0" max="1000" value="1000" step="50"
+                />
+              </div>
+              <div class="price-presets">
+                <button class="chip chip-sm" data-min="0"   data-max="200">Hasta Q200</button>
+                <button class="chip chip-sm" data-min="200" data-max="500">Q200–Q500</button>
+                <button class="chip chip-sm" data-min="500" data-max="1000">Q500+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filtro: Calificación -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">
+              <span>⭐ Calificación</span>
+              <button class="filter-group-toggle" aria-label="Expandir">▾</button>
+            </h4>
+            <div class="filter-group-body">
+              <label class="form-check">
+                <input type="radio" name="rating" value="4.5" />
+                <span class="form-check-label">★★★★★ 4.5+</span>
+              </label>
+              <label class="form-check">
+                <input type="radio" name="rating" value="4" />
+                <span class="form-check-label">★★★★☆ 4.0+</span>
+              </label>
+              <label class="form-check">
+                <input type="radio" name="rating" value="3" />
+                <span class="form-check-label">★★★☆☆ 3.0+</span>
+              </label>
+              <label class="form-check">
+                <input type="radio" name="rating" value="" />
+                <span class="form-check-label">Cualquier calificación</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Filtro: Duración -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">
+              <span>⏱ Duración</span>
+              <button class="filter-group-toggle" aria-label="Expandir">▾</button>
+            </h4>
+            <div class="filter-group-body">
+              <label class="form-check">
+                <input type="checkbox" name="duration" value="half" />
+                <span class="form-check-label">Medio día (hasta 5h)</span>
+              </label>
+              <label class="form-check">
+                <input type="checkbox" name="duration" value="full" />
+                <span class="form-check-label">Día completo (6–10h)</span>
+              </label>
+              <label class="form-check">
+                <input type="checkbox" name="duration" value="multi" />
+                <span class="form-check-label">Multi-día</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Botón aplicar (mobile) -->
+          <button class="btn btn-primary btn-block filters-apply-btn" id="filtersApplyBtn">
+            Ver resultados
+          </button>
+
+        </aside>
+
+
+        <!-- ------------------------------------------------
+             ÁREA DE RESULTADOS
+        ------------------------------------------------ -->
+        <section class="results-area">
+
+          <!-- Barra superior de resultados -->
+          <div class="results-topbar">
+            <p class="results-count" id="resultsCount">
+              Mostrando <strong id="resultsNumber">5</strong> destinos
+            </p>
+
+            <div class="results-controls">
+              <!-- Ordenar -->
+              <select class="form-select results-sort" id="sortSelect">
+                <option value="featured">Destacados primero</option>
+                <option value="rating">Mayor calificación</option>
+                <option value="price_asc">Precio: menor a mayor</option>
+                <option value="price_desc">Precio: mayor a menor</option>
+                <option value="newest">Más recientes</option>
+              </select>
+
+              <!-- Vista: grid / lista -->
+              <div class="view-toggle">
+                <button class="view-btn active" id="viewGrid" aria-label="Vista cuadrícula">⊞</button>
+                <button class="view-btn" id="viewList" aria-label="Vista lista">☰</button>
+              </div>
+
+              <!-- Botón filtros (mobile) -->
+              <button class="btn btn-outline btn-sm filters-toggle-btn" id="filtersToggleBtn">
+                ⚙ Filtros
+              </button>
+            </div>
+          </div>
+
+          <!-- Grid de resultados -->
+          <div class="results-grid grid grid-3" id="resultsGrid">
+
+            <!-- Card 1 -->
+            <article class="card" data-id="1" data-cat="culture" data-dept="Antigua" data-price="150" data-rating="4.8">
+              <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Tour Colonial Antigua" loading="lazy" />
+                <span class="card-category">Cultura</span>
+                <span class="card-featured-badge">⭐ Destacado</span>
+                <button class="card-favorite" aria-label="Guardar">♡</button>
+              </div>
+              <div class="card-body">
+                <p class="card-location">Antigua, Sacatepéquez</p>
+                <h3 class="card-title">Tour Colonial Antigua Guatemala</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★★</span>
+                  <span class="rating-score">4.8</span>
+                  <span class="reviews-count">(34 reseñas)</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="card-price">
+                  <span class="price-label">Desde</span>
+                  <span class="price-amount">Q150 <span class="price-currency">GTQ</span></span>
+                </div>
+                <span class="card-duration">6 horas</span>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="card" data-id="2" data-cat="culture" data-dept="Peten" data-price="450" data-rating="4.9">
+              <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80" alt="Amanecer Tikal" loading="lazy" />
+                <span class="card-category">Cultura</span>
+                <span class="card-featured-badge">⭐ Destacado</span>
+                <button class="card-favorite" aria-label="Guardar">♡</button>
+              </div>
+              <div class="card-body">
+                <p class="card-location">Tikal, Petén</p>
+                <h3 class="card-title">Amanecer en Tikal — Tour Madrugada</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★★</span>
+                  <span class="rating-score">4.9</span>
+                  <span class="reviews-count">(58 reseñas)</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="card-price">
+                  <span class="price-label">Desde</span>
+                  <span class="price-amount">Q450 <span class="price-currency">GTQ</span></span>
+                </div>
+                <span class="card-duration">8 horas</span>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="card" data-id="3" data-cat="adventure" data-dept="Atitlan" data-price="200" data-rating="4.7">
+              <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Kayak Atitlán" loading="lazy" />
+                <span class="card-category">Aventura</span>
+                <span class="card-featured-badge">⭐ Destacado</span>
+                <button class="card-favorite" aria-label="Guardar">♡</button>
+              </div>
+              <div class="card-body">
+                <p class="card-location">Panajachel, Sololá</p>
+                <h3 class="card-title">Kayak en Lago de Atitlán</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★★</span>
+                  <span class="rating-score">4.7</span>
+                  <span class="reviews-count">(21 reseñas)</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="card-price">
+                  <span class="price-label">Desde</span>
+                  <span class="price-amount">Q200 <span class="price-currency">GTQ</span></span>
+                </div>
+                <span class="card-duration">4 horas</span>
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="card" data-id="4" data-cat="adventure" data-dept="Antigua" data-price="380" data-rating="4.9">
+              <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Volcán Acatenango" loading="lazy" />
+                <span class="card-category">Aventura</span>
+                <button class="card-favorite" aria-label="Guardar">♡</button>
+              </div>
+              <div class="card-body">
+                <p class="card-location">Chimaltenango</p>
+                <h3 class="card-title">Senderismo Volcán Acatenango</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★★</span>
+                  <span class="rating-score">4.9</span>
+                  <span class="reviews-count">(47 reseñas)</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="card-price">
+                  <span class="price-label">Desde</span>
+                  <span class="price-amount">Q380 <span class="price-currency">GTQ</span></span>
+                </div>
+                <span class="card-duration">2 días</span>
+              </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="card" data-id="5" data-cat="gastronomy" data-dept="Verapaz" data-price="175" data-rating="4.6">
+              <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80" alt="Ruta del Cacao" loading="lazy" />
+                <span class="card-category">Gastronomía</span>
+                <button class="card-favorite" aria-label="Guardar">♡</button>
+              </div>
+              <div class="card-body">
+                <p class="card-location">Cobán, Alta Verapaz</p>
+                <h3 class="card-title">Ruta del Cacao y Chocolate Artesanal</h3>
+                <div class="card-rating">
+                  <span class="stars">★★★★★</span>
+                  <span class="rating-score">4.6</span>
+                  <span class="reviews-count">(19 reseñas)</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="card-price">
+                  <span class="price-label">Desde</span>
+                  <span class="price-amount">Q175 <span class="price-currency">GTQ</span></span>
+                </div>
+                <span class="card-duration">5 horas</span>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Estado vacío -->
+          <div class="results-empty hidden" id="resultsEmpty">
+            <div class="results-empty-icon">🔍</div>
+            <h3>No encontramos resultados</h3>
+            <p>Intenta con otros filtros o busca en otra región.</p>
+            <button class="btn btn-primary" id="resetFiltersBtn">Limpiar filtros</button>
+          </div>
+
+          <!-- Paginación -->
+          <nav class="pagination" id="pagination" aria-label="Paginación">
+            <button class="page-btn" id="pagePrev" disabled>‹</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn" id="pageNext">›</button>
+          </nav>
+
+        </section>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">🦜 Quetzal Routes</a>
+          <p>El marketplace turístico de Guatemala. Conectamos viajeros del mundo con experiencias auténticas.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="TikTok">🎵</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Explorar</h4>
+          <ul>
+            <li><a href="explore.html">Todos los destinos</a></li>
+            <li><a href="explore.html?cat=nature">Naturaleza</a></li>
+            <li><a href="explore.html?cat=culture">Cultura</a></li>
+            <li><a href="explore.html?cat=adventure">Aventura</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Proveedores</h4>
+          <ul>
+            <li><a href="register.html?role=provider">Registrar empresa</a></li>
+            <li><a href="dashboard-provider.html">Panel de gestión</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Quetzal Routes. Hecho con 💚 en Guatemala.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script type="module">
+
+    /* ----------------------------------------------------------
+       NAVBAR
+    ---------------------------------------------------------- */
+    const navToggle  = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    /* ----------------------------------------------------------
+       LEER PARÁMETROS DE URL
+    ---------------------------------------------------------- */
+    const params   = new URLSearchParams(window.location.search);
+    const urlCat   = params.get('cat')  || '';
+    const urlDept  = params.get('dept') || '';
+    const urlQuery = params.get('q')    || '';
+
+    // Aplicar búsqueda desde URL
+    if (urlQuery) {
+      document.getElementById('searchInput').value = urlQuery;
+      document.getElementById('searchClear').classList.remove('hidden');
+    }
+
+    // Aplicar categoría desde URL
+    if (urlCat) {
+      document.querySelectorAll('.chip-category').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.cat === urlCat);
+      });
+    }
+
+    // Aplicar departamento desde URL
+    if (urlDept) {
+      const deptCheck = document.querySelector(`input[name="dept"][value="${urlDept}"]`);
+      if (deptCheck) deptCheck.checked = true;
+    }
+
+    /* ----------------------------------------------------------
+       ESTADO DE FILTROS
+    ---------------------------------------------------------- */
+    const state = {
+      query:    urlQuery,
+      category: urlCat,
+      depts:    urlDept ? [urlDept] : [],
+      priceMin: 0,
+      priceMax: 1000,
+      rating:   0,
+      sort:     'featured',
+      view:     'grid',
+    };
+
+    /* ----------------------------------------------------------
+       OBTENER TODAS LAS CARDS
+    ---------------------------------------------------------- */
+    function getAllCards() {
+      return Array.from(document.querySelectorAll('.card[data-id]'));
+    }
+
+    /* ----------------------------------------------------------
+       APLICAR FILTROS
+    ---------------------------------------------------------- */
+    function applyFilters() {
+      const cards = getAllCards();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const cat    = card.dataset.cat   || '';
+        const dept   = card.dataset.dept  || '';
+        const price  = parseFloat(card.dataset.price)  || 0;
+        const rating = parseFloat(card.dataset.rating) || 0;
+        const title  = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+        const loc    = card.querySelector('.card-location')?.textContent.toLowerCase() || '';
+
+        const matchCat    = !state.category || cat === state.category;
+        const matchDept   = state.depts.length === 0 || state.depts.includes(dept);
+        const matchPrice  = price >= state.priceMin && price <= state.priceMax;
+        const matchRating = rating >= state.rating;
+        const matchQuery  = !state.query ||
+                            title.includes(state.query.toLowerCase()) ||
+                            loc.includes(state.query.toLowerCase());
+
+        const show = matchCat && matchDept && matchPrice && matchRating && matchQuery;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+
+      // Actualizar contador
+      document.getElementById('resultsNumber').textContent = visible;
+
+      // Mostrar / ocultar estado vacío
+      document.getElementById('resultsEmpty').classList.toggle('hidden', visible > 0);
+      document.getElementById('pagination').classList.toggle('hidden', visible === 0);
+
+      updateActiveFilterTags();
+    }
+
+    /* ----------------------------------------------------------
+       TAGS DE FILTROS ACTIVOS
+    ---------------------------------------------------------- */
+    function updateActiveFilterTags() {
+      const container = document.getElementById('filtersActive');
+      container.innerHTML = '';
+
+      if (state.category) {
+        addTag(container, `Categoría: ${state.category}`, () => {
+          state.category = '';
+          document.querySelectorAll('.chip-category').forEach(c => {
+            c.classList.toggle('active', c.dataset.cat === '');
+          });
+          applyFilters();
+        });
+      }
+
+      state.depts.forEach(d => {
+        addTag(container, `Región: ${d}`, () => {
+          state.depts = state.depts.filter(x => x !== d);
+          const check = document.querySelector(`input[name="dept"][value="${d}"]`);
+          if (check) check.checked = false;
+          applyFilters();
+        });
+      });
+
+      if (state.priceMin > 0 || state.priceMax < 1000) {
+        addTag(container, `Q${state.priceMin}–Q${state.priceMax}`, () => {
+          state.priceMin = 0;
+          state.priceMax = 1000;
+          document.getElementById('priceRangeMin').value = 0;
+          document.getElementById('priceRangeMax').value = 1000;
+          document.getElementById('priceMin').textContent = 0;
+          document.getElementById('priceMax').textContent = 1000;
+          applyFilters();
+        });
+      }
+    }
+
+    function addTag(container, label, onRemove) {
+      const tag = document.createElement('span');
+      tag.className = 'active-filter-tag';
+      tag.innerHTML = `${label} <button>✕</button>`;
+      tag.querySelector('button').addEventListener('click', onRemove);
+      container.appendChild(tag);
+    }
+
+    /* ----------------------------------------------------------
+       CHIPS DE CATEGORÍA
+    ---------------------------------------------------------- */
+    document.querySelectorAll('.chip-category').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.chip-category').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        state.category = chip.dataset.cat;
+        applyFilters();
+      });
+    });
+
+    /* ----------------------------------------------------------
+       CHECKBOXES DE DEPARTAMENTO
+    ---------------------------------------------------------- */
+    document.querySelectorAll('input[name="dept"]').forEach(input => {
+      input.addEventListener('change', () => {
+        state.depts = Array.from(
+          document.querySelectorAll('input[name="dept"]:checked')
+        ).map(i => i.value);
+        applyFilters();
+      });
+    });
+
+    /* ----------------------------------------------------------
+       RANGO DE PRECIO
+    ---------------------------------------------------------- */
+    const rangeMin = document.getElementById('priceRangeMin');
+    const rangeMax = document.getElementById('priceRangeMax');
+
+    rangeMin.addEventListener('input', () => {
+      const val = Math.min(parseInt(rangeMin.value), parseInt(rangeMax.value) - 50);
+      rangeMin.value = val;
+      state.priceMin = val;
+      document.getElementById('priceMin').textContent = val;
+      applyFilters();
+    });
+
+    rangeMax.addEventListener('input', () => {
+      const val = Math.max(parseInt(rangeMax.value), parseInt(rangeMin.value) + 50);
+      rangeMax.value = val;
+      state.priceMax = val;
+      document.getElementById('priceMax').textContent = val;
+      applyFilters();
+    });
+
+    // Presets de precio
+    document.querySelectorAll('.price-presets .chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.priceMin = parseInt(btn.dataset.min);
+        state.priceMax = parseInt(btn.dataset.max);
+        rangeMin.value = state.priceMin;
+        rangeMax.value = state.priceMax;
+        document.getElementById('priceMin').textContent = state.priceMin;
+        document.getElementById('priceMax').textContent = state.priceMax;
+        applyFilters();
+      });
+    });
+
+    /* ----------------------------------------------------------
+       RADIO DE CALIFICACIÓN
+    ---------------------------------------------------------- */
+    document.querySelectorAll('input[name="rating"]').forEach(input => {
+      input.addEventListener('change', () => {
+        state.rating = parseFloat(input.value) || 0;
+        applyFilters();
+      });
+    });
+
+    /* ----------------------------------------------------------
+       BÚSQUEDA DE TEXTO
+    ---------------------------------------------------------- */
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+
+    searchInput.addEventListener('input', () => {
+      state.query = searchInput.value.trim();
+      searchClear.classList.toggle('hidden', !state.query);
+      applyFilters();
+    });
+
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      state.query = '';
+      searchClear.classList.add('hidden');
+      applyFilters();
+    });
+
+    /* ----------------------------------------------------------
+       ORDENAR
+    ---------------------------------------------------------- */
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      state.sort = e.target.value;
+      sortCards();
+    });
+
+    function sortCards() {
+      const grid  = document.getElementById('resultsGrid');
+      const cards = getAllCards();
+
+      cards.sort((a, b) => {
+        const priceA  = parseFloat(a.dataset.price)  || 0;
+        const priceB  = parseFloat(b.dataset.price)  || 0;
+        const ratingA = parseFloat(a.dataset.rating) || 0;
+        const ratingB = parseFloat(b.dataset.rating) || 0;
+
+        if (state.sort === 'price_asc')  return priceA - priceB;
+        if (state.sort === 'price_desc') return priceB - priceA;
+        if (state.sort === 'rating')     return ratingB - ratingA;
+        return 0;
+      });
+
+      cards.forEach(card => grid.appendChild(card));
+    }
+
+    /* ----------------------------------------------------------
+       VISTA GRID / LISTA
+    ---------------------------------------------------------- */
+    const viewGrid = document.getElementById('viewGrid');
+    const viewList = document.getElementById('viewList');
+    const resultsGrid = document.getElementById('resultsGrid');
+
+    viewGrid.addEventListener('click', () => {
+      state.view = 'grid';
+      viewGrid.classList.add('active');
+      viewList.classList.remove('active');
+      resultsGrid.classList.remove('view-list');
+      resultsGrid.classList.add('grid-3');
+    });
+
+    viewList.addEventListener('click', () => {
+      state.view = 'list';
+      viewList.classList.add('active');
+      viewGrid.classList.remove('active');
+      resultsGrid.classList.add('view-list');
+      resultsGrid.classList.remove('grid-3');
+    });
+
+    /* ----------------------------------------------------------
+       FILTROS MOBILE — toggle panel
+    ---------------------------------------------------------- */
+    const filtersPanel     = document.getElementById('filtersPanel');
+    const filtersToggleBtn = document.getElementById('filtersToggleBtn');
+    const filtersApplyBtn  = document.getElementById('filtersApplyBtn');
+
+    filtersToggleBtn.addEventListener('click', () => {
+      filtersPanel.classList.toggle('open');
+      document.body.classList.toggle('filters-open');
+    });
+
+    filtersApplyBtn.addEventListener('click', () => {
+      filtersPanel.classList.remove('open');
+      document.body.classList.remove('filters-open');
+    });
+
+    /* ----------------------------------------------------------
+       LIMPIAR FILTROS
+    ---------------------------------------------------------- */
+    function resetFilters() {
+      state.category = '';
+      state.depts    = [];
+      state.priceMin = 0;
+      state.priceMax = 1000;
+      state.rating   = 0;
+      state.query    = '';
+
+      searchInput.value = '';
+      searchClear.classList.add('hidden');
+      rangeMin.value = 0;
+      rangeMax.value = 1000;
+      document.getElementById('priceMin').textContent = 0;
+      document.getElementById('priceMax').textContent = 1000;
+
+      document.querySelectorAll('input[name="dept"]').forEach(i  => i.checked  = false);
+      document.querySelectorAll('input[name="rating"]').forEach(i => i.checked = false);
+      document.querySelectorAll('.chip-category').forEach(c => {
+        c.classList.toggle('active', c.dataset.cat === '');
+      });
+
+      applyFilters();
+    }
+
+    document.getElementById('filtersClear').addEventListener('click', resetFilters);
+    document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
+
+    /* ----------------------------------------------------------
+       NAVEGACIÓN A DETALLE
+    ---------------------------------------------------------- */
+    document.querySelectorAll('.card[data-id]').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.card-favorite')) return;
+        window.location.href = `destination.html?id=${card.dataset.id}`;
+      });
+    });
+
+    /* ----------------------------------------------------------
+       FAVORITOS
+    ---------------------------------------------------------- */
+    document.querySelectorAll('.card-favorite').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const active = btn.classList.toggle('active');
+        btn.textContent = active ? '♥' : '♡';
+      });
+    });
+
+    /* ----------------------------------------------------------
+       GRUPOS DE FILTROS — colapsar/expandir
+    ---------------------------------------------------------- */
+    document.querySelectorAll('.filter-group-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const body = btn.closest('.filter-group').querySelector('.filter-group-body');
+        body.classList.toggle('collapsed');
+        btn.textContent = body.classList.contains('collapsed') ? '▸' : '▾';
+      });
+    });
+
+    /* ----------------------------------------------------------
+       APLICAR FILTROS INICIALES (desde URL)
+    ---------------------------------------------------------- */
+    applyFilters();
+
+  </script>
+
+</body>
+</html>
