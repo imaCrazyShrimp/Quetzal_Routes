@@ -1,16 +1,23 @@
 /* ============================================================
-   QUETZAL ROUTES — auth.js
+   QUETZAL ROUTES — auth.js  (Frontend)
    Manejo de sesión, login, registro y permisos.
 
    Mientras no hay backend: simula autenticación con db.json.
    Cuando el backend esté listo: solo cambia las funciones
    _loginRequest() y _registerRequest() — el resto no cambia.
+
+   CORRECCIÓN ERROR #3:
+   La sesión del usuario (qr_user) se guarda en localStorage
+   para que persista entre pestañas y al recargar el navegador.
+   El redirect temporal (qr_redirect_after_login) se mantiene
+   en sessionStorage porque es dato de una sola visita.
    ============================================================ */
 
 import { getUserByEmail } from './api.js';
 
-// ── Clave de sesión en sessionStorage ─────────────────────────
-const SESSION_KEY = 'qr_user';
+// ── Claves de storage ──────────────────────────────────────────
+const SESSION_KEY    = 'qr_user';              // localStorage  → sesión persistente
+const REDIRECT_KEY   = 'qr_redirect_after_login'; // sessionStorage → navegación puntual
 
 // ── Redirects por rol ─────────────────────────────────────────
 const ROLE_REDIRECTS = {
@@ -28,7 +35,7 @@ const ROLE_REDIRECTS_FROM_HTML = {
 
 
 // ════════════════════════════════════════════════════════════════
-// SESIÓN
+// SESIÓN  —  usa localStorage para persistencia entre pestañas
 // ════════════════════════════════════════════════════════════════
 
 /**
@@ -37,7 +44,7 @@ const ROLE_REDIRECTS_FROM_HTML = {
  */
 export function getCurrentUser() {
   try {
-    const raw = sessionStorage.getItem(SESSION_KEY);
+    const raw = localStorage.getItem(SESSION_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -64,20 +71,23 @@ export function hasRole(role) {
 
 /**
  * Cierra la sesión y redirige al login.
+ * Limpia localStorage (sesión) y sessionStorage (redirects).
  */
 export function logoutUser() {
-  sessionStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(REDIRECT_KEY);
   window.location.href = 'login.html';
 }
 
 /**
  * Guarda el usuario en sesión (uso interno).
+ * Usa localStorage para que la sesión sobreviva a cierres de pestaña.
  * @param {Object} user
  */
 function _saveSession(user) {
-  // No guardar password_hash en sesión
+  // Nunca guardar password_hash en el cliente
   const { password_hash, ...safeUser } = user;
-  sessionStorage.setItem(SESSION_KEY, JSON.stringify(safeUser));
+  localStorage.setItem(SESSION_KEY, JSON.stringify(safeUser));
 }
 
 
@@ -105,12 +115,12 @@ export async function loginUser(email, password) {
     }
 
     // En mock: cualquier contraseña no vacía es válida.
-    // Con backend real: comparar hash aquí o en el servidor.
+    // Con backend real: la verificación del hash la hace el servidor.
     if (!password || password.length < 1) {
       return { ok: false, error: 'La contraseña es incorrecta.' };
     }
 
-    // Login exitoso
+    // Login exitoso → guardar en localStorage
     _saveSession(user);
     return { ok: true, user };
 
@@ -188,6 +198,7 @@ export async function registerUser(data) {
       };
     }
 
+    // Registro exitoso → guardar en localStorage
     _saveSession(newUser);
     return { ok: true, user: newUser };
 
@@ -206,20 +217,24 @@ export async function registerUser(data) {
  * Protege una página: si no hay sesión, redirige al login.
  * Llámalo al inicio del script de cualquier página privada.
  *
+ * El redirect pendiente se guarda en sessionStorage (intencional):
+ * si el usuario cierra la pestaña antes de loguearse, no queremos
+ * redirigirlo a una URL stale en la próxima visita.
+ *
  * @param {'tourist'|'provider'|'admin'} [requiredRole] - opcional
  */
 export function requireAuth(requiredRole) {
   const user = getCurrentUser();
 
   if (!user) {
-    // Guardar URL actual para redirigir después del login
-    sessionStorage.setItem('qr_redirect_after_login', window.location.href);
+    // Guardar URL actual para redirigir después del login (sessionStorage: intencional)
+    sessionStorage.setItem(REDIRECT_KEY, window.location.href);
     window.location.href = 'login.html';
     return;
   }
 
   if (requiredRole && user.role !== requiredRole) {
-    // Tiene sesión pero no el rol correcto
+    // Tiene sesión pero no el rol correcto → redirigir a su área
     const redirect = getRedirectByRole(user.role);
     window.location.href = redirect;
   }
@@ -234,10 +249,10 @@ export function redirectIfAuthenticated() {
   const user = getCurrentUser();
   if (!user) return;
 
-  // Ver si hay un redirect guardado
-  const savedRedirect = sessionStorage.getItem('qr_redirect_after_login');
+  // Ver si hay un redirect guardado (sessionStorage: intencional)
+  const savedRedirect = sessionStorage.getItem(REDIRECT_KEY);
   if (savedRedirect) {
-    sessionStorage.removeItem('qr_redirect_after_login');
+    sessionStorage.removeItem(REDIRECT_KEY);
     window.location.href = savedRedirect;
     return;
   }
@@ -267,11 +282,11 @@ export function isValidEmail(email) {
  */
 export function getPasswordStrength(password) {
   let score = 0;
-  if (password.length >= 8)                        score++;
-  if (password.length >= 12)                       score++;
-  if (/[A-Z]/.test(password))                      score++;
-  if (/[0-9]/.test(password))                      score++;
-  if (/[^A-Za-z0-9]/.test(password))               score++;
+  if (password.length >= 8)             score++;
+  if (password.length >= 12)            score++;
+  if (/[A-Z]/.test(password))           score++;
+  if (/[0-9]/.test(password))           score++;
+  if (/[^A-Za-z0-9]/.test(password))    score++;
 
   const levels = [
     { label: 'Muy débil',  color: '#e63946' },
