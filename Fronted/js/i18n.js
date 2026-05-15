@@ -51,6 +51,8 @@ const translations = {
     'cat.gastronomyDesc':  'Cacao, café y cocina maya',
     'cat.wellness':        'Bienestar',
     'cat.wellnessDesc':    'Retiros, spa y meditación',
+    'cat.history':         'Historia',
+    'cat.historyDesc':     'Sitios arqueológicos y patrimonio maya',
 
     // ── Departamentos ─────────────────────────────────────────
     'departments.title':    'Explora por región',
@@ -255,6 +257,8 @@ const translations = {
     'cat.gastronomyDesc':  'Cacao, coffee and Mayan cuisine',
     'cat.wellness':        'Wellness',
     'cat.wellnessDesc':    'Retreats, spa and meditation',
+    'cat.history':         'History',
+    'cat.historyDesc':     'Archaeological sites and Mayan heritage',
 
     // ── Departamentos ─────────────────────────────────────────
     'departments.title':    'Explore by region',
