@@ -148,6 +148,7 @@ export function createDestinationCard(dest, lang = 'es') {
     adventure:  { es: 'Aventura',    en: 'Adventure'   },
     gastronomy: { es: 'Gastronomía', en: 'Gastronomy'  },
     wellness:   { es: 'Bienestar',   en: 'Wellness'    },
+    history:    { es: 'Historia',    en: 'History'     },
   };
 
   const catLabel = categoryLabels[dest.category]?.[lang]
@@ -352,7 +353,8 @@ export function renderStars(rating) {
  */
 export function formatPrice(amount, currency = 'GTQ') {
   if (amount === undefined || amount === null) return '—';
-  const symbol = currency === 'GTQ' ? 'Q' : '$';
+  const symbols = { GTQ: 'Q', USD: '$', EUR: '€' };
+  const symbol = symbols[currency] ?? currency;
   return `${symbol}${Number(amount).toLocaleString('es-GT')}`;
 }
 
