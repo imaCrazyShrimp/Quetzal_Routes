@@ -35,9 +35,42 @@ async function getDB() {
  * Devuelve todos los destinos activos.
  * @returns {Promise<Array>}
  */
-export async function getAllDestinations() {
+export async function getAllDestinations(filters = {}) {
   const db = await getDB();
-  return db.destinations.filter(d => d.status === 'active');
+  let results = db.destinations.filter(d => d.status === 'active');
+
+  // Aplicar filtros localmente (misma interfaz que el backend)
+  if (filters.category)   results = results.filter(d => d.category === filters.category);
+  if (filters.department) results = results.filter(d => d.department === filters.department);
+  if (filters.price_min)  results = results.filter(d => d.price_from >= Number(filters.price_min));
+  if (filters.price_max)  results = results.filter(d => d.price_from <= Number(filters.price_max));
+  if (filters.rating_min) results = results.filter(d => (d.rating_avg ?? 0) >= Number(filters.rating_min));
+  if (filters.q) {
+    const q = filters.q.toLowerCase();
+    results = results.filter(d =>
+      d.title.toLowerCase().includes(q) ||
+      (d.title_en       && d.title_en.toLowerCase().includes(q)) ||
+      (d.description_es && d.description_es.toLowerCase().includes(q)) ||
+      (d.description_en && d.description_en.toLowerCase().includes(q)) ||
+      d.department.toLowerCase().includes(q)
+    );
+  }
+
+  // Ordenamiento
+  if (filters.sort === 'price_asc')   results.sort((a, b) => a.price_from - b.price_from);
+  if (filters.sort === 'price_desc')  results.sort((a, b) => b.price_from - a.price_from);
+  if (filters.sort === 'rating_desc') results.sort((a, b) => (b.rating_avg ?? 0) - (a.rating_avg ?? 0));
+  if (filters.sort === 'newest')      results.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+  // Paginación
+  if (filters.page || filters.limit) {
+    const limit = Number(filters.limit) || 12;
+    const page  = Number(filters.page)  || 1;
+    const start = (page - 1) * limit;
+    results = results.slice(start, start + limit);
+  }
+
+  return results;
 }
 
 /**
