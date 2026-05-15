@@ -1,0 +1,847 @@
+/* ============================================================
+   QUETZAL ROUTES — auth.css
+   Estilos compartidos para login.html y register.html
+
+   Secciones:
+   1.  Body y navbar de autenticación
+   2.  Layout split (visual + formulario)
+   3.  Panel visual izquierdo
+   4.  Panel de formulario derecho
+   5.  Encabezado del formulario
+   6.  Tabs de rol (login)
+   7.  Selector de rol con cards (register)
+   8.  Campos del formulario
+   9.  Indicador de fortaleza de contraseña
+   10. Campos exclusivos de proveedor
+   11. Selector de planes (register)
+   12. Opciones y extras del formulario
+   13. Divisor social + botones sociales
+   14. Beneficios y stats (register)
+   15. Responsive
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. BODY Y NAVBAR DE AUTENTICACIÓN
+   ------------------------------------------------------------ */
+.auth-body {
+  background: var(--bg-principal);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-8);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+
+/* ------------------------------------------------------------
+   2. LAYOUT SPLIT
+   ------------------------------------------------------------ */
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  padding-top: 65px; /* altura del navbar */
+}
+
+
+/* ------------------------------------------------------------
+   3. PANEL VISUAL IZQUIERDO
+   ------------------------------------------------------------ */
+.auth-visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.auth-visual-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.auth-visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(27, 67, 50, 0.75) 0%,
+    rgba(26, 26, 46, 0.65) 100%
+  );
+}
+
+.auth-visual-content {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-12) var(--space-10);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  color: #FFFFFF;
+}
+
+.auth-visual-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-titulo);
+  margin-bottom: var(--space-5);
+  width: fit-content;
+}
+
+.auth-visual-content h2 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: var(--space-4);
+}
+
+.auth-visual-content > p {
+  font-size: var(--text-base);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin-bottom: var(--space-8);
+}
+
+/* Testimonio (login) */
+.auth-testimonial {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-top: auto;
+}
+
+.auth-testimonial-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--verde-claro);
+  color: #FFFFFF;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  font-family: var(--font-titulo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.auth-testimonial p {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  margin-bottom: var(--space-2);
+}
+
+.auth-testimonial strong {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+}
+
+
+/* ------------------------------------------------------------
+   4. PANEL DE FORMULARIO DERECHO
+   ------------------------------------------------------------ */
+.auth-form-panel {
+  background: #FFFFFF;
+  overflow-y: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-10) var(--space-8);
+}
+
+.auth-form-container {
+  width: 100%;
+  max-width: 480px;
+}
+
+
+/* ------------------------------------------------------------
+   5. ENCABEZADO DEL FORMULARIO
+   ------------------------------------------------------------ */
+.auth-form-header {
+  margin-bottom: var(--space-6);
+}
+
+.auth-form-header h1 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--negro-suave);
+  margin-bottom: var(--space-2);
+}
+
+.auth-form-header p {
+  font-size: var(--text-base);
+  color: var(--gris-texto);
+}
+
+
+/* ------------------------------------------------------------
+   6. TABS DE ROL (login)
+   ------------------------------------------------------------ */
+.auth-tabs {
+  display: flex;
+  gap: var(--space-2);
+  background: var(--bg-principal);
+  border-radius: var(--radius-lg);
+  padding: var(--space-1);
+  margin-bottom: var(--space-6);
+}
+
+.auth-tab {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-titulo);
+  color: var(--gris-texto);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.auth-tab:hover {
+  color: var(--negro-suave);
+}
+
+.auth-tab.active {
+  background: #FFFFFF;
+  color: var(--verde-quetzal);
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ------------------------------------------------------------
+   7. SELECTOR DE ROL CON CARDS (register)
+   ------------------------------------------------------------ */
+.auth-role-selector {
+  margin-bottom: var(--space-6);
+}
+
+.auth-role-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--negro-suave);
+  margin-bottom: var(--space-3);
+}
+
+.auth-role-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.auth-role-card {
+  border: 2px solid var(--gris-borde);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+              background var(--transition-fast);
+  text-align: center;
+}
+
+.auth-role-card:hover {
+  border-color: var(--verde-claro);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-role-card.active {
+  border-color: var(--verde-quetzal);
+  background: #F0FBF4;
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+}
+
+.auth-role-icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: var(--space-2);
+}
+
+.auth-role-card strong {
+  display: block;
+  font-size: var(--text-base);
+  color: var(--negro-suave);
+  margin-bottom: var(--space-1);
+}
+
+.auth-role-card p {
+  font-size: var(--text-xs);
+  color: var(--gris-texto);
+  line-height: 1.5;
+  margin: 0;
+}
+
+
+/* ------------------------------------------------------------
+   8. CAMPOS DEL FORMULARIO
+   ------------------------------------------------------------ */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.form-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--negro-suave);
+}
+
+.form-label .required {
+  color: var(--rojo-huipil);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--gris-borde);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-family: var(--font-cuerpo);
+  color: var(--negro-suave);
+  background: #FFFFFF;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--verde-claro);
+  box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.18);
+}
+
+.form-input.error,
+.form-select.error,
+.form-textarea.error {
+  border-color: var(--rojo-huipil);
+  box-shadow: 0 0 0 3px rgba(193, 18, 31, 0.12);
+}
+
+.form-error {
+  font-size: var(--text-xs);
+  color: var(--rojo-huipil);
+  font-weight: 500;
+}
+
+.form-hint {
+  font-size: var(--text-xs);
+  color: var(--gris-texto);
+}
+
+/* Dos columnas para campos de contraseña */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+/* Input con botón de mostrar contraseña */
+.input-password-wrapper {
+  position: relative;
+}
+
+.input-password-wrapper .form-input {
+  padding-right: 48px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--text-lg);
+  color: var(--gris-texto);
+  padding: 0;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.password-toggle:hover {
+  color: var(--negro-suave);
+}
+
+/* Select personalizado */
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B6B6B' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-4) center;
+  padding-right: var(--space-10);
+  cursor: pointer;
+}
+
+/* Checkbox personalizado */
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.form-check input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--gris-borde);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: var(--verde-quetzal);
+}
+
+.form-check-label {
+  font-size: var(--text-sm);
+  color: var(--gris-texto);
+  line-height: 1.5;
+}
+
+
+/* ------------------------------------------------------------
+   9. INDICADOR DE FORTALEZA DE CONTRASEÑA
+   ------------------------------------------------------------ */
+.password-strength {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.password-strength-bar {
+  height: 4px;
+  background: var(--gris-claro);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.password-strength-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--verde-claro);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-base), background var(--transition-base);
+}
+
+.password-strength-label {
+  font-size: var(--text-xs);
+  color: var(--gris-texto);
+  font-weight: 500;
+  transition: color var(--transition-base);
+}
+
+
+/* ------------------------------------------------------------
+   10. CAMPOS EXCLUSIVOS DE PROVEEDOR
+   ------------------------------------------------------------ */
+.provider-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--bg-principal);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radius-lg);
+}
+
+.provider-fields-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--verde-quetzal);
+  margin-bottom: var(--space-1);
+}
+
+.provider-fields-divider::before,
+.provider-fields-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gris-borde);
+}
+
+
+/* ------------------------------------------------------------
+   11. SELECTOR DE PLANES (register)
+   ------------------------------------------------------------ */
+.plan-selector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.plan-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.plan-card {
+  position: relative;
+  border: 2px solid var(--gris-borde);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+              background var(--transition-fast);
+}
+
+.plan-card:hover {
+  border-color: var(--verde-claro);
+  box-shadow: var(--shadow-sm);
+}
+
+.plan-card.active {
+  border-color: var(--verde-quetzal);
+  background: #F0FBF4;
+}
+
+.plan-card-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--rojo-huipil);
+  color: #FFFFFF;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  font-family: var(--font-titulo);
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.plan-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+
+.plan-card-header strong {
+  font-size: var(--text-base);
+  color: var(--negro-suave);
+}
+
+.plan-price {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: var(--verde-quetzal);
+  font-family: var(--font-titulo);
+}
+
+.plan-price small {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--gris-texto);
+}
+
+.plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.plan-features li {
+  font-size: var(--text-xs);
+  color: var(--gris-texto);
+  line-height: 1.4;
+}
+
+.plan-feature-no {
+  color: var(--gris-borde) !important;
+  text-decoration: line-through;
+}
+
+
+/* ------------------------------------------------------------
+   12. OPCIONES Y EXTRAS DEL FORMULARIO
+   ------------------------------------------------------------ */
+.auth-form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.auth-forgot {
+  font-size: var(--text-sm);
+  color: var(--verde-quetzal);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast);
+}
+
+.auth-forgot:hover {
+  color: var(--verde-oscuro);
+}
+
+.auth-link {
+  color: var(--verde-quetzal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast);
+}
+
+.auth-link:hover {
+  color: var(--verde-oscuro);
+}
+
+.auth-switch {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--gris-texto);
+  margin-top: var(--space-5);
+}
+
+.auth-switch a {
+  color: var(--verde-quetzal);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+
+/* ------------------------------------------------------------
+   13. DIVISOR SOCIAL + BOTONES SOCIALES
+   ------------------------------------------------------------ */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--gris-texto);
+  font-size: var(--text-sm);
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gris-borde);
+}
+
+.auth-social {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.auth-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--gris-borde);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-titulo);
+  color: var(--negro-suave);
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+              background var(--transition-fast);
+}
+
+.auth-social-btn:hover {
+  border-color: var(--gris-texto);
+  background: var(--bg-principal);
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ------------------------------------------------------------
+   14. BENEFICIOS Y STATS (register — panel visual)
+   ------------------------------------------------------------ */
+.auth-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.auth-benefit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.auth-benefit-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--verde-claro);
+  color: #FFFFFF;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.auth-stats-row {
+  display: flex;
+  gap: var(--space-6);
+  margin-top: auto;
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.auth-stat-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.auth-stat-mini strong {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.auth-stat-mini span {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* ------------------------------------------------------------
+   15. RESPONSIVE
+   ------------------------------------------------------------ */
+
+/* Tablet (1024px) — reducir padding */
+@media (max-width: 1024px) {
+  .auth-visual-content {
+    padding: var(--space-10) var(--space-8);
+  }
+
+  .auth-form-panel {
+    padding: var(--space-8) var(--space-6);
+  }
+
+  .plan-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet (768px) — colapsar a 1 columna, ocultar visual */
+@media (max-width: 768px) {
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-visual {
+    display: none; /* ocultar panel visual en móvil */
+  }
+
+  .auth-form-panel {
+    min-height: calc(100vh - 65px);
+    padding: var(--space-8) var(--space-5);
+    align-items: flex-start;
+  }
+
+  .auth-form-container {
+    max-width: 100%;
+  }
+
+  .auth-role-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-social {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Móvil (480px) */
+@media (max-width: 480px) {
+  .auth-nav {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .auth-form-panel {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .auth-form-header h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .auth-role-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-tabs {
+    flex-direction: column;
+  }
+
+  .plan-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-form-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
