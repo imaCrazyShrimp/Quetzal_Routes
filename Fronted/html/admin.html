@@ -4,32 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Quetzal Routes | Panel de Administración</title>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 (gratuito) para iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Estilos base y componentes -->
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
   <style>
-    /* Estilos específicos del panel de admin */
+    /* ── Layout base ─────────────────────────────────────────── */
     :root {
-      --admin-sidebar-width: 260px;
-      --admin-header-height: 70px;
+      --admin-sidebar-w: 260px;
+      --admin-header-h: 68px;
     }
 
     body {
-      background-color: var(--blanco-crudo);
+      background: var(--bg-principal);
       margin: 0;
       padding: 0;
       font-family: var(--font-cuerpo);
     }
 
-    /* Header de admin */
+    /* ── Header ─────────────────────────────────────────────── */
     .admin-header {
-      background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      height: var(--admin-header-height);
+      background: var(--bg-tarjeta);
+      box-shadow: var(--shadow-sm);
+      height: var(--admin-header-h);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -37,491 +34,1086 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      border-bottom: 1px solid var(--gris-borde);
     }
 
-    .logo-area h1 {
-      font-family: var(--font-titulo);
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .admin-brand-icon {
       font-size: 1.5rem;
+    }
+    .admin-brand h1 {
+      font-family: var(--font-titulo);
+      font-size: 1.3rem;
       color: var(--verde-quetzal);
       margin: 0;
+      line-height: 1;
     }
-    .logo-area span {
-      font-size: 0.8rem;
-      color: var(--gris-texto);
-      font-weight: normal;
+    .admin-brand-tag {
+      display: inline-block;
+      background: var(--verde-quetzal);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-left: 0.3rem;
+      vertical-align: middle;
     }
 
-    .admin-user {
+    .admin-header-right {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
-    .admin-user span {
-      font-weight: 600;
+    .admin-user-info {
+      text-align: right;
+    }
+    .admin-user-name {
+      display: block;
+      font-weight: 700;
+      font-size: 0.9rem;
       color: var(--negro-suave);
+      line-height: 1.2;
+    }
+    .admin-user-role {
+      font-size: 0.75rem;
+      color: var(--gris-texto);
+    }
+    .admin-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--verde-quetzal), var(--verde-claro));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      font-family: var(--font-titulo);
     }
     .btn-logout {
       background: none;
-      border: 1px solid var(--rojo-huipil);
+      border: 1.5px solid var(--rojo-huipil);
       color: var(--rojo-huipil);
       padding: 0.4rem 1rem;
-      border-radius: 30px;
+      border-radius: var(--radius-full);
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 0.85rem;
       transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
     .btn-logout:hover {
       background: var(--rojo-huipil);
       color: white;
     }
 
-    /* Layout con sidebar */
+    /* ── Layout sidebar + contenido ─────────────────────────── */
     .admin-layout {
       display: flex;
-      min-height: calc(100vh - var(--admin-header-height));
+      min-height: calc(100vh - var(--admin-header-h));
     }
 
     .admin-sidebar {
-      width: var(--admin-sidebar-width);
-      background: white;
-      border-right: 1px solid #e0e0e0;
-      padding: 2rem 0;
+      width: var(--admin-sidebar-w);
+      background: var(--bg-tarjeta);
+      border-right: 1px solid var(--gris-borde);
+      padding: 1.5rem 0;
+      flex-shrink: 0;
     }
-
+    .admin-sidebar-section {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gris-texto);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.8rem 1.5rem 0.4rem;
+      margin-top: 0.5rem;
+    }
     .admin-sidebar ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-
     .admin-sidebar li {
-      padding: 0.8rem 2rem;
+      padding: 0.75rem 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.75rem;
       font-weight: 600;
+      font-size: 0.9rem;
       color: var(--negro-suave);
       cursor: pointer;
-      transition: all 0.2s;
-      border-left: 4px solid transparent;
+      transition: all 0.18s;
+      border-left: 3px solid transparent;
+      user-select: none;
     }
-
     .admin-sidebar li i {
-      width: 24px;
-      color: var(--verde-quetzal);
+      width: 20px;
+      color: var(--gris-texto);
+      font-size: 0.9rem;
+      transition: color 0.18s;
     }
-
     .admin-sidebar li.active {
-      background-color: rgba(45, 106, 79, 0.08);
+      background: rgba(45, 106, 79, 0.08);
       border-left-color: var(--verde-quetzal);
       color: var(--verde-quetzal);
     }
-
+    .admin-sidebar li.active i { color: var(--verde-quetzal); }
     .admin-sidebar li:hover:not(.active) {
-      background-color: #f5f5f5;
+      background: var(--gris-claro);
     }
 
-    /* Contenido principal */
+    /* Badge de contador en el menú */
+    .nav-badge {
+      margin-left: auto;
+      background: var(--rojo-huipil);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* ── Contenido principal ─────────────────────────────────── */
     .admin-content {
       flex: 1;
       padding: 2rem;
       overflow-x: auto;
+      min-width: 0;
     }
 
+    /* ── Encabezado de sección ───────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .section-header h2 {
+      font-family: var(--font-titulo);
+      font-size: 1.4rem;
+      color: var(--negro-suave);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-header h2 i { color: var(--verde-quetzal); font-size: 1.2rem; }
+
+    /* ── Stats grid ─────────────────────────────────────────── */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
       margin-bottom: 2rem;
     }
-
     .stat-card {
-      background: white;
-      border-radius: 20px;
+      background: var(--bg-tarjeta);
+      border-radius: var(--radius-xl);
       padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gris-borde);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
-    .stat-card i {
-      font-size: 2.5rem;
-      color: var(--verde-quetzal);
+    .stat-card-icon {
+      font-size: 1.8rem;
     }
     .stat-number {
-      font-size: 2.2rem;
+      font-family: var(--font-titulo);
+      font-size: 2rem;
       font-weight: 800;
-      margin: 0.5rem 0;
       color: var(--negro-suave);
+      line-height: 1;
     }
     .stat-label {
+      font-size: 0.85rem;
       color: var(--gris-texto);
-    }
-
-    .admin-table {
-      width: 100%;
-      background: white;
-      border-radius: 16px;
-      border-collapse: collapse;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-    .admin-table th, .admin-table td {
-      padding: 1rem;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-    .admin-table th {
-      background-color: #f9f9f9;
-      font-weight: 700;
-      color: var(--negro-suave);
-    }
-    .badge {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      border-radius: 30px;
-      font-size: 0.75rem;
       font-weight: 600;
     }
-    .badge-success {
-      background: #e0f2e9;
-      color: var(--verde-quetzal);
+    .stat-sub {
+      font-size: 0.75rem;
+      color: var(--gris-texto);
     }
-    .badge-warning {
-      background: #fff3e0;
-      color: #e67e22;
+    .stat-card.highlight { border-color: var(--verde-quetzal); }
+    .stat-card.highlight .stat-number { color: var(--verde-quetzal); }
+
+    /* ── Tabla admin ─────────────────────────────────────────── */
+    .table-wrapper {
+      background: var(--bg-tarjeta);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--gris-borde);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
     }
-    .badge-danger {
-      background: #ffe6e5;
-      color: var(--rojo-huipil);
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
     }
-    .btn-sm {
-      padding: 0.3rem 0.8rem;
+    .admin-table th,
+    .admin-table td {
+      padding: 0.9rem 1.1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--gris-borde);
+      font-size: 0.88rem;
+    }
+    .admin-table th {
+      background: var(--gris-claro);
+      font-weight: 700;
+      color: var(--negro-suave);
+      font-family: var(--font-titulo);
       font-size: 0.8rem;
-      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-table tr:hover td { background: rgba(45,106,79,0.03); }
+
+    /* ── Badges ─────────────────────────────────────────────── */
+    .badge { display: inline-block; padding: 0.2rem 0.65rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; }
+    .badge-free    { background: #f0f0f0; color: #666; }
+    .badge-premium { background: #d8f3dc; color: var(--verde-quetzal); }
+    .badge-elite   { background: #fff3cd; color: #856404; }
+    .badge-active  { background: #d8f3dc; color: var(--verde-quetzal); }
+    .badge-pending { background: #fff3cd; color: #856404; }
+    .badge-inactive{ background: #ffe6e5; color: var(--rojo-huipil); }
+    .badge-expired { background: #f0f0f0; color: #666; }
+
+    /* ── Botones de acción en tabla ──────────────────────────── */
+    .action-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .btn-action {
+      padding: 0.3rem 0.75rem;
+      font-size: 0.78rem;
+      border-radius: var(--radius-full);
       border: none;
       cursor: pointer;
-      margin: 0 0.2rem;
+      font-weight: 700;
+      transition: opacity 0.15s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
     }
-    .btn-approve {
-      background: var(--verde-claro);
-      color: white;
+    .btn-action:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-action:active { transform: translateY(0); }
+    .btn-verify  { background: var(--verde-claro); color: white; }
+    .btn-approve { background: var(--verde-quetzal); color: white; }
+    .btn-reject  { background: #e0e0e0; color: #444; }
+    .btn-suspend { background: var(--rojo-huipil); color: white; }
+    .btn-restore { background: #60a5fa; color: white; }
+    .btn-view    { background: var(--negro-suave); color: white; }
+
+    /* ── Empty state ─────────────────────────────────────────── */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--gris-texto);
     }
-    .btn-reject {
-      background: #ccc;
-      color: #333;
+    .empty-state p { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+    /* ── Loader skeleton ─────────────────────────────────────── */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: var(--radius-md);
     }
-    .btn-suspend {
-      background: var(--rojo-huipil);
-      color: white;
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
 
-    @media (max-width: 768px) {
-      .admin-layout {
-        flex-direction: column;
-      }
+    /* ── Info box ────────────────────────────────────────────── */
+    .info-box {
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-lg);
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+    .info-box-yellow { background: #fef9e6; border: 1px solid #f5d87a; color: #856404; }
+    .info-box-green  { background: #d8f3dc; border: 1px solid #95d5b2; color: var(--verde-oscuro); }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .admin-layout { flex-direction: column; }
       .admin-sidebar {
         width: 100%;
         padding: 0;
         border-right: none;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid var(--gris-borde);
       }
-      .admin-sidebar ul {
-        display: flex;
-        overflow-x: auto;
-      }
+      .admin-sidebar ul { display: flex; overflow-x: auto; gap: 0; }
       .admin-sidebar li {
         white-space: nowrap;
         border-left: none;
         border-bottom: 3px solid transparent;
+        padding: 0.9rem 1rem;
       }
       .admin-sidebar li.active {
         border-left-color: transparent;
         border-bottom-color: var(--verde-quetzal);
       }
-      .admin-content {
-        padding: 1rem;
-      }
+      .admin-sidebar-section { display: none; }
+      .nav-badge { display: none; }
+      .admin-content { padding: 1rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .admin-header { padding: 0 1rem; }
+      .admin-user-info { display: none; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .admin-table th, .admin-table td { padding: 0.65rem 0.75rem; }
     }
   </style>
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════════════════ -->
 <header class="admin-header">
-  <div class="logo-area">
-    <h1>Quetzal Routes <span>Admin</span></h1>
+  <div class="admin-brand">
+    <span class="admin-brand-icon">🦜</span>
+    <h1>Quetzal Routes <span class="admin-brand-tag">Admin</span></h1>
   </div>
-  <div class="admin-user">
-    <span id="adminName">Administrador</span>
-    <button id="logoutBtn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+  <div class="admin-header-right">
+    <div class="admin-user-info">
+      <span class="admin-user-name" id="adminName">Cargando...</span>
+      <span class="admin-user-role">Administrador</span>
+    </div>
+    <div class="admin-avatar" id="adminAvatar">QR</div>
+    <button id="logoutBtn" class="btn-logout">
+      <i class="fas fa-sign-out-alt"></i> Salir
+    </button>
   </div>
 </header>
 
+<!-- ══════════════════════════════════════════════════════════
+     LAYOUT PRINCIPAL
+══════════════════════════════════════════════════════════ -->
 <div class="admin-layout">
+
+  <!-- Sidebar -->
   <aside class="admin-sidebar">
+    <div class="admin-sidebar-section">Gestión</div>
     <ul>
-      <li data-tab="providers" class="active">
-        <i class="fas fa-building"></i> <span>Proveedores</span>
+      <li data-tab="stats" class="active">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </li>
+      <li data-tab="providers">
+        <i class="fas fa-building"></i>
+        <span>Proveedores</span>
+        <span class="nav-badge" id="badgeProviders" style="display:none"></span>
       </li>
       <li data-tab="destinations">
-        <i class="fas fa-map-marked-alt"></i> <span>Destinos</span>
+        <i class="fas fa-map-marked-alt"></i>
+        <span>Destinos</span>
+        <span class="nav-badge" id="badgeDestinations" style="display:none"></span>
       </li>
       <li data-tab="subscriptions">
-        <i class="fas fa-credit-card"></i> <span>Suscripciones</span>
+        <i class="fas fa-credit-card"></i>
+        <span>Suscripciones</span>
       </li>
-      <li data-tab="stats">
-        <i class="fas fa-chart-line"></i> <span>Estadísticas</span>
+      <li data-tab="bookings">
+        <i class="fas fa-calendar-check"></i>
+        <span>Reservas</span>
       </li>
     </ul>
   </aside>
 
+  <!-- Contenido principal -->
   <main class="admin-content" id="adminContent">
-    <!-- El contenido se carga dinámicamente con JS -->
-    <div style="text-align: center; padding: 3rem;">Cargando panel...</div>
+    <div style="text-align:center;padding:3rem;">
+      <div class="skeleton" style="height:24px;width:200px;margin:0 auto 1rem;"></div>
+      <div class="skeleton" style="height:16px;width:140px;margin:0 auto;"></div>
+    </div>
   </main>
+
 </div>
 
-<script>
-  // --------------------------------------------------------------
-  // MOCK DATA (simula respuesta del backend)
-  // En producción, reemplazar por llamadas reales a api.js
-  // --------------------------------------------------------------
-  const mockProviders = [
-    { id: 1, business_name: "Aventuras Mayas", contact_email: "contacto@aventurasmayas.com", whatsapp: "+50212345678", verified: false, plan: "free", status: "active" },
-    { id: 2, business_name: "Lago de Atitlán Tours", contact_email: "info@atitlantours.com", whatsapp: "+50287654321", verified: true, plan: "premium", status: "active" },
-    { id: 3, business_name: "Tikal Expeditions", contact_email: "tikal@expeditions.com", whatsapp: "+50299887766", verified: false, plan: "elite", status: "pending" }
-  ];
+<!-- ══════════════════════════════════════════════════════════
+     MÓDULOS JS — type="module" para importar los reales
+══════════════════════════════════════════════════════════ -->
+<script type="module">
 
-  const mockDestinations = [
-    { id: 1, title: "Pacaya Volcano Hike", provider: "Aventuras Mayas", category: "aventura", department: "Escuintla", status: "active", verified: true },
-    { id: 2, title: "Chichicastenango Market", provider: "Lago de Atitlán Tours", category: "cultura", department: "Quiché", status: "pending", verified: false },
-    { id: 3, title: "Semuc Champey", provider: "Tikal Expeditions", category: "naturaleza", department: "Alta Verapaz", status: "active", verified: true }
-  ];
+  // ── Imports desde los módulos reales del proyecto ──────────
+  import {
+    getCurrentUser,
+    requireAuth,
+    logoutUser,
+    hasRole,
+  } from '../js/auth.js';
 
-  const mockSubscriptions = [
-    { id: 1, provider: "Aventuras Mayas", plan: "free", amount: 0, start_date: "2025-01-01", end_date: "2026-01-01", status: "active" },
-    { id: 2, provider: "Lago de Atitlán Tours", plan: "premium", amount: 299, start_date: "2025-02-01", end_date: "2025-08-01", status: "active" },
-    { id: 3, provider: "Tikal Expeditions", plan: "elite", amount: 599, start_date: "2025-03-01", end_date: "2025-09-01", status: "active" }
-  ];
+  import {
+    getAllDestinations,
+    getAllProviders,
+    getSubscriptionByProvider,
+    getBookingsByProvider,
+  } from '../js/api.js';
 
-  const mockStats = {
-    totalProviders: 12,
-    totalTourists: 345,
-    totalDestinations: 48,
-    pendingDestinations: 5,
-    totalBookings: 187,
-    totalCommission: 4580.50
+  import { showToast } from '../js/ui.js';
+
+
+  // ══════════════════════════════════════════════════════════
+  // 1. PROTECCIÓN DE RUTA — Solo admins
+  // ══════════════════════════════════════════════════════════
+  requireAuth('admin');
+
+  // Pintar nombre y avatar del admin en el header
+  const me = getCurrentUser();
+  if (me) {
+    document.getElementById('adminName').textContent = me.name || 'Administrador';
+    const initials = (me.name || 'AD')
+      .split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+    document.getElementById('adminAvatar').textContent = initials;
+  }
+
+  // Logout real
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    if (confirm('¿Cerrar sesión de administración?')) {
+      logoutUser();
+    }
+  });
+
+
+  // ══════════════════════════════════════════════════════════
+  // 2. ESTADO GLOBAL — Datos cargados una sola vez y cacheados
+  // ══════════════════════════════════════════════════════════
+  const _cache = {
+    providers:    null,
+    destinations: null,
+    subscriptions: null,
   };
 
-  // Funciones simuladas de API (reemplazar con tus módulos reales)
-  async function fetchProviders() { return [...mockProviders]; }
-  async function fetchDestinations() { return [...mockDestinations]; }
-  async function fetchSubscriptions() { return [...mockSubscriptions]; }
-  async function fetchStats() { return {...mockStats}; }
-  async function updateProviderVerification(providerId, verified) { 
-    console.log(`Actualizar proveedor ${providerId} verified=${verified}`);
-    // Simular éxito
-    return true;
-  }
-  async function updateDestinationStatus(destId, approved) {
-    console.log(`Aprobar destino ${destId} => ${approved}`);
-    return true;
+  async function getProviders() {
+    if (!_cache.providers) _cache.providers = await getAllProviders();
+    return _cache.providers;
   }
 
-  // Utilidad para mostrar notificaciones
-  function showToast(message, type = 'success') {
-    // Si existe la función global de ui.js se puede usar, si no, alert simple
-    if (typeof window.showToast === 'function') {
-      window.showToast(message, type);
+  async function getDestinations() {
+    if (!_cache.destinations) _cache.destinations = await getAllDestinations();
+    return _cache.destinations;
+  }
+
+  async function getSubscriptions() {
+    if (_cache.subscriptions) return _cache.subscriptions;
+    const providers = await getProviders();
+    const subs = await Promise.all(
+      providers.map(p => getSubscriptionByProvider(p.id).then(s => s
+        ? { ...s, business_name: p.business_name, contact_email: p.contact_email }
+        : null
+      ))
+    );
+    _cache.subscriptions = subs.filter(Boolean);
+    return _cache.subscriptions;
+  }
+
+  function invalidateCache() {
+    _cache.providers     = null;
+    _cache.destinations  = null;
+    _cache.subscriptions = null;
+  }
+
+
+  // ══════════════════════════════════════════════════════════
+  // 3. HELPERS DE RENDER
+  // ══════════════════════════════════════════════════════════
+  function planBadge(plan) {
+    const map = { free: 'badge-free', premium: 'badge-premium', elite: 'badge-elite' };
+    return `<span class="badge ${map[plan] || ''}">${(plan || 'free').toUpperCase()}</span>`;
+  }
+
+  function statusBadge(status) {
+    const map = { active:'badge-active', pending:'badge-pending', inactive:'badge-inactive', expired:'badge-expired' };
+    const labels = { active:'Activo', pending:'Pendiente', inactive:'Inactivo', expired:'Expirado' };
+    return `<span class="badge ${map[status] || 'badge-pending'}">${labels[status] || status}</span>`;
+  }
+
+  function verifiedBadge(v) {
+    return v
+      ? `<span style="color:var(--verde-quetzal);font-weight:700;">✔ Verificado</span>`
+      : `<span style="color:var(--gris-texto);">— Sin verificar</span>`;
+  }
+
+  function setContent(html) {
+    document.getElementById('adminContent').innerHTML = html;
+  }
+
+  function updateNavBadge(id, count) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (count > 0) {
+      el.textContent = count;
+      el.style.display = 'inline-block';
     } else {
-      alert(message);
+      el.style.display = 'none';
     }
   }
 
-  // Renderizado de cada tab
-  let currentTab = 'providers';
 
-  function renderProvidersTab() {
-    fetchProviders().then(providers => {
-      const html = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-          <h2><i class="fas fa-building"></i> Gestión de Proveedores</h2>
-          <button class="btn btn-primary" id="refreshProviders"><i class="fas fa-sync-alt"></i> Refrescar</button>
+  // ══════════════════════════════════════════════════════════
+  // 4. TAB — DASHBOARD / ESTADÍSTICAS
+  // ══════════════════════════════════════════════════════════
+  async function renderStats() {
+    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
+      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
+      <p>Calculando estadísticas...</p>
+    </div>`);
+
+    try {
+      const [providers, destinations] = await Promise.all([
+        getProviders(),
+        getDestinations(),
+      ]);
+
+      const verified   = providers.filter(p => p.verified).length;
+      const pending    = providers.filter(p => !p.verified).length;
+      const destActive = destinations.filter(d => d.status === 'active').length;
+      const destPending= destinations.filter(d => d.status === 'pending').length;
+      const planDist   = { free: 0, premium: 0, elite: 0 };
+      providers.forEach(p => { planDist[p.plan] = (planDist[p.plan] || 0) + 1; });
+
+      // Actualizar badges del menú
+      updateNavBadge('badgeProviders',    pending);
+      updateNavBadge('badgeDestinations', destPending);
+
+      setContent(`
+        <div class="section-header">
+          <h2><i class="fas fa-chart-line"></i> Dashboard General</h2>
+          <span style="font-size:0.8rem;color:var(--gris-texto)">Datos en tiempo real desde db.json</span>
         </div>
-        <div class="table-responsive">
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-icon">🏢</div>
+            <div class="stat-number">${providers.length}</div>
+            <div class="stat-label">Proveedores registrados</div>
+            <div class="stat-sub">${verified} verificados · ${pending} pendientes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon">🗺️</div>
+            <div class="stat-number">${destinations.length}</div>
+            <div class="stat-label">Destinos en la plataforma</div>
+            <div class="stat-sub">${destActive} activos · ${destPending} pendientes</div>
+          </div>
+          <div class="stat-card highlight">
+            <div class="stat-card-icon">⭐</div>
+            <div class="stat-number">${planDist.elite}</div>
+            <div class="stat-label">Proveedores Plan Elite</div>
+            <div class="stat-sub">${planDist.premium} Premium · ${planDist.free} Free</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon">📊</div>
+            <div class="stat-number">${Math.round((verified/Math.max(providers.length,1))*100)}%</div>
+            <div class="stat-label">Tasa de verificación</div>
+            <div class="stat-sub">Proveedores aprobados por admin</div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-top:1rem">
+          <h2><i class="fas fa-list-alt"></i> Acciones pendientes</h2>
+        </div>
+
+        <div class="table-wrapper">
           <table class="admin-table">
             <thead>
-              <tr><th>ID</th><th>Negocio</th><th>Email</th><th>WhatsApp</th><th>Plan</th><th>Verificado</th><th>Estado</th><th>Acciones</th></tr>
+              <tr><th>Tipo</th><th>Ítem</th><th>Estado</th><th>Acción rápida</th></tr>
             </thead>
             <tbody>
-              ${providers.map(p => `
+              ${providers.filter(p => !p.verified).map(p => `
                 <tr>
-                  <td>${p.id}</td>
-                  <td><strong>${p.business_name}</strong></td>
-                  <td>${p.contact_email}</td>
-                  <td>${p.whatsapp}</td>
-                  <td><span class="badge ${p.plan === 'premium' ? 'badge-success' : (p.plan === 'elite' ? 'badge-warning' : 'badge')}">${p.plan.toUpperCase()}</span></td>
-                  <td>${p.verified ? '<i class="fas fa-check-circle" style="color: var(--verde-quetzal);"></i> Sí' : '<i class="fas fa-times-circle" style="color: var(--rojo-huipil);"></i> No'}</td>
-                  <td><span class="badge ${p.status === 'active' ? 'badge-success' : 'badge-warning'}">${p.status}</span></td>
+                  <td><i class="fas fa-building" style="color:var(--verde-quetzal)"></i> Proveedor</td>
+                  <td><strong>${p.business_name}</strong><br><small>${p.contact_email}</small></td>
+                  <td>${statusBadge('pending')}</td>
                   <td>
-                    ${!p.verified ? `<button class="btn-sm btn-approve" data-id="${p.id}" data-action="verify">Verificar</button>` : ''}
-                    ${p.status === 'active' ? `<button class="btn-sm btn-suspend" data-id="${p.id}" data-action="suspend">Suspender</button>` : ''}
+                    <div class="action-btns">
+                      <button class="btn-action btn-verify" data-action="verify-provider" data-id="${p.id}">
+                        <i class="fas fa-check"></i> Verificar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              `).join('')}
+              ${destinations.filter(d => d.status === 'pending').map(d => `
+                <tr>
+                  <td><i class="fas fa-map-marker-alt" style="color:var(--verde-quetzal)"></i> Destino</td>
+                  <td><strong>${d.title}</strong></td>
+                  <td>${statusBadge('pending')}</td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="btn-action btn-approve" data-action="approve-dest" data-id="${d.id}">
+                        <i class="fas fa-check"></i> Aprobar
+                      </button>
+                      <button class="btn-action btn-reject" data-action="reject-dest" data-id="${d.id}">
+                        Rechazar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              `).join('')}
+              ${(pending + destPending) === 0 ? `
+                <tr><td colspan="4" class="empty-state">
+                  <p>✅</p>
+                  <strong>Todo al día</strong><br>
+                  <small>No hay acciones pendientes.</small>
+                </td></tr>
+              ` : ''}
+            </tbody>
+          </table>
+        </div>
+      `);
+
+      _bindActions();
+
+    } catch (err) {
+      console.error('[admin] renderStats:', err);
+      setContent(`<div class="empty-state"><p>⚠️</p><strong>Error cargando estadísticas</strong></div>`);
+    }
+  }
+
+
+  // ══════════════════════════════════════════════════════════
+  // 5. TAB — PROVEEDORES
+  // ══════════════════════════════════════════════════════════
+  async function renderProviders() {
+    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
+      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
+    </div>`);
+
+    try {
+      const providers = await getProviders();
+
+      setContent(`
+        <div class="section-header">
+          <h2><i class="fas fa-building"></i> Gestión de Proveedores</h2>
+          <button class="btn btn-outline" id="refreshProviders">
+            <i class="fas fa-sync-alt"></i> Refrescar
+          </button>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Negocio</th>
+                <th>Contacto</th>
+                <th>Plan</th>
+                <th>Verificado</th>
+                <th>Registrado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${providers.length === 0 ? `
+                <tr><td colspan="6" class="empty-state"><p>🏢</p>Sin proveedores aún.</td></tr>
+              ` : providers.map(p => `
+                <tr>
+                  <td>
+                    <strong>${p.business_name}</strong>
+                    ${p.website ? `<br><small><a href="https://${p.website}" target="_blank" style="color:var(--verde-quetzal)">${p.website}</a></small>` : ''}
+                  </td>
+                  <td>
+                    ${p.contact_email}<br>
+                    ${p.whatsapp ? `<small>${p.whatsapp}</small>` : ''}
+                  </td>
+                  <td>${planBadge(p.plan)}</td>
+                  <td>${verifiedBadge(p.verified)}</td>
+                  <td style="font-size:0.8rem;color:var(--gris-texto)">${p.created_at || '—'}</td>
+                  <td>
+                    <div class="action-btns">
+                      ${!p.verified
+                        ? `<button class="btn-action btn-verify" data-action="verify-provider" data-id="${p.id}"><i class="fas fa-check"></i> Verificar</button>`
+                        : `<button class="btn-action btn-restore" data-action="unverify-provider" data-id="${p.id}"><i class="fas fa-undo"></i> Desverificar</button>`
+                      }
+                      <button class="btn-action btn-suspend" data-action="suspend-provider" data-id="${p.id}"><i class="fas fa-ban"></i></button>
+                    </div>
                   </td>
                 </tr>
               `).join('')}
             </tbody>
           </table>
         </div>
-      `;
-      document.getElementById('adminContent').innerHTML = html;
+      `);
 
-      // Bind eventos
-      document.querySelectorAll('[data-action="verify"]').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-          const id = parseInt(btn.dataset.id);
-          await updateProviderVerification(id, true);
-          showToast('Proveedor verificado correctamente', 'success');
-          renderProvidersTab(); // recargar
-        });
+      document.getElementById('refreshProviders')?.addEventListener('click', () => {
+        invalidateCache();
+        renderProviders();
       });
-      document.querySelectorAll('[data-action="suspend"]').forEach(btn => {
-        btn.addEventListener('click', async () => {
-          showToast('Función de suspensión implementada en backend', 'info');
+
+      _bindActions();
+
+    } catch (err) {
+      console.error('[admin] renderProviders:', err);
+      showToast('Error cargando proveedores', 'error');
+    }
+  }
+
+
+  // ══════════════════════════════════════════════════════════
+  // 6. TAB — DESTINOS
+  // ══════════════════════════════════════════════════════════
+  async function renderDestinations() {
+    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
+      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
+    </div>`);
+
+    try {
+      const [destinations, providers] = await Promise.all([
+        getDestinations(),
+        getProviders(),
+      ]);
+
+      // Mapa id → nombre de proveedor
+      const provMap = {};
+      providers.forEach(p => { provMap[p.id] = p.business_name; });
+
+      const filterBtns = ['all','active','pending','inactive'];
+      let activeFilter = 'all';
+
+      function renderTable(filter) {
+        activeFilter = filter;
+        const filtered = filter === 'all'
+          ? destinations
+          : destinations.filter(d => d.status === filter);
+
+        const tbody = filtered.length === 0
+          ? `<tr><td colspan="7" class="empty-state"><p>🗺️</p>Sin destinos con este filtro.</td></tr>`
+          : filtered.map(d => `
+            <tr>
+              <td><strong>${d.title}</strong><br><small style="color:var(--gris-texto)">${d.category || ''}</small></td>
+              <td>${provMap[d.provider_id] || `#${d.provider_id}`}</td>
+              <td>${d.department || '—'}</td>
+              <td>Q${d.price_from ?? '—'}${d.price_to ? ` – Q${d.price_to}` : ''}</td>
+              <td>${statusBadge(d.status)}</td>
+              <td>${d.featured ? '⭐ Sí' : '—'}</td>
+              <td>
+                <div class="action-btns">
+                  ${d.status === 'pending'
+                    ? `<button class="btn-action btn-approve" data-action="approve-dest" data-id="${d.id}"><i class="fas fa-check"></i> Aprobar</button>
+                       <button class="btn-action btn-reject"  data-action="reject-dest"  data-id="${d.id}">Rechazar</button>`
+                    : d.status === 'active'
+                      ? `<button class="btn-action btn-suspend" data-action="pause-dest" data-id="${d.id}"><i class="fas fa-pause"></i></button>`
+                      : `<button class="btn-action btn-restore" data-action="restore-dest" data-id="${d.id}"><i class="fas fa-play"></i></button>`
+                  }
+                </div>
+              </td>
+            </tr>
+          `).join('');
+
+        document.getElementById('destTableBody').innerHTML = tbody;
+        _bindActions();
+
+        // Actualizar botones de filtro activo
+        document.querySelectorAll('.dest-filter-btn').forEach(btn => {
+          btn.classList.toggle('btn-primary', btn.dataset.filter === filter);
+          btn.classList.toggle('btn-outline', btn.dataset.filter !== filter);
         });
-      });
-      if(document.getElementById('refreshProviders')) {
-        document.getElementById('refreshProviders').addEventListener('click', () => renderProvidersTab());
       }
-    });
+
+      setContent(`
+        <div class="section-header">
+          <h2><i class="fas fa-map-marked-alt"></i> Moderación de Destinos</h2>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            ${filterBtns.map(f => `
+              <button class="btn btn-sm dest-filter-btn ${f==='all'?'btn-primary':'btn-outline'}" data-filter="${f}">
+                ${f === 'all' ? 'Todos' : f.charAt(0).toUpperCase() + f.slice(1)}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Destino</th><th>Proveedor</th><th>Departamento</th>
+                <th>Precio</th><th>Estado</th><th>Destacado</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="destTableBody"></tbody>
+          </table>
+        </div>
+      `);
+
+      // Eventos de filtro
+      document.querySelectorAll('.dest-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => renderTable(btn.dataset.filter));
+      });
+
+      renderTable('all');
+
+    } catch (err) {
+      console.error('[admin] renderDestinations:', err);
+      showToast('Error cargando destinos', 'error');
+    }
   }
 
-  function renderDestinationsTab() {
-    fetchDestinations().then(dests => {
-      const html = `
-        <h2><i class="fas fa-map-marked-alt"></i> Moderación de Destinos</h2>
-        <div class="table-responsive">
+
+  // ══════════════════════════════════════════════════════════
+  // 7. TAB — SUSCRIPCIONES
+  // ══════════════════════════════════════════════════════════
+  async function renderSubscriptions() {
+    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
+      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
+    </div>`);
+
+    try {
+      const subs = await getSubscriptions();
+
+      const totalRevenue = subs
+        .filter(s => s.status === 'active' && s.plan !== 'free')
+        .reduce((acc, s) => acc + (s.amount_quetzales || 0), 0);
+
+      setContent(`
+        <div class="section-header">
+          <h2><i class="fas fa-credit-card"></i> Planes y Suscripciones</h2>
+          <div style="background:var(--verde-quetzal);color:#fff;padding:0.5rem 1.2rem;border-radius:var(--radius-full);font-weight:700;font-size:0.9rem">
+            💰 Ingresos activos: Q${totalRevenue.toFixed(2)}/mes
+          </div>
+        </div>
+
+        <div class="table-wrapper">
           <table class="admin-table">
-            <thead><tr><th>ID</th><th>Título</th><th>Proveedor</th><th>Categoría</th><th>Departamento</th><th>Estado</th><th>Verificado</th><th>Acciones</th></tr></thead>
+            <thead>
+              <tr><th>Proveedor</th><th>Email</th><th>Plan</th><th>Monto</th><th>Inicio</th><th>Vencimiento</th><th>Estado</th></tr>
+            </thead>
             <tbody>
-              ${dests.map(d => `
-                <tr>
-                  <td>${d.id}</td>
-                  <td>${d.title}</td>
-                  <td>${d.provider}</td>
-                  <td>${d.category}</td>
-                  <td>${d.department}</td>
-                  <td><span class="badge ${d.status === 'active' ? 'badge-success' : 'badge-warning'}">${d.status}</span></td>
-                  <td>${d.verified ? '✅' : '❌'}</td>
-                  <td>
-                    ${d.status === 'pending' ? `<button class="btn-sm btn-approve" data-id="${d.id}" data-action="approve">Aprobar</button>
-                    <button class="btn-sm btn-reject" data-id="${d.id}" data-action="reject">Rechazar</button>` : '—'}
-                  </td>
-                </tr>
-              `).join('')}
+              ${subs.length === 0
+                ? `<tr><td colspan="7" class="empty-state"><p>💳</p>Sin suscripciones.</td></tr>`
+                : subs.map(s => {
+                    const isExpiring = s.end_date && _daysUntil(s.end_date) <= 30 && s.status === 'active';
+                    return `
+                    <tr ${isExpiring ? 'style="background:#fffbeb"' : ''}>
+                      <td><strong>${s.business_name || '—'}</strong></td>
+                      <td style="font-size:0.82rem">${s.contact_email || '—'}</td>
+                      <td>${planBadge(s.plan)}</td>
+                      <td>${s.plan === 'free' ? '—' : `Q${s.amount_quetzales}`}</td>
+                      <td style="font-size:0.82rem">${s.start_date || '—'}</td>
+                      <td style="font-size:0.82rem">
+                        ${s.end_date || '—'}
+                        ${isExpiring ? `<br><small style="color:var(--rojo-huipil)">⚠ Vence en ${_daysUntil(s.end_date)}d</small>` : ''}
+                      </td>
+                      <td>${statusBadge(s.status)}</td>
+                    </tr>
+                  `}).join('')
+              }
             </tbody>
           </table>
         </div>
-      `;
-      document.getElementById('adminContent').innerHTML = html;
-      document.querySelectorAll('[data-action="approve"]').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-          const id = parseInt(btn.dataset.id);
-          await updateDestinationStatus(id, true);
-          showToast('Destino aprobado y visible en la web', 'success');
-          renderDestinationsTab();
-        });
-      });
-      document.querySelectorAll('[data-action="reject"]').forEach(btn => {
-        btn.addEventListener('click', async () => {
-          showToast('Destino rechazado (simulado)', 'info');
-        });
-      });
-    });
+
+        <div class="info-box info-box-yellow" style="margin-top:1rem">
+          <i class="fas fa-info-circle"></i>
+          <span>Los pagos se procesan externamente. Este panel es solo de visualización y monitoreo.</span>
+        </div>
+      `);
+
+    } catch (err) {
+      console.error('[admin] renderSubscriptions:', err);
+      showToast('Error cargando suscripciones', 'error');
+    }
   }
 
-  function renderSubscriptionsTab() {
-    fetchSubscriptions().then(subs => {
-      const html = `
-        <h2><i class="fas fa-credit-card"></i> Planes y Suscripciones Activas</h2>
-        <div class="table-responsive">
+
+  // ══════════════════════════════════════════════════════════
+  // 8. TAB — RESERVAS
+  // ══════════════════════════════════════════════════════════
+  async function renderBookings() {
+    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
+      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
+    </div>`);
+
+    try {
+      const providers    = await getProviders();
+      const destinations = await getDestinations();
+
+      // Agregar bookings de todos los proveedores
+      const allBookings = [];
+      await Promise.all(
+        providers.map(async p => {
+          const bookings = await getBookingsByProvider(p.id).catch(() => []);
+          (bookings || []).forEach(b => {
+            const dest = destinations.find(d => d.id === b.destination_id);
+            allBookings.push({
+              ...b,
+              providerName: p.business_name,
+              destTitle:    dest?.title || `Destino #${b.destination_id}`,
+            });
+          });
+        })
+      );
+
+      allBookings.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+      const totalCommission = allBookings
+        .filter(b => b.status === 'completed')
+        .reduce((acc, b) => acc + (b.commission_amount || 0), 0);
+
+      setContent(`
+        <div class="section-header">
+          <h2><i class="fas fa-calendar-check"></i> Reservas de la Plataforma</h2>
+          <div style="background:var(--negro-suave);color:#fff;padding:0.5rem 1.2rem;border-radius:var(--radius-full);font-weight:700;font-size:0.9rem">
+            🏦 Comisiones: Q${totalCommission.toFixed(2)}
+          </div>
+        </div>
+
+        <div class="table-wrapper">
           <table class="admin-table">
-            <thead><tr><th>Proveedor</th><th>Plan</th><th>Monto (Q)</th><th>Inicio</th><th>Fin</th><th>Estado</th></tr></thead>
+            <thead>
+              <tr><th>Destino</th><th>Proveedor</th><th>Fecha</th><th>Personas</th><th>Total</th><th>Comisión (10%)</th><th>Estado</th></tr>
+            </thead>
             <tbody>
-              ${subs.map(s => `
-                <tr>
-                  <td><strong>${s.provider}</strong></td>
-                  <td><span class="badge ${s.plan === 'premium' ? 'badge-success' : (s.plan === 'elite' ? 'badge-warning' : '')}">${s.plan.toUpperCase()}</span></td>
-                  <td>Q${s.amount}</td>
-                  <td>${s.start_date}</td>
-                  <td>${s.end_date}</td>
-                  <td><span class="badge badge-success">${s.status}</span></td>
-                </tr>
-              `).join('')}
+              ${allBookings.length === 0
+                ? `<tr><td colspan="7" class="empty-state"><p>📅</p>Sin reservas aún.</td></tr>`
+                : allBookings.map(b => `
+                  <tr>
+                    <td><strong>${b.destTitle}</strong></td>
+                    <td>${b.providerName}</td>
+                    <td style="font-size:0.82rem">${b.date_requested || '—'}</td>
+                    <td style="text-align:center">${b.people_count}</td>
+                    <td>Q${Number(b.total_amount || 0).toFixed(2)}</td>
+                    <td style="color:var(--verde-quetzal);font-weight:700">Q${Number(b.commission_amount || 0).toFixed(2)}</td>
+                    <td>${statusBadge(b.status)}</td>
+                  </tr>
+                `).join('')
+              }
             </tbody>
           </table>
         </div>
-        <div class="note" style="margin-top: 2rem; background: #fef9e6; padding: 1rem; border-radius: 16px;">
-          <i class="fas fa-info-circle"></i> Los pagos se procesan vía sistema externo. Aquí solo visualización.
-        </div>
-      `;
-      document.getElementById('adminContent').innerHTML = html;
+      `);
+
+    } catch (err) {
+      console.error('[admin] renderBookings:', err);
+      showToast('Error cargando reservas', 'error');
+    }
+  }
+
+
+  // ══════════════════════════════════════════════════════════
+  // 9. ACCIONES — Verificar / Aprobar / Rechazar / Suspender
+  //    NOTA: Con db.json estas acciones son simuladas.
+  //    Cuando se conecte el backend real, reemplazar el
+  //    console.log por llamadas al api.js correspondiente.
+  // ══════════════════════════════════════════════════════════
+  function _bindActions() {
+    document.querySelectorAll('[data-action]').forEach(btn => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = 'true';
+
+      btn.addEventListener('click', async () => {
+        const action = btn.dataset.action;
+        const id     = parseInt(btn.dataset.id);
+
+        switch (action) {
+          case 'verify-provider':
+            // TODO con backend: await api.post(`/providers/${id}/verify`)
+            console.log(`[admin] Verificar proveedor ID=${id}`);
+            showToast(`Proveedor #${id} verificado ✔`, 'success');
+            invalidateCache();
+            loadTab(currentTab);
+            break;
+
+          case 'unverify-provider':
+            console.log(`[admin] Desverificar proveedor ID=${id}`);
+            showToast(`Verificación retirada al proveedor #${id}`, 'warning');
+            invalidateCache();
+            loadTab(currentTab);
+            break;
+
+          case 'suspend-provider':
+            if (!confirm(`¿Suspender acceso al proveedor #${id}?`)) return;
+            console.log(`[admin] Suspender proveedor ID=${id}`);
+            showToast(`Proveedor #${id} suspendido`, 'error');
+            break;
+
+          case 'approve-dest':
+            // TODO con backend: await api.patch(`/destinations/${id}`, { status: 'active' })
+            console.log(`[admin] Aprobar destino ID=${id}`);
+            showToast(`Destino #${id} aprobado y visible en la plataforma ✔`, 'success');
+            invalidateCache();
+            loadTab(currentTab);
+            break;
+
+          case 'reject-dest':
+            if (!confirm(`¿Rechazar y eliminar el destino #${id}?`)) return;
+            console.log(`[admin] Rechazar destino ID=${id}`);
+            showToast(`Destino #${id} rechazado`, 'warning');
+            break;
+
+          case 'pause-dest':
+            console.log(`[admin] Pausar destino ID=${id}`);
+            showToast(`Destino #${id} pausado temporalmente`, 'warning');
+            break;
+
+          case 'restore-dest':
+            console.log(`[admin] Restaurar destino ID=${id}`);
+            showToast(`Destino #${id} restaurado como activo`, 'success');
+            break;
+        }
+      });
     });
   }
 
-  function renderStatsTab() {
-    fetchStats().then(stats => {
-      const html = `
-        <h2><i class="fas fa-chart-line"></i> Estadísticas Generales</h2>
-        <div class="stats-grid">
-          <div class="stat-card"><i class="fas fa-users"></i><div class="stat-number">${stats.totalProviders + stats.totalTourists}</div><div class="stat-label">Usuarios totales</div><small>${stats.totalProviders} proveedores · ${stats.totalTourists} turistas</small></div>
-          <div class="stat-card"><i class="fas fa-map-marker-alt"></i><div class="stat-number">${stats.totalDestinations}</div><div class="stat-label">Destinos activos</div><small>${stats.pendingDestinations} pendientes de aprobar</small></div>
-          <div class="stat-card"><i class="fas fa-calendar-check"></i><div class="stat-number">${stats.totalBookings}</div><div class="stat-label">Reservas realizadas</div></div>
-          <div class="stat-card"><i class="fas fa-coins"></i><div class="stat-number">Q${stats.totalCommission.toFixed(2)}</div><div class="stat-label">Comisiones generadas (10%)</div></div>
-        </div>
-        <div style="background: white; border-radius: 20px; padding: 1.5rem; margin-top: 1rem;">
-          <h3>Resumen ejecutivo</h3>
-          <p>El marketplace ha generado ${stats.totalBookings} reservas en el último mes. El plan Elite es el más demandado entre proveedores verificados. Guatemala sigue creciendo como destino turístico.</p>
-        </div>
-      `;
-      document.getElementById('adminContent').innerHTML = html;
-    });
-  }
+
+  // ══════════════════════════════════════════════════════════
+  // 10. NAVEGACIÓN POR TABS
+  // ══════════════════════════════════════════════════════════
+  let currentTab = 'stats';
 
   function loadTab(tabName) {
     currentTab = tabName;
-    // Actualizar clase activa en sidebar
+
     document.querySelectorAll('.admin-sidebar li').forEach(li => {
-      li.classList.remove('active');
-      if(li.dataset.tab === tabName) li.classList.add('active');
+      li.classList.toggle('active', li.dataset.tab === tabName);
     });
-    switch(tabName) {
-      case 'providers': renderProvidersTab(); break;
-      case 'destinations': renderDestinationsTab(); break;
-      case 'subscriptions': renderSubscriptionsTab(); break;
-      case 'stats': renderStatsTab(); break;
-      default: renderProvidersTab();
+
+    switch (tabName) {
+      case 'stats':         renderStats();         break;
+      case 'providers':     renderProviders();     break;
+      case 'destinations':  renderDestinations();  break;
+      case 'subscriptions': renderSubscriptions(); break;
+      case 'bookings':      renderBookings();      break;
+      default:              renderStats();
     }
   }
 
-  // Eventos sidebar
   document.querySelectorAll('.admin-sidebar li').forEach(li => {
-    li.addEventListener('click', () => {
-      loadTab(li.dataset.tab);
-    });
+    li.addEventListener('click', () => loadTab(li.dataset.tab));
   });
 
-  // Logout simulado (debe integrarse con auth.js)
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    if(confirm('¿Cerrar sesión de administración?')) {
-      // Llamada a logout real: window.location.href = 'login.html';
-      alert('Sesión cerrada. Redirigiendo al login...');
-      // window.location.href = 'login.html';
-    }
-  });
 
-  // Simular nombre de admin (desde localStorage o sesión)
-  document.getElementById('adminName').innerText = 'Admin Quetzal';
+  // ══════════════════════════════════════════════════════════
+  // 11. HELPERS
+  // ══════════════════════════════════════════════════════════
+  function _daysUntil(dateStr) {
+    const diff = new Date(dateStr) - new Date();
+    return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+  }
 
-  // Cargar pestaña inicial
-  loadTab('providers');
+
+  // ══════════════════════════════════════════════════════════
+  // INIT — Cargar el dashboard al entrar
+  // ══════════════════════════════════════════════════════════
+  loadTab('stats');
+
 </script>
 </body>
 </html>
