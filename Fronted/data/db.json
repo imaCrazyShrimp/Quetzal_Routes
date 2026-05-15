@@ -378,6 +378,12 @@
       "label_es": "Bienestar",
       "label_en": "Wellness",
       "icon": "🧘"
+    },
+    {
+      "id": "history",
+      "label_es": "Historia",
+      "label_en": "History",
+      "icon": "🏺"
     }
   ],
   "departments": [
