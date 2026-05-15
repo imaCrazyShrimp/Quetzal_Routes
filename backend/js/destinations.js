@@ -12,13 +12,15 @@ import { isAuthenticated, hasRole, getCurrentUser } from './auth.js';
 export const CATEGORIES = ['nature', 'culture', 'adventure', 'gastronomy', 'wellness'];
 
 export const DEPARTMENTS = [
-  'antigua',
-  'atitlan',
-  'peten',
-  'verapaz',
-  'izabal',
-  'quetzaltenango',
-  'huehuetenango',
+  'Sacatepequez',
+  'Solola',
+  'Peten',
+  'AltaVerapaz',
+  'IzabalNorte',
+  'Quiche',
+  'Quetzaltenango',
+  'Huehuetenango',
+  'Guatemala',
 ];
 
 export const STATUS = {
