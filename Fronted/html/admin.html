@@ -2,31 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quetzal Routes | Panel de Administración</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
+
   <style>
-    /* ── Layout base ─────────────────────────────────────────── */
     :root {
-      --admin-sidebar-w: 260px;
-      --admin-header-h: 68px;
+      --admin-sidebar-width: 260px;
+      --admin-header-height: 70px;
     }
 
     body {
-      background: var(--bg-principal);
+      background-color: var(--bg-principal);
       margin: 0;
       padding: 0;
       font-family: var(--font-cuerpo);
     }
 
-    /* ── Header ─────────────────────────────────────────────── */
+    /* ── Header ── */
     .admin-header {
-      background: var(--bg-tarjeta);
-      box-shadow: var(--shadow-sm);
-      height: var(--admin-header-h);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      height: var(--admin-header-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -34,110 +35,53 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid var(--gris-borde);
     }
-
-    .admin-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .admin-brand-icon {
-      font-size: 1.5rem;
-    }
-    .admin-brand h1 {
+    .logo-area h1 {
       font-family: var(--font-titulo);
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       color: var(--verde-quetzal);
       margin: 0;
-      line-height: 1;
     }
-    .admin-brand-tag {
-      display: inline-block;
-      background: var(--verde-quetzal);
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: var(--radius-full);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-left: 0.3rem;
-      vertical-align: middle;
+    .logo-area span {
+      font-size: 0.8rem;
+      color: var(--gris-texto);
+      font-weight: normal;
     }
-
-    .admin-header-right {
+    .admin-user {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
-    .admin-user-info {
-      text-align: right;
-    }
     .admin-user-name {
-      display: block;
-      font-weight: 700;
-      font-size: 0.9rem;
+      font-weight: 600;
       color: var(--negro-suave);
-      line-height: 1.2;
-    }
-    .admin-user-role {
-      font-size: 0.75rem;
-      color: var(--gris-texto);
-    }
-    .admin-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: var(--radius-full);
-      background: linear-gradient(135deg, var(--verde-quetzal), var(--verde-claro));
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.85rem;
-      font-family: var(--font-titulo);
     }
     .btn-logout {
       background: none;
-      border: 1.5px solid var(--rojo-huipil);
+      border: 1px solid var(--rojo-huipil);
       color: var(--rojo-huipil);
       padding: 0.4rem 1rem;
-      border-radius: var(--radius-full);
+      border-radius: 30px;
       cursor: pointer;
-      font-weight: 700;
-      font-size: 0.85rem;
+      font-weight: 600;
       transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
     }
     .btn-logout:hover {
       background: var(--rojo-huipil);
-      color: white;
+      color: #fff;
     }
 
-    /* ── Layout sidebar + contenido ─────────────────────────── */
+    /* ── Layout ── */
     .admin-layout {
       display: flex;
-      min-height: calc(100vh - var(--admin-header-h));
+      min-height: calc(100vh - var(--admin-header-height));
     }
-
     .admin-sidebar {
-      width: var(--admin-sidebar-w);
-      background: var(--bg-tarjeta);
-      border-right: 1px solid var(--gris-borde);
-      padding: 1.5rem 0;
+      width: var(--admin-sidebar-width);
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      padding: 2rem 0;
       flex-shrink: 0;
-    }
-    .admin-sidebar-section {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--gris-texto);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.8rem 1.5rem 0.4rem;
-      margin-top: 0.5rem;
     }
     .admin-sidebar ul {
       list-style: none;
@@ -145,607 +89,412 @@
       margin: 0;
     }
     .admin-sidebar li {
-      padding: 0.75rem 1.5rem;
+      padding: 0.8rem 2rem;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.8rem;
       font-weight: 600;
-      font-size: 0.9rem;
       color: var(--negro-suave);
       cursor: pointer;
-      transition: all 0.18s;
-      border-left: 3px solid transparent;
-      user-select: none;
+      transition: all 0.2s;
+      border-left: 4px solid transparent;
     }
-    .admin-sidebar li i {
-      width: 20px;
-      color: var(--gris-texto);
-      font-size: 0.9rem;
-      transition: color 0.18s;
-    }
+    .admin-sidebar li i { width: 24px; color: var(--verde-quetzal); }
     .admin-sidebar li.active {
-      background: rgba(45, 106, 79, 0.08);
+      background: rgba(45,106,79,0.08);
       border-left-color: var(--verde-quetzal);
       color: var(--verde-quetzal);
     }
-    .admin-sidebar li.active i { color: var(--verde-quetzal); }
-    .admin-sidebar li:hover:not(.active) {
-      background: var(--gris-claro);
-    }
+    .admin-sidebar li:hover:not(.active) { background: #f5f5f5; }
 
-    /* Badge de contador en el menú */
-    .nav-badge {
-      margin-left: auto;
-      background: var(--rojo-huipil);
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: var(--radius-full);
-      min-width: 20px;
-      text-align: center;
-    }
-
-    /* ── Contenido principal ─────────────────────────────────── */
+    /* ── Contenido ── */
     .admin-content {
       flex: 1;
       padding: 2rem;
       overflow-x: auto;
-      min-width: 0;
     }
-
-    /* ── Encabezado de sección ───────────────────────────────── */
-    .section-header {
+    .tab-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 1.5rem;
       flex-wrap: wrap;
       gap: 1rem;
     }
-    .section-header h2 {
-      font-family: var(--font-titulo);
-      font-size: 1.4rem;
-      color: var(--negro-suave);
+    .tab-header h2 {
       margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+      font-family: var(--font-titulo);
+      color: var(--negro-suave);
     }
-    .section-header h2 i { color: var(--verde-quetzal); font-size: 1.2rem; }
 
-    /* ── Stats grid ─────────────────────────────────────────── */
+    /* ── Stats ── */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.25rem;
+      gap: 1.5rem;
       margin-bottom: 2rem;
     }
     .stat-card {
-      background: var(--bg-tarjeta);
-      border-radius: var(--radius-xl);
+      background: #fff;
+      border-radius: 20px;
       padding: 1.5rem;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--gris-borde);
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
     }
-    .stat-card-icon {
-      font-size: 1.8rem;
-    }
+    .stat-card i { font-size: 2.2rem; color: var(--verde-quetzal); }
     .stat-number {
-      font-family: var(--font-titulo);
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 800;
+      margin: 0.5rem 0;
       color: var(--negro-suave);
-      line-height: 1;
     }
-    .stat-label {
-      font-size: 0.85rem;
-      color: var(--gris-texto);
-      font-weight: 600;
-    }
-    .stat-sub {
-      font-size: 0.75rem;
-      color: var(--gris-texto);
-    }
-    .stat-card.highlight { border-color: var(--verde-quetzal); }
-    .stat-card.highlight .stat-number { color: var(--verde-quetzal); }
+    .stat-label { color: var(--gris-texto); font-size: 0.9rem; }
+    .stat-sub { font-size: 0.75rem; color: var(--gris-texto); margin-top: 0.3rem; }
 
-    /* ── Tabla admin ─────────────────────────────────────────── */
-    .table-wrapper {
-      background: var(--bg-tarjeta);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--gris-borde);
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-    }
+    /* ── Tablas ── */
+    .table-wrap { overflow-x: auto; }
     .admin-table {
       width: 100%;
+      background: #fff;
+      border-radius: 16px;
       border-collapse: collapse;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
-    .admin-table th,
-    .admin-table td {
-      padding: 0.9rem 1.1rem;
+    .admin-table th, .admin-table td {
+      padding: 1rem;
       text-align: left;
-      border-bottom: 1px solid var(--gris-borde);
-      font-size: 0.88rem;
+      border-bottom: 1px solid #eee;
+      font-size: 0.9rem;
     }
     .admin-table th {
-      background: var(--gris-claro);
+      background: #f9f9f9;
       font-weight: 700;
       color: var(--negro-suave);
-      font-family: var(--font-titulo);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
     }
     .admin-table tr:last-child td { border-bottom: none; }
-    .admin-table tr:hover td { background: rgba(45,106,79,0.03); }
+    .admin-table tr:hover td { background: #fafafa; }
 
-    /* ── Badges ─────────────────────────────────────────────── */
-    .badge { display: inline-block; padding: 0.2rem 0.65rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; }
-    .badge-free    { background: #f0f0f0; color: #666; }
-    .badge-premium { background: #d8f3dc; color: var(--verde-quetzal); }
-    .badge-elite   { background: #fff3cd; color: #856404; }
-    .badge-active  { background: #d8f3dc; color: var(--verde-quetzal); }
-    .badge-pending { background: #fff3cd; color: #856404; }
-    .badge-inactive{ background: #ffe6e5; color: var(--rojo-huipil); }
-    .badge-expired { background: #f0f0f0; color: #666; }
+    /* ── Badges ── */
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .badge-success  { background: #e0f2e9; color: var(--verde-quetzal); }
+    .badge-warning  { background: #fff3e0; color: #e67e22; }
+    .badge-danger   { background: #ffe6e5; color: var(--rojo-huipil); }
+    .badge-neutral  { background: #f0f0f0; color: var(--gris-texto); }
 
-    /* ── Botones de acción en tabla ──────────────────────────── */
-    .action-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    /* ── Botones de acción ── */
     .btn-action {
-      padding: 0.3rem 0.75rem;
-      font-size: 0.78rem;
-      border-radius: var(--radius-full);
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      border-radius: 30px;
       border: none;
       cursor: pointer;
-      font-weight: 700;
-      transition: opacity 0.15s, transform 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
+      margin: 0 0.2rem;
+      font-weight: 600;
+      transition: opacity 0.2s;
     }
-    .btn-action:hover { opacity: 0.85; transform: translateY(-1px); }
-    .btn-action:active { transform: translateY(0); }
-    .btn-verify  { background: var(--verde-claro); color: white; }
-    .btn-approve { background: var(--verde-quetzal); color: white; }
-    .btn-reject  { background: #e0e0e0; color: #444; }
-    .btn-suspend { background: var(--rojo-huipil); color: white; }
-    .btn-restore { background: #60a5fa; color: white; }
-    .btn-view    { background: var(--negro-suave); color: white; }
+    .btn-action:hover { opacity: 0.85; }
+    .btn-action:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-verify  { background: var(--verde-claro); color: #fff; }
+    .btn-suspend { background: var(--rojo-huipil); color: #fff; }
+    .btn-approve { background: var(--verde-claro); color: #fff; }
+    .btn-reject  { background: #ccc; color: #333; }
 
-    /* ── Empty state ─────────────────────────────────────────── */
-    .empty-state {
+    /* ── Estado vacío / carga / error ── */
+    .state-box {
       text-align: center;
-      padding: 3rem 1rem;
+      padding: 4rem 2rem;
       color: var(--gris-texto);
     }
-    .empty-state p { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .state-box i { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; display: block; }
+    .state-box.error { color: var(--rojo-huipil); }
 
-    /* ── Loader skeleton ─────────────────────────────────────── */
-    .skeleton {
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.4s infinite;
-      border-radius: var(--radius-md);
-    }
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+    /* ── Info banner ── */
+    .info-banner {
+      margin-top: 1.5rem;
+      background: #fef9e6;
+      border-left: 4px solid #FFB703;
+      padding: 1rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      font-size: 0.875rem;
+      color: var(--negro-suave);
     }
 
-    /* ── Info box ────────────────────────────────────────────── */
-    .info-box {
-      padding: 1rem 1.25rem;
-      border-radius: var(--radius-lg);
-      font-size: 0.85rem;
-      margin-top: 1rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-    }
-    .info-box-yellow { background: #fef9e6; border: 1px solid #f5d87a; color: #856404; }
-    .info-box-green  { background: #d8f3dc; border: 1px solid #95d5b2; color: var(--verde-oscuro); }
-
-    /* ── Responsive ─────────────────────────────────────────── */
-    @media (max-width: 900px) {
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
       .admin-layout { flex-direction: column; }
       .admin-sidebar {
         width: 100%;
         padding: 0;
         border-right: none;
-        border-bottom: 1px solid var(--gris-borde);
+        border-bottom: 1px solid #e0e0e0;
       }
-      .admin-sidebar ul { display: flex; overflow-x: auto; gap: 0; }
+      .admin-sidebar ul { display: flex; overflow-x: auto; }
       .admin-sidebar li {
         white-space: nowrap;
         border-left: none;
         border-bottom: 3px solid transparent;
-        padding: 0.9rem 1rem;
       }
       .admin-sidebar li.active {
         border-left-color: transparent;
         border-bottom-color: var(--verde-quetzal);
       }
-      .admin-sidebar-section { display: none; }
-      .nav-badge { display: none; }
       .admin-content { padding: 1rem; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 480px) {
-      .admin-header { padding: 0 1rem; }
-      .admin-user-info { display: none; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .admin-table th, .admin-table td { padding: 0.65rem 0.75rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════════
-     HEADER
-══════════════════════════════════════════════════════════ -->
+<!-- ── HEADER ── -->
 <header class="admin-header">
-  <div class="admin-brand">
-    <span class="admin-brand-icon">🦜</span>
-    <h1>Quetzal Routes <span class="admin-brand-tag">Admin</span></h1>
+  <div class="logo-area">
+    <h1>🦜 Quetzal Routes <span>Admin</span></h1>
   </div>
-  <div class="admin-header-right">
-    <div class="admin-user-info">
-      <span class="admin-user-name" id="adminName">Cargando...</span>
-      <span class="admin-user-role">Administrador</span>
-    </div>
-    <div class="admin-avatar" id="adminAvatar">QR</div>
+  <div class="admin-user">
+    <span class="admin-user-name" id="adminName">Cargando...</span>
     <button id="logoutBtn" class="btn-logout">
-      <i class="fas fa-sign-out-alt"></i> Salir
+      <i class="fas fa-sign-out-alt"></i> Cerrar sesión
     </button>
   </div>
 </header>
 
-<!-- ══════════════════════════════════════════════════════════
-     LAYOUT PRINCIPAL
-══════════════════════════════════════════════════════════ -->
+<!-- ── LAYOUT ── -->
 <div class="admin-layout">
-
-  <!-- Sidebar -->
   <aside class="admin-sidebar">
-    <div class="admin-sidebar-section">Gestión</div>
     <ul>
       <li data-tab="stats" class="active">
-        <i class="fas fa-chart-line"></i>
-        <span>Dashboard</span>
+        <i class="fas fa-chart-line"></i><span>Estadísticas</span>
       </li>
       <li data-tab="providers">
-        <i class="fas fa-building"></i>
-        <span>Proveedores</span>
-        <span class="nav-badge" id="badgeProviders" style="display:none"></span>
+        <i class="fas fa-building"></i><span>Proveedores</span>
       </li>
       <li data-tab="destinations">
-        <i class="fas fa-map-marked-alt"></i>
-        <span>Destinos</span>
-        <span class="nav-badge" id="badgeDestinations" style="display:none"></span>
+        <i class="fas fa-map-marked-alt"></i><span>Destinos</span>
       </li>
       <li data-tab="subscriptions">
-        <i class="fas fa-credit-card"></i>
-        <span>Suscripciones</span>
-      </li>
-      <li data-tab="bookings">
-        <i class="fas fa-calendar-check"></i>
-        <span>Reservas</span>
+        <i class="fas fa-credit-card"></i><span>Suscripciones</span>
       </li>
     </ul>
   </aside>
 
-  <!-- Contenido principal -->
   <main class="admin-content" id="adminContent">
-    <div style="text-align:center;padding:3rem;">
-      <div class="skeleton" style="height:24px;width:200px;margin:0 auto 1rem;"></div>
-      <div class="skeleton" style="height:16px;width:140px;margin:0 auto;"></div>
+    <div class="state-box">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Cargando panel de administración...</p>
     </div>
   </main>
-
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     MÓDULOS JS — type="module" para importar los reales
-══════════════════════════════════════════════════════════ -->
+<!-- ── MÓDULOS ── -->
 <script type="module">
-
-  // ── Imports desde los módulos reales del proyecto ──────────
+  // ── Imports de los módulos reales ──────────────────────────────
   import {
-    getCurrentUser,
     requireAuth,
+    getCurrentUser,
     logoutUser,
-    hasRole,
   } from '../js/auth.js';
 
   import {
-    getAllDestinations,
     getAllProviders,
+    getAllDestinations,
     getSubscriptionByProvider,
-    getBookingsByProvider,
+    getCategories,
+    getDepartments,
   } from '../js/api.js';
 
-  import { showToast } from '../js/ui.js';
-
-
-  // ══════════════════════════════════════════════════════════
-  // 1. PROTECCIÓN DE RUTA — Solo admins
-  // ══════════════════════════════════════════════════════════
+  // ── Proteger la ruta: solo admins ──────────────────────────────
   requireAuth('admin');
 
-  // Pintar nombre y avatar del admin en el header
-  const me = getCurrentUser();
-  if (me) {
-    document.getElementById('adminName').textContent = me.name || 'Administrador';
-    const initials = (me.name || 'AD')
-      .split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
-    document.getElementById('adminAvatar').textContent = initials;
-  }
+  const user = getCurrentUser();
+  document.getElementById('adminName').textContent =
+    user?.name ?? user?.email ?? 'Administrador';
 
-  // Logout real
+  // ── Logout ────────────────────────────────────────────────────
   document.getElementById('logoutBtn').addEventListener('click', () => {
     if (confirm('¿Cerrar sesión de administración?')) {
       logoutUser();
+      window.location.href = 'login.html';
     }
   });
 
-
-  // ══════════════════════════════════════════════════════════
-  // 2. ESTADO GLOBAL — Datos cargados una sola vez y cacheados
-  // ══════════════════════════════════════════════════════════
-  const _cache = {
-    providers:    null,
-    destinations: null,
-    subscriptions: null,
-  };
-
-  async function getProviders() {
-    if (!_cache.providers) _cache.providers = await getAllProviders();
-    return _cache.providers;
+  // ── Toast helper ──────────────────────────────────────────────
+  function showToast(msg, type = 'success') {
+    let container = document.getElementById('toastContainer');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'toastContainer';
+      container.className = 'toast-container';
+      document.body.appendChild(container);
+    }
+    const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+      <span class="toast-icon">${icons[type] ?? icons.info}</span>
+      <span>${msg}</span>
+      <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;margin-left:auto">✕</button>
+    `;
+    container.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    setTimeout(() => toast.remove(), 4000);
   }
 
-  async function getDestinations() {
-    if (!_cache.destinations) _cache.destinations = await getAllDestinations();
-    return _cache.destinations;
-  }
-
-  async function getSubscriptions() {
-    if (_cache.subscriptions) return _cache.subscriptions;
-    const providers = await getProviders();
-    const subs = await Promise.all(
-      providers.map(p => getSubscriptionByProvider(p.id).then(s => s
-        ? { ...s, business_name: p.business_name, contact_email: p.contact_email }
-        : null
-      ))
-    );
-    _cache.subscriptions = subs.filter(Boolean);
-    return _cache.subscriptions;
-  }
-
-  function invalidateCache() {
-    _cache.providers     = null;
-    _cache.destinations  = null;
-    _cache.subscriptions = null;
-  }
-
-
-  // ══════════════════════════════════════════════════════════
-  // 3. HELPERS DE RENDER
-  // ══════════════════════════════════════════════════════════
-  function planBadge(plan) {
-    const map = { free: 'badge-free', premium: 'badge-premium', elite: 'badge-elite' };
-    return `<span class="badge ${map[plan] || ''}">${(plan || 'free').toUpperCase()}</span>`;
-  }
-
-  function statusBadge(status) {
-    const map = { active:'badge-active', pending:'badge-pending', inactive:'badge-inactive', expired:'badge-expired' };
-    const labels = { active:'Activo', pending:'Pendiente', inactive:'Inactivo', expired:'Expirado' };
-    return `<span class="badge ${map[status] || 'badge-pending'}">${labels[status] || status}</span>`;
-  }
-
-  function verifiedBadge(v) {
-    return v
-      ? `<span style="color:var(--verde-quetzal);font-weight:700;">✔ Verificado</span>`
-      : `<span style="color:var(--gris-texto);">— Sin verificar</span>`;
-  }
-
+  // ── Helpers de renderizado ────────────────────────────────────
   function setContent(html) {
     document.getElementById('adminContent').innerHTML = html;
   }
 
-  function updateNavBadge(id, count) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (count > 0) {
-      el.textContent = count;
-      el.style.display = 'inline-block';
-    } else {
-      el.style.display = 'none';
-    }
+  function planBadge(plan = 'free') {
+    const map = {
+      free:    'badge-neutral',
+      premium: 'badge-success',
+      elite:   'badge-warning',
+    };
+    return `<span class="badge ${map[plan] ?? 'badge-neutral'}">${plan.toUpperCase()}</span>`;
   }
 
+  function statusBadge(status) {
+    const map = { active: 'badge-success', pending: 'badge-warning', suspended: 'badge-danger' };
+    return `<span class="badge ${map[status] ?? 'badge-neutral'}">${status}</span>`;
+  }
 
-  // ══════════════════════════════════════════════════════════
-  // 4. TAB — DASHBOARD / ESTADÍSTICAS
-  // ══════════════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════════════════
+  // TAB: ESTADÍSTICAS
+  // ══════════════════════════════════════════════════════════════
   async function renderStats() {
-    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
-      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
-      <p>Calculando estadísticas...</p>
-    </div>`);
-
+    setContent(`<div class="state-box"><i class="fas fa-spinner fa-spin"></i><p>Cargando estadísticas...</p></div>`);
     try {
       const [providers, destinations] = await Promise.all([
-        getProviders(),
-        getDestinations(),
+        getAllProviders(),
+        getAllDestinations(),
       ]);
 
-      const verified   = providers.filter(p => p.verified).length;
-      const pending    = providers.filter(p => !p.verified).length;
-      const destActive = destinations.filter(d => d.status === 'active').length;
-      const destPending= destinations.filter(d => d.status === 'pending').length;
-      const planDist   = { free: 0, premium: 0, elite: 0 };
-      providers.forEach(p => { planDist[p.plan] = (planDist[p.plan] || 0) + 1; });
-
-      // Actualizar badges del menú
-      updateNavBadge('badgeProviders',    pending);
-      updateNavBadge('badgeDestinations', destPending);
+      const totalProviders    = providers.length;
+      const verifiedProviders = providers.filter(p => p.verified).length;
+      const totalDests        = destinations.length;
+      const pendingDests      = destinations.filter(d => d.status === 'pending').length;
+      const avgRating         = destinations.length
+        ? (destinations.reduce((s, d) => s + (d.rating_avg ?? 0), 0) / destinations.length).toFixed(1)
+        : '—';
 
       setContent(`
-        <div class="section-header">
-          <h2><i class="fas fa-chart-line"></i> Dashboard General</h2>
-          <span style="font-size:0.8rem;color:var(--gris-texto)">Datos en tiempo real desde db.json</span>
+        <div class="tab-header">
+          <h2><i class="fas fa-chart-line"></i> Estadísticas Generales</h2>
         </div>
 
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-card-icon">🏢</div>
-            <div class="stat-number">${providers.length}</div>
-            <div class="stat-label">Proveedores registrados</div>
-            <div class="stat-sub">${verified} verificados · ${pending} pendientes</div>
+            <i class="fas fa-building"></i>
+            <div class="stat-number">${totalProviders}</div>
+            <div class="stat-label">Proveedores</div>
+            <div class="stat-sub">${verifiedProviders} verificados</div>
           </div>
           <div class="stat-card">
-            <div class="stat-card-icon">🗺️</div>
-            <div class="stat-number">${destinations.length}</div>
-            <div class="stat-label">Destinos en la plataforma</div>
-            <div class="stat-sub">${destActive} activos · ${destPending} pendientes</div>
-          </div>
-          <div class="stat-card highlight">
-            <div class="stat-card-icon">⭐</div>
-            <div class="stat-number">${planDist.elite}</div>
-            <div class="stat-label">Proveedores Plan Elite</div>
-            <div class="stat-sub">${planDist.premium} Premium · ${planDist.free} Free</div>
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="stat-number">${totalDests}</div>
+            <div class="stat-label">Destinos activos</div>
+            <div class="stat-sub">${pendingDests} pendientes</div>
           </div>
           <div class="stat-card">
-            <div class="stat-card-icon">📊</div>
-            <div class="stat-number">${Math.round((verified/Math.max(providers.length,1))*100)}%</div>
-            <div class="stat-label">Tasa de verificación</div>
-            <div class="stat-sub">Proveedores aprobados por admin</div>
+            <i class="fas fa-star"></i>
+            <div class="stat-number">${avgRating}</div>
+            <div class="stat-label">Calificación promedio</div>
+            <div class="stat-sub">de todos los destinos</div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-tags"></i>
+            <div class="stat-number">${destinations.filter(d => d.featured).length}</div>
+            <div class="stat-label">Destinos destacados</div>
+            <div class="stat-sub">visibles en el home</div>
           </div>
         </div>
 
-        <div class="section-header" style="margin-top:1rem">
-          <h2><i class="fas fa-list-alt"></i> Acciones pendientes</h2>
-        </div>
-
-        <div class="table-wrapper">
-          <table class="admin-table">
-            <thead>
-              <tr><th>Tipo</th><th>Ítem</th><th>Estado</th><th>Acción rápida</th></tr>
-            </thead>
-            <tbody>
-              ${providers.filter(p => !p.verified).map(p => `
-                <tr>
-                  <td><i class="fas fa-building" style="color:var(--verde-quetzal)"></i> Proveedor</td>
-                  <td><strong>${p.business_name}</strong><br><small>${p.contact_email}</small></td>
-                  <td>${statusBadge('pending')}</td>
-                  <td>
-                    <div class="action-btns">
-                      <button class="btn-action btn-verify" data-action="verify-provider" data-id="${p.id}">
-                        <i class="fas fa-check"></i> Verificar
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              `).join('')}
-              ${destinations.filter(d => d.status === 'pending').map(d => `
-                <tr>
-                  <td><i class="fas fa-map-marker-alt" style="color:var(--verde-quetzal)"></i> Destino</td>
-                  <td><strong>${d.title}</strong></td>
-                  <td>${statusBadge('pending')}</td>
-                  <td>
-                    <div class="action-btns">
-                      <button class="btn-action btn-approve" data-action="approve-dest" data-id="${d.id}">
-                        <i class="fas fa-check"></i> Aprobar
-                      </button>
-                      <button class="btn-action btn-reject" data-action="reject-dest" data-id="${d.id}">
-                        Rechazar
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              `).join('')}
-              ${(pending + destPending) === 0 ? `
-                <tr><td colspan="4" class="empty-state">
-                  <p>✅</p>
-                  <strong>Todo al día</strong><br>
-                  <small>No hay acciones pendientes.</small>
-                </td></tr>
-              ` : ''}
-            </tbody>
-          </table>
+        <div style="background:#fff;border-radius:20px;padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+          <h3 style="margin:0 0 0.75rem;font-family:var(--font-titulo)">Destinos por categoría</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+            ${Object.entries(
+              destinations.reduce((acc, d) => {
+                acc[d.category] = (acc[d.category] ?? 0) + 1;
+                return acc;
+              }, {})
+            ).map(([cat, count]) =>
+              `<span class="badge badge-success" style="font-size:0.85rem;padding:0.4rem 0.8rem">
+                ${cat} (${count})
+              </span>`
+            ).join('')}
+          </div>
         </div>
       `);
-
-      _bindActions();
-
     } catch (err) {
-      console.error('[admin] renderStats:', err);
-      setContent(`<div class="empty-state"><p>⚠️</p><strong>Error cargando estadísticas</strong></div>`);
+      setContent(`<div class="state-box error"><i class="fas fa-exclamation-circle"></i><p>Error al cargar estadísticas: ${err.message}</p></div>`);
     }
   }
 
-
-  // ══════════════════════════════════════════════════════════
-  // 5. TAB — PROVEEDORES
-  // ══════════════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════════════════
+  // TAB: PROVEEDORES
+  // ══════════════════════════════════════════════════════════════
   async function renderProviders() {
-    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
-      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
-    </div>`);
-
+    setContent(`<div class="state-box"><i class="fas fa-spinner fa-spin"></i><p>Cargando proveedores...</p></div>`);
     try {
-      const providers = await getProviders();
+      const providers = await getAllProviders();
+
+      if (!providers.length) {
+        setContent(`<div class="state-box"><i class="fas fa-building"></i><p>No hay proveedores registrados.</p></div>`);
+        return;
+      }
 
       setContent(`
-        <div class="section-header">
-          <h2><i class="fas fa-building"></i> Gestión de Proveedores</h2>
-          <button class="btn btn-outline" id="refreshProviders">
+        <div class="tab-header">
+          <h2><i class="fas fa-building"></i> Gestión de Proveedores (${providers.length})</h2>
+          <button class="btn btn-outline btn-sm" id="refreshProviders">
             <i class="fas fa-sync-alt"></i> Refrescar
           </button>
         </div>
 
-        <div class="table-wrapper">
+        <div class="table-wrap">
           <table class="admin-table">
             <thead>
               <tr>
-                <th>Negocio</th>
-                <th>Contacto</th>
+                <th>Empresa</th>
+                <th>Email</th>
+                <th>WhatsApp</th>
                 <th>Plan</th>
                 <th>Verificado</th>
-                <th>Registrado</th>
+                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              ${providers.length === 0 ? `
-                <tr><td colspan="6" class="empty-state"><p>🏢</p>Sin proveedores aún.</td></tr>
-              ` : providers.map(p => `
+              ${providers.map(p => `
                 <tr>
-                  <td>
-                    <strong>${p.business_name}</strong>
-                    ${p.website ? `<br><small><a href="https://${p.website}" target="_blank" style="color:var(--verde-quetzal)">${p.website}</a></small>` : ''}
-                  </td>
-                  <td>
-                    ${p.contact_email}<br>
-                    ${p.whatsapp ? `<small>${p.whatsapp}</small>` : ''}
-                  </td>
+                  <td><strong>${p.business_name ?? '—'}</strong></td>
+                  <td>${p.contact_email ?? '—'}</td>
+                  <td>${p.whatsapp ?? '—'}</td>
                   <td>${planBadge(p.plan)}</td>
-                  <td>${verifiedBadge(p.verified)}</td>
-                  <td style="font-size:0.8rem;color:var(--gris-texto)">${p.created_at || '—'}</td>
                   <td>
-                    <div class="action-btns">
-                      ${!p.verified
-                        ? `<button class="btn-action btn-verify" data-action="verify-provider" data-id="${p.id}"><i class="fas fa-check"></i> Verificar</button>`
-                        : `<button class="btn-action btn-restore" data-action="unverify-provider" data-id="${p.id}"><i class="fas fa-undo"></i> Desverificar</button>`
-                      }
-                      <button class="btn-action btn-suspend" data-action="suspend-provider" data-id="${p.id}"><i class="fas fa-ban"></i></button>
-                    </div>
+                    ${p.verified
+                      ? '<i class="fas fa-check-circle" style="color:var(--verde-quetzal)"></i> Sí'
+                      : '<i class="fas fa-times-circle" style="color:var(--rojo-huipil)"></i> No'}
+                  </td>
+                  <td>${statusBadge(p.status ?? 'active')}</td>
+                  <td>
+                    ${!p.verified
+                      ? `<button class="btn-action btn-verify"
+                           data-id="${p.id}" data-action="verify">
+                           Verificar
+                         </button>`
+                      : ''}
+                    <button class="btn-action btn-suspend"
+                        data-id="${p.id}" data-action="suspend">
+                        Suspender
+                    </button>
                   </td>
                 </tr>
               `).join('')}
@@ -754,366 +503,199 @@
         </div>
       `);
 
-      document.getElementById('refreshProviders')?.addEventListener('click', () => {
-        invalidateCache();
-        renderProviders();
+      // Eventos — verificar proveedor
+      document.querySelectorAll('[data-action="verify"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          btn.disabled = true;
+          btn.textContent = 'Guardando...';
+          // Aquí iría: await updateProvider(btn.dataset.id, { verified: true });
+          // Por ahora simulamos éxito hasta que el backend REST esté activo
+          await new Promise(r => setTimeout(r, 600));
+          showToast('Proveedor verificado correctamente ✓', 'success');
+          renderProviders();
+        });
       });
 
-      _bindActions();
+      // Eventos — suspender proveedor
+      document.querySelectorAll('[data-action="suspend"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          showToast('Función disponible cuando el backend REST esté activo', 'info');
+        });
+      });
+
+      // Refrescar
+      document.getElementById('refreshProviders')?.addEventListener('click', renderProviders);
 
     } catch (err) {
-      console.error('[admin] renderProviders:', err);
-      showToast('Error cargando proveedores', 'error');
+      setContent(`<div class="state-box error"><i class="fas fa-exclamation-circle"></i><p>Error: ${err.message}</p></div>`);
     }
   }
 
-
-  // ══════════════════════════════════════════════════════════
-  // 6. TAB — DESTINOS
-  // ══════════════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════════════════
+  // TAB: DESTINOS
+  // ══════════════════════════════════════════════════════════════
   async function renderDestinations() {
-    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
-      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
-    </div>`);
-
+    setContent(`<div class="state-box"><i class="fas fa-spinner fa-spin"></i><p>Cargando destinos...</p></div>`);
     try {
-      const [destinations, providers] = await Promise.all([
-        getDestinations(),
-        getProviders(),
-      ]);
+      const destinations = await getAllDestinations();
 
-      // Mapa id → nombre de proveedor
-      const provMap = {};
-      providers.forEach(p => { provMap[p.id] = p.business_name; });
-
-      const filterBtns = ['all','active','pending','inactive'];
-      let activeFilter = 'all';
-
-      function renderTable(filter) {
-        activeFilter = filter;
-        const filtered = filter === 'all'
-          ? destinations
-          : destinations.filter(d => d.status === filter);
-
-        const tbody = filtered.length === 0
-          ? `<tr><td colspan="7" class="empty-state"><p>🗺️</p>Sin destinos con este filtro.</td></tr>`
-          : filtered.map(d => `
-            <tr>
-              <td><strong>${d.title}</strong><br><small style="color:var(--gris-texto)">${d.category || ''}</small></td>
-              <td>${provMap[d.provider_id] || `#${d.provider_id}`}</td>
-              <td>${d.department || '—'}</td>
-              <td>Q${d.price_from ?? '—'}${d.price_to ? ` – Q${d.price_to}` : ''}</td>
-              <td>${statusBadge(d.status)}</td>
-              <td>${d.featured ? '⭐ Sí' : '—'}</td>
-              <td>
-                <div class="action-btns">
-                  ${d.status === 'pending'
-                    ? `<button class="btn-action btn-approve" data-action="approve-dest" data-id="${d.id}"><i class="fas fa-check"></i> Aprobar</button>
-                       <button class="btn-action btn-reject"  data-action="reject-dest"  data-id="${d.id}">Rechazar</button>`
-                    : d.status === 'active'
-                      ? `<button class="btn-action btn-suspend" data-action="pause-dest" data-id="${d.id}"><i class="fas fa-pause"></i></button>`
-                      : `<button class="btn-action btn-restore" data-action="restore-dest" data-id="${d.id}"><i class="fas fa-play"></i></button>`
-                  }
-                </div>
-              </td>
-            </tr>
-          `).join('');
-
-        document.getElementById('destTableBody').innerHTML = tbody;
-        _bindActions();
-
-        // Actualizar botones de filtro activo
-        document.querySelectorAll('.dest-filter-btn').forEach(btn => {
-          btn.classList.toggle('btn-primary', btn.dataset.filter === filter);
-          btn.classList.toggle('btn-outline', btn.dataset.filter !== filter);
-        });
+      if (!destinations.length) {
+        setContent(`<div class="state-box"><i class="fas fa-map-marked-alt"></i><p>No hay destinos registrados.</p></div>`);
+        return;
       }
 
+      const pending = destinations.filter(d => d.status === 'pending');
+      const active  = destinations.filter(d => d.status === 'active');
+
       setContent(`
-        <div class="section-header">
-          <h2><i class="fas fa-map-marked-alt"></i> Moderación de Destinos</h2>
-          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-            ${filterBtns.map(f => `
-              <button class="btn btn-sm dest-filter-btn ${f==='all'?'btn-primary':'btn-outline'}" data-filter="${f}">
-                ${f === 'all' ? 'Todos' : f.charAt(0).toUpperCase() + f.slice(1)}
-              </button>
-            `).join('')}
+        <div class="tab-header">
+          <h2><i class="fas fa-map-marked-alt"></i> Moderación de Destinos (${destinations.length})</h2>
+          <div style="display:flex;gap:0.5rem">
+            <span class="badge badge-warning">${pending.length} pendientes</span>
+            <span class="badge badge-success">${active.length} activos</span>
           </div>
         </div>
 
-        <div class="table-wrapper">
+        <div class="table-wrap">
           <table class="admin-table">
             <thead>
               <tr>
-                <th>Destino</th><th>Proveedor</th><th>Departamento</th>
-                <th>Precio</th><th>Estado</th><th>Destacado</th><th>Acciones</th>
+                <th>Título</th>
+                <th>Categoría</th>
+                <th>Departamento</th>
+                <th>Rating</th>
+                <th>Reseñas</th>
+                <th>Estado</th>
+                <th>Acciones</th>
               </tr>
             </thead>
-            <tbody id="destTableBody"></tbody>
-          </table>
-        </div>
-      `);
-
-      // Eventos de filtro
-      document.querySelectorAll('.dest-filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => renderTable(btn.dataset.filter));
-      });
-
-      renderTable('all');
-
-    } catch (err) {
-      console.error('[admin] renderDestinations:', err);
-      showToast('Error cargando destinos', 'error');
-    }
-  }
-
-
-  // ══════════════════════════════════════════════════════════
-  // 7. TAB — SUSCRIPCIONES
-  // ══════════════════════════════════════════════════════════
-  async function renderSubscriptions() {
-    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
-      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
-    </div>`);
-
-    try {
-      const subs = await getSubscriptions();
-
-      const totalRevenue = subs
-        .filter(s => s.status === 'active' && s.plan !== 'free')
-        .reduce((acc, s) => acc + (s.amount_quetzales || 0), 0);
-
-      setContent(`
-        <div class="section-header">
-          <h2><i class="fas fa-credit-card"></i> Planes y Suscripciones</h2>
-          <div style="background:var(--verde-quetzal);color:#fff;padding:0.5rem 1.2rem;border-radius:var(--radius-full);font-weight:700;font-size:0.9rem">
-            💰 Ingresos activos: Q${totalRevenue.toFixed(2)}/mes
-          </div>
-        </div>
-
-        <div class="table-wrapper">
-          <table class="admin-table">
-            <thead>
-              <tr><th>Proveedor</th><th>Email</th><th>Plan</th><th>Monto</th><th>Inicio</th><th>Vencimiento</th><th>Estado</th></tr>
-            </thead>
             <tbody>
-              ${subs.length === 0
-                ? `<tr><td colspan="7" class="empty-state"><p>💳</p>Sin suscripciones.</td></tr>`
-                : subs.map(s => {
-                    const isExpiring = s.end_date && _daysUntil(s.end_date) <= 30 && s.status === 'active';
-                    return `
-                    <tr ${isExpiring ? 'style="background:#fffbeb"' : ''}>
-                      <td><strong>${s.business_name || '—'}</strong></td>
-                      <td style="font-size:0.82rem">${s.contact_email || '—'}</td>
-                      <td>${planBadge(s.plan)}</td>
-                      <td>${s.plan === 'free' ? '—' : `Q${s.amount_quetzales}`}</td>
-                      <td style="font-size:0.82rem">${s.start_date || '—'}</td>
-                      <td style="font-size:0.82rem">
-                        ${s.end_date || '—'}
-                        ${isExpiring ? `<br><small style="color:var(--rojo-huipil)">⚠ Vence en ${_daysUntil(s.end_date)}d</small>` : ''}
-                      </td>
-                      <td>${statusBadge(s.status)}</td>
-                    </tr>
-                  `}).join('')
-              }
+              ${destinations.map(d => `
+                <tr>
+                  <td><strong>${d.title}</strong></td>
+                  <td>${d.category ?? '—'}</td>
+                  <td>${d.department ?? '—'}</td>
+                  <td>⭐ ${d.rating_avg?.toFixed(1) ?? '—'}</td>
+                  <td>${d.reviews_count ?? 0}</td>
+                  <td>${statusBadge(d.status ?? 'active')}</td>
+                  <td>
+                    ${d.status === 'pending'
+                      ? `<button class="btn-action btn-approve" data-id="${d.id}" data-action="approve">Aprobar</button>
+                         <button class="btn-action btn-reject"  data-id="${d.id}" data-action="reject">Rechazar</button>`
+                      : '<span style="color:var(--gris-texto);font-size:0.8rem">—</span>'}
+                  </td>
+                </tr>
+              `).join('')}
             </tbody>
           </table>
         </div>
 
-        <div class="info-box info-box-yellow" style="margin-top:1rem">
+        <div class="info-banner">
           <i class="fas fa-info-circle"></i>
-          <span>Los pagos se procesan externamente. Este panel es solo de visualización y monitoreo.</span>
+          Las acciones de aprobación/rechazo estarán activas cuando el backend REST esté conectado.
         </div>
       `);
 
+      document.querySelectorAll('[data-action="approve"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          showToast('Aprobación disponible con backend REST activo', 'info');
+        });
+      });
+      document.querySelectorAll('[data-action="reject"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          showToast('Rechazo disponible con backend REST activo', 'info');
+        });
+      });
+
     } catch (err) {
-      console.error('[admin] renderSubscriptions:', err);
-      showToast('Error cargando suscripciones', 'error');
+      setContent(`<div class="state-box error"><i class="fas fa-exclamation-circle"></i><p>Error: ${err.message}</p></div>`);
     }
   }
 
-
-  // ══════════════════════════════════════════════════════════
-  // 8. TAB — RESERVAS
-  // ══════════════════════════════════════════════════════════
-  async function renderBookings() {
-    setContent(`<div style="text-align:center;padding:2rem;color:var(--gris-texto)">
-      <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--verde-claro)"></i>
-    </div>`);
-
+  // ══════════════════════════════════════════════════════════════
+  // TAB: SUSCRIPCIONES
+  // ══════════════════════════════════════════════════════════════
+  async function renderSubscriptions() {
+    setContent(`<div class="state-box"><i class="fas fa-spinner fa-spin"></i><p>Cargando suscripciones...</p></div>`);
     try {
-      const providers    = await getProviders();
-      const destinations = await getDestinations();
+      const providers = await getAllProviders();
 
-      // Agregar bookings de todos los proveedores
-      const allBookings = [];
-      await Promise.all(
-        providers.map(async p => {
-          const bookings = await getBookingsByProvider(p.id).catch(() => []);
-          (bookings || []).forEach(b => {
-            const dest = destinations.find(d => d.id === b.destination_id);
-            allBookings.push({
-              ...b,
-              providerName: p.business_name,
-              destTitle:    dest?.title || `Destino #${b.destination_id}`,
-            });
-          });
-        })
+      // Cargar suscripción de cada proveedor en paralelo
+      const subsResults = await Promise.allSettled(
+        providers.map(p => getSubscriptionByProvider(p.id))
       );
 
-      allBookings.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-      const totalCommission = allBookings
-        .filter(b => b.status === 'completed')
-        .reduce((acc, b) => acc + (b.commission_amount || 0), 0);
+      const rows = providers.map((p, i) => {
+        const sub = subsResults[i].status === 'fulfilled' ? subsResults[i].value : null;
+        return { provider: p, sub };
+      });
 
       setContent(`
-        <div class="section-header">
-          <h2><i class="fas fa-calendar-check"></i> Reservas de la Plataforma</h2>
-          <div style="background:var(--negro-suave);color:#fff;padding:0.5rem 1.2rem;border-radius:var(--radius-full);font-weight:700;font-size:0.9rem">
-            🏦 Comisiones: Q${totalCommission.toFixed(2)}
-          </div>
+        <div class="tab-header">
+          <h2><i class="fas fa-credit-card"></i> Planes y Suscripciones</h2>
         </div>
 
-        <div class="table-wrapper">
+        <div class="table-wrap">
           <table class="admin-table">
             <thead>
-              <tr><th>Destino</th><th>Proveedor</th><th>Fecha</th><th>Personas</th><th>Total</th><th>Comisión (10%)</th><th>Estado</th></tr>
+              <tr>
+                <th>Proveedor</th>
+                <th>Plan actual</th>
+                <th>Monto</th>
+                <th>Válido hasta</th>
+                <th>Estado</th>
+              </tr>
             </thead>
             <tbody>
-              ${allBookings.length === 0
-                ? `<tr><td colspan="7" class="empty-state"><p>📅</p>Sin reservas aún.</td></tr>`
-                : allBookings.map(b => `
-                  <tr>
-                    <td><strong>${b.destTitle}</strong></td>
-                    <td>${b.providerName}</td>
-                    <td style="font-size:0.82rem">${b.date_requested || '—'}</td>
-                    <td style="text-align:center">${b.people_count}</td>
-                    <td>Q${Number(b.total_amount || 0).toFixed(2)}</td>
-                    <td style="color:var(--verde-quetzal);font-weight:700">Q${Number(b.commission_amount || 0).toFixed(2)}</td>
-                    <td>${statusBadge(b.status)}</td>
-                  </tr>
-                `).join('')
-              }
+              ${rows.map(({ provider: p, sub }) => `
+                <tr>
+                  <td><strong>${p.business_name ?? '—'}</strong></td>
+                  <td>${planBadge(sub?.plan ?? p.plan ?? 'free')}</td>
+                  <td>${sub ? `Q${sub.amount_quetzales ?? 0}` : '—'}</td>
+                  <td>${sub?.end_date ?? p.plan_expiry ?? '—'}</td>
+                  <td>${statusBadge(sub?.status ?? 'active')}</td>
+                </tr>
+              `).join('')}
             </tbody>
           </table>
+        </div>
+
+        <div class="info-banner">
+          <i class="fas fa-info-circle"></i>
+          Los pagos se procesan vía sistema externo. Este panel es solo de visualización.
         </div>
       `);
 
     } catch (err) {
-      console.error('[admin] renderBookings:', err);
-      showToast('Error cargando reservas', 'error');
+      setContent(`<div class="state-box error"><i class="fas fa-exclamation-circle"></i><p>Error: ${err.message}</p></div>`);
     }
   }
 
-
-  // ══════════════════════════════════════════════════════════
-  // 9. ACCIONES — Verificar / Aprobar / Rechazar / Suspender
-  //    NOTA: Con db.json estas acciones son simuladas.
-  //    Cuando se conecte el backend real, reemplazar el
-  //    console.log por llamadas al api.js correspondiente.
-  // ══════════════════════════════════════════════════════════
-  function _bindActions() {
-    document.querySelectorAll('[data-action]').forEach(btn => {
-      if (btn.dataset.bound) return;
-      btn.dataset.bound = 'true';
-
-      btn.addEventListener('click', async () => {
-        const action = btn.dataset.action;
-        const id     = parseInt(btn.dataset.id);
-
-        switch (action) {
-          case 'verify-provider':
-            // TODO con backend: await api.post(`/providers/${id}/verify`)
-            console.log(`[admin] Verificar proveedor ID=${id}`);
-            showToast(`Proveedor #${id} verificado ✔`, 'success');
-            invalidateCache();
-            loadTab(currentTab);
-            break;
-
-          case 'unverify-provider':
-            console.log(`[admin] Desverificar proveedor ID=${id}`);
-            showToast(`Verificación retirada al proveedor #${id}`, 'warning');
-            invalidateCache();
-            loadTab(currentTab);
-            break;
-
-          case 'suspend-provider':
-            if (!confirm(`¿Suspender acceso al proveedor #${id}?`)) return;
-            console.log(`[admin] Suspender proveedor ID=${id}`);
-            showToast(`Proveedor #${id} suspendido`, 'error');
-            break;
-
-          case 'approve-dest':
-            // TODO con backend: await api.patch(`/destinations/${id}`, { status: 'active' })
-            console.log(`[admin] Aprobar destino ID=${id}`);
-            showToast(`Destino #${id} aprobado y visible en la plataforma ✔`, 'success');
-            invalidateCache();
-            loadTab(currentTab);
-            break;
-
-          case 'reject-dest':
-            if (!confirm(`¿Rechazar y eliminar el destino #${id}?`)) return;
-            console.log(`[admin] Rechazar destino ID=${id}`);
-            showToast(`Destino #${id} rechazado`, 'warning');
-            break;
-
-          case 'pause-dest':
-            console.log(`[admin] Pausar destino ID=${id}`);
-            showToast(`Destino #${id} pausado temporalmente`, 'warning');
-            break;
-
-          case 'restore-dest':
-            console.log(`[admin] Restaurar destino ID=${id}`);
-            showToast(`Destino #${id} restaurado como activo`, 'success');
-            break;
-        }
-      });
-    });
-  }
-
-
-  // ══════════════════════════════════════════════════════════
-  // 10. NAVEGACIÓN POR TABS
-  // ══════════════════════════════════════════════════════════
-  let currentTab = 'stats';
+  // ══════════════════════════════════════════════════════════════
+  // ROUTER DE TABS
+  // ══════════════════════════════════════════════════════════════
+  const TAB_RENDERERS = {
+    stats:         renderStats,
+    providers:     renderProviders,
+    destinations:  renderDestinations,
+    subscriptions: renderSubscriptions,
+  };
 
   function loadTab(tabName) {
-    currentTab = tabName;
-
     document.querySelectorAll('.admin-sidebar li').forEach(li => {
       li.classList.toggle('active', li.dataset.tab === tabName);
     });
-
-    switch (tabName) {
-      case 'stats':         renderStats();         break;
-      case 'providers':     renderProviders();     break;
-      case 'destinations':  renderDestinations();  break;
-      case 'subscriptions': renderSubscriptions(); break;
-      case 'bookings':      renderBookings();      break;
-      default:              renderStats();
-    }
+    const renderer = TAB_RENDERERS[tabName] ?? renderStats;
+    renderer();
   }
 
   document.querySelectorAll('.admin-sidebar li').forEach(li => {
     li.addEventListener('click', () => loadTab(li.dataset.tab));
   });
 
-
-  // ══════════════════════════════════════════════════════════
-  // 11. HELPERS
-  // ══════════════════════════════════════════════════════════
-  function _daysUntil(dateStr) {
-    const diff = new Date(dateStr) - new Date();
-    return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
-  }
-
-
-  // ══════════════════════════════════════════════════════════
-  // INIT — Cargar el dashboard al entrar
-  // ══════════════════════════════════════════════════════════
+  // ── Cargar tab inicial ─────────────────────────────────────────
   loadTab('stats');
-
 </script>
+
 </body>
 </html>
