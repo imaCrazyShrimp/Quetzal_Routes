@@ -6,10 +6,13 @@
    ============================================================ */
 
 // ── Configuración ─────────────────────────────────────────────
-const DB_URL = '../data/db.json';
+const DB_URL = '../../db/db.json';
 
 // Cache en memoria para no hacer fetch múltiples veces
 let _cache = null;
+
+// Ususarios creados dinamicamente
+const USERS_STORAGE_KEY = 'qr_users';
 
 // ── Función base: carga db.json una sola vez ──────────────────
 async function getDB() {
@@ -265,7 +268,22 @@ export async function createBooking(bookingData) {
  */
 export async function getUserByEmail(email) {
   const db = await getDB();
-  return db.users.find(u => u.email === email) || null;
+  
+  // Usuarios originales del db.json
+  const dbUsers = db.users || [];
+
+  // Usuarios registrados dinamicamente
+  const localUsers =
+  JSON.parse(localStorage.getItem(USERS_STORAGE_KEY) || '[]'); // cambio echo!
+
+  // Unificar usuarios
+  const allUsers = [...dbUsers, ...localUsers];
+
+  return (
+    allUsers.find(
+      u => u.email.toLowerCase() == email.toLowerCase()
+    ) || null
+  );
 }
 
 /**

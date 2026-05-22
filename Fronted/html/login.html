@@ -150,6 +150,11 @@
        SCRIPTS
   ============================================================ -->
   <script type="module">
+    import {
+    loginUser,
+    getRedirectByRole
+  } from '../js/auth.js';
+
 
     /* ----------------------------------------------------------
        TABS DE ROL
@@ -225,28 +230,27 @@
       btn.textContent = 'Iniciando sesión...';
       btn.disabled    = true;
 
-      // Simulación de login (reemplazar con auth.js cuando esté listo)
-      await new Promise(r => setTimeout(r, 1200));
+      // Login REAL usando auth.js
+      const result = await loginUser(email, password);
 
-      // Demo: credenciales de prueba
-      const mockUsers = {
-        'carlos@example.com':    { role: 'tourist',  redirect: 'explore.html' },
-        'ana@quetzaltours.gt':   { role: 'provider', redirect: 'dashboard-provider.html' },
-        'admin@quetzalroutes.gt':{ role: 'admin',    redirect: 'admin.html' },
-      };
-
-      const user = mockUsers[email];
-      if (user && password.length >= 6) {
-        // Guardar sesión mock
-        sessionStorage.setItem('qr_user', JSON.stringify({ email, role: user.role }));
+      if (result.ok) {
         showToast('¡Bienvenido! Redirigiendo...', 'success');
-        setTimeout(() => window.location.href = user.redirect, 1000);
+
+        setTimeout(() => {
+          window.location.href =
+            getRedirectByRole(result.user.role);
+        }, 1000);
+
       } else {
         btn.textContent = 'Iniciar sesión';
         btn.disabled    = false;
-        showToast('Credenciales incorrectas. Intenta de nuevo.', 'error');
+
+        showToast(result.error, 'error');
+
         showError('loginEmail', 'emailError');
-        document.getElementById('emailError').textContent = 'Correo o contraseña incorrectos';
+
+        document.getElementById('emailError').textContent =
+          result.error;
       }
     });
 
@@ -266,7 +270,6 @@
       container.appendChild(toast);
       setTimeout(() => toast.remove(), 4000);
     }
-
   </script>
 
 </body>

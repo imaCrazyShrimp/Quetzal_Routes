@@ -34,6 +34,19 @@
       </ul>
 
       <div class="navbar-actions">
+        <!-- Invitado -->
+        <div id="guestButtons">
+          <a href="login.html">Iniciar sesión</a>
+          <a href="register.html">Registrarse</a>
+        </div>
+
+        <!-- Usuario -->
+        <div id="userButtons" style="display:none;">
+          <a id="profileBtn" href="#">Mi perfil</a>
+          <button id="logoutBtn">Cerrar sesión</button>
+        </div>
+        
+        
         <button class="lang-toggle" id="langToggle" aria-label="Cambiar idioma">
           <span class="lang-active" id="langCurrent">ES</span>
           <span style="color:var(--gris-borde)">|</span>
@@ -646,6 +659,74 @@
     import { toggleLoader, showToast } from '../js/ui.js';
 
     /* ----------------------------------------------------------
+       SESIÓN — navbar dinámico
+    ---------------------------------------------------------- */
+    const storedUser = localStorage.getItem('qr_user');
+
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+
+      const navbarActions = document.querySelector('.navbar-actions');
+
+      if (!navbarActions) {
+        console.error('No existe .navbar-actions');
+      } else {
+
+        // Ocultar botones originales
+        document.getElementById('navLoginBtn')?.remove();
+        document.getElementById('navRegisterBtn')?.remove();
+
+        // Crear perfil dinámico
+        let dashboardLink = 'explore.html';
+
+        if (user.role === 'provider') {
+          dashboardLink = 'dashboard-provider.html';
+        }
+
+        if (user.role === 'admin') {
+          dashboardLink = 'admin.html';
+        }
+
+        navbarActions.insertAdjacentHTML('beforeend', `
+          <a href="${dashboardLink}" class="btn btn-outline btn-sm">
+            👤 ${user.email}
+          </a>
+
+          <button class="btn btn-accent btn-sm" id="logoutBtn">
+            Cerrar sesión
+          </button>
+        `);
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+          localStorage.removeItem('qr_user');
+          window.location.reload();
+        });
+
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenu) {
+          mobileMenu.innerHTML += `
+            <a href="${dashboardLink}">👤 ${user.email}</a>
+            <button class="btn btn-accent btn-sm btn-block" id="mobileLogoutBtn">
+              Cerrar sesión
+            </button>
+          `;
+
+          // Eliminar links viejos
+          mobileMenu.querySelectorAll('a[href="login.html"], a[href="register.html"]')
+            .forEach(el => el.remove());
+
+          // Logout móvil
+          document.getElementById('mobileLogoutBtn')?.addEventListener('click', () => {
+            localStorage.removeItem('qr_user');
+            window.location.reload();
+          });
+        }
+      }
+    }
+
+    /* ----------------------------------------------------------
        NAVBAR — scroll effect
     ---------------------------------------------------------- */
     const navbar = document.getElementById('navbar');
@@ -659,10 +740,12 @@
     const navToggle = document.getElementById('navToggle');
     const mobileMenu = document.getElementById('mobileMenu');
 
+  if (navToggle && mobileMenu) {
     navToggle.addEventListener('click', () => {
       navToggle.classList.toggle('open');
       mobileMenu.classList.toggle('open');
     });
+  }
 
     // Cerrar menú al hacer click en un enlace
     mobileMenu.querySelectorAll('a').forEach(link => {
@@ -682,7 +765,7 @@
     ];
     let currentSlide = 0;
     const heroBgImg   = document.getElementById('heroBgImg');
-    const herosDots   = document.querySelectorAll('.hero-dot');
+    const heroDots   = document.querySelectorAll('.hero-dot');
 
     function goToSlide(index) {
       currentSlide = index;
@@ -694,7 +777,7 @@
       herosDots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
     }
 
-    herosDots.forEach(dot => {
+    heroDots.forEach(dot => {
       dot.addEventListener('click', () => goToSlide(Number(dot.dataset.index)));
     });
 
