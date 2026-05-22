@@ -86,7 +86,7 @@ export function logoutUser() {
  */
 function _saveSession(user) {
   // Nunca guardar password_hash en el cliente
-  const { password_hash, ...safeUser } = user;
+  const { password, password_hash, ...safeUser } = user;
   localStorage.setItem(SESSION_KEY, JSON.stringify(safeUser));
 }
 
@@ -116,7 +116,7 @@ export async function loginUser(email, password) {
 
     // En mock: cualquier contraseña no vacía es válida.
     // Con backend real: la verificación del hash la hace el servidor.
-    if (!password || password.length < 1) {
+    if (user.password !== password) {
       return { ok: false, error: 'La contraseña es incorrecta.' };
     }
 
@@ -182,6 +182,7 @@ export async function registerUser(data) {
       id:         Date.now(),
       name:       data.name.trim(),
       email:      data.email.trim().toLowerCase(),
+      password:   data.password,
       language:   data.language || 'es',
       role:       data.role || 'tourist',
       created_at: new Date().toISOString().split('T')[0],
@@ -197,6 +198,19 @@ export async function registerUser(data) {
         verified:    false,
       };
     }
+
+    // Obtener usuarios existentes
+    const users =
+      JSON.parse(localStorage.getItem('qr_users') || '[]');
+
+    // Agregar nuevo usuario  
+    users.push(newUser);  
+
+    // Guardar nuevamente
+    localStorage.setItem(
+      'qr_users',
+      JSON.stringify(users)
+    );
 
     // Registro exitoso → guardar en localStorage
     _saveSession(newUser);

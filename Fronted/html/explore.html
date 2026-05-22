@@ -498,6 +498,41 @@
        SCRIPTS
   ============================================================ -->
   <script type="module">
+    /* ----------------------------------------------------------
+      SESIÓN — navbar dinámico
+    ---------------------------------------------------------- */
+    const storedUser = localStorage.getItem('qr_user');
+
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      const navbarActions = document.querySelector('.navbar-actions');
+
+      if (navbarActions) {
+        // Quitar botones de invitado
+        navbarActions.querySelectorAll('a[href="login.html"], a[href="register.html"]')
+          .forEach(el => el.remove());
+
+        // Link al dashboard según rol
+        let dashboardLink = 'explore.html';
+        if (user.role === 'provider') dashboardLink = 'dashboard-provider.html';
+        if (user.role === 'admin')    dashboardLink = 'admin.html';
+
+        // Insertar botones de usuario
+        navbarActions.insertAdjacentHTML('beforeend', `
+          <a href="${dashboardLink}" class="btn btn-outline btn-sm">
+            👤 ${user.email}
+          </a>
+          <button class="btn btn-accent btn-sm" id="logoutBtn">
+            Cerrar sesión
+          </button>
+        `);
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+          localStorage.removeItem('qr_user');
+          window.location.href = 'login.html';
+        });
+      }
+    }
 
     /* ----------------------------------------------------------
        NAVBAR
