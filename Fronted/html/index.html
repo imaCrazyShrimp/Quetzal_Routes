@@ -33,9 +33,9 @@
         <li><a href="explore.html?cat=gastronomy">Gastronomía</a></li>
       </ul>
 
-      <div class="navbar-actions">
+      <div class="navbar-actions" >
         <!-- Invitado -->
-        <div id="guestButtons">
+        <div id="guestButtons" style="display:none;">
           <a href="login.html">Iniciar sesión</a>
           <a href="register.html">Registrarse</a>
         </div>
@@ -52,8 +52,8 @@
           <span style="color:var(--gris-borde)">|</span>
           <span id="langOther">EN</span>
         </button>
-        <a href="login.html" class="btn btn-outline btn-sm" id="navLoginBtn">Iniciar sesión</a>
-        <a href="register.html" class="btn btn-accent btn-sm" id="navRegisterBtn">Registrarse</a>
+        <a href="login.html" class="btn btn-outline btn-sm" id="navLoginBtn" style="display:none;">Iniciar sesión</a>
+        <a href="register.html" class="btn btn-accent btn-sm" id="navRegisterBtn" style="display:none;">Registrarse</a>
       </div>
 
       <!-- Hamburger -->
@@ -724,7 +724,11 @@
           });
         }
       }
-    }
+    }  else {
+      // No hay sesión: mostrar botones de invitado
+      document.getElementById('navLoginBtn').style.display = '';
+      document.getElementById('navRegisterBtn').style.display = '';
+    } 
 
     /* ----------------------------------------------------------
        NAVBAR — scroll effect
