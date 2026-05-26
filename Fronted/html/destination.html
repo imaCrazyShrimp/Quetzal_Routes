@@ -540,6 +540,22 @@
           localStorage.removeItem('qr_user');
           window.location.href = 'login.html';
         });
+        // Limpiar menú móvil
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu) {
+          mobileMenu.querySelectorAll('a[href="login.html"], a[href="register.html"]')
+            .forEach(el => el.remove());
+          mobileMenu.insertAdjacentHTML('beforeend', `
+            <a href="${dashboardLink}">👤 ${user.email}</a>
+            <button class="btn btn-accent btn-sm btn-block" id="mobileLogoutBtn">
+              Cerrar sesión
+            </button>
+          `);
+          document.getElementById('mobileLogoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('qr_user');
+            window.location.href = 'login.html';
+          });
+        }
       }
     }
 

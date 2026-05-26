@@ -23,12 +23,32 @@
         <span class="logo-text">Quetzal <span>Routes</span></span>
       </a>
 
-      <ul class="navbar-links">
-        <li><a href="explore.html" class="active">Explorar</a></li>
-        <li><a href="explore.html?cat=adventure">Aventura</a></li>
-        <li><a href="explore.html?cat=culture">Cultura</a></li>
-        <li><a href="explore.html?cat=gastronomy">Gastronomía</a></li>
-      </ul>
+      <div style="display:flex; align-items:center; background:#fff; border-radius:999px; border:1.5px solid #e0e0e0; padding:6px 8px 6px 16px; gap:8px; max-width:460px; width:100%;">
+        <input
+          type="text"
+          id="navSearch"
+          placeholder="¿A dónde quieres ir?"
+          style="border:none; outline:none; background:transparent; font-size:14px; flex:1; min-width:0;"
+        />
+        <div style="width:1px; height:20px; background:#e0e0e0;"></div>
+        <select
+          id="navCategory"
+          style="border:none; outline:none; background:transparent; font-size:14px; cursor:pointer; padding:0 4px;"
+        >
+          <option value="">Todas las categorías</option>
+          <option value="nature">Naturaleza</option>
+          <option value="culture">Cultura</option>
+          <option value="adventure">Aventura</option>
+          <option value="gastronomy">Gastronomía</option>
+          <option value="wellness">Bienestar</option>
+        </select>
+        <button
+          id="navSearchBtn"
+          style="background:#1a5c38; color:#fff; border:none; border-radius:999px; padding:8px 18px; font-size:14px; cursor:pointer; white-space:nowrap;"
+        >
+          🔍 Buscar
+        </button>
+      </div>
 
       <div class="navbar-actions">
         <button class="lang-toggle" id="langToggle">
@@ -67,21 +87,6 @@
           <h1 data-i18n="explore.title">Explora Guatemala</h1>
           <p data-i18n="explore.subtitle">Descubre experiencias auténticas en cada rincón del país</p>
         </div>
-
-        <!-- Barra de búsqueda rápida -->
-        <div class="explore-search">
-          <div class="explore-search-inner">
-            <span class="explore-search-icon">🔍</span>
-            <input
-              type="text"
-              id="searchInput"
-              class="explore-search-input"
-              placeholder="Buscar destinos..."
-            />
-            <button class="explore-search-clear hidden" id="searchClear">✕</button>
-          </div>
-        </div>
-      </div>
 
       <!-- Chips de categoría rápidos -->
       <div class="filter-chips explore-quick-filters" id="quickFilters">
@@ -531,12 +536,43 @@
           localStorage.removeItem('qr_user');
           window.location.href = 'login.html';
         });
+        // Limpiar menú móvil
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu) {
+          mobileMenu.querySelectorAll('a[href="login.html"], a[href="register.html"]')
+            .forEach(el => el.remove());
+          mobileMenu.insertAdjacentHTML('beforeend', `
+            <a href="${dashboardLink}">👤 ${user.email}</a>
+            <button class="btn btn-accent btn-sm btn-block" id="mobileLogoutBtn">
+              Cerrar sesión
+            </button>
+          `);
+          document.getElementById('mobileLogoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('qr_user');
+            window.location.href = 'login.html';
+          });
+        }
       }
     }
 
     /* ----------------------------------------------------------
        NAVBAR
     ---------------------------------------------------------- */
+    document.getElementById('navSearchBtn').addEventListener('click', () => {
+      const q   = document.getElementById('navSearch').value.trim();
+      const cat = document.getElementById('navCategory').value;
+      state.query    = q;
+      state.category = cat;
+      document.querySelectorAll('.chip-category').forEach(c => {
+        c.classList.toggle('active', c.dataset.cat === cat);
+      });
+      applyFilters();
+    });
+
+    document.getElementById('navSearch').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('navSearchBtn').click();
+    });
+
     const navToggle  = document.getElementById('navToggle');
     const mobileMenu = document.getElementById('mobileMenu');
     navToggle.addEventListener('click', () => {
@@ -554,8 +590,7 @@
 
     // Aplicar búsqueda desde URL
     if (urlQuery) {
-      document.getElementById('searchInput').value = urlQuery;
-      document.getElementById('searchClear').classList.remove('hidden');
+       document.getElementById('navSearch').value = urlQuery;
     }
 
     // Aplicar categoría desde URL
@@ -747,25 +782,6 @@
     });
 
     /* ----------------------------------------------------------
-       BÚSQUEDA DE TEXTO
-    ---------------------------------------------------------- */
-    const searchInput = document.getElementById('searchInput');
-    const searchClear = document.getElementById('searchClear');
-
-    searchInput.addEventListener('input', () => {
-      state.query = searchInput.value.trim();
-      searchClear.classList.toggle('hidden', !state.query);
-      applyFilters();
-    });
-
-    searchClear.addEventListener('click', () => {
-      searchInput.value = '';
-      state.query = '';
-      searchClear.classList.add('hidden');
-      applyFilters();
-    });
-
-    /* ----------------------------------------------------------
        ORDENAR
     ---------------------------------------------------------- */
     document.getElementById('sortSelect').addEventListener('change', (e) => {
@@ -843,8 +859,8 @@
       state.rating   = 0;
       state.query    = '';
 
-      searchInput.value = '';
-      searchClear.classList.add('hidden');
+      document.getElementById('navSearch').value   = '';
+      document.getElementById('navCategory').value = '';
       rangeMin.value = 0;
       rangeMax.value = 1000;
       document.getElementById('priceMin').textContent = 0;
