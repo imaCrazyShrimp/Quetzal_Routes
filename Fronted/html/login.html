@@ -150,11 +150,8 @@
        SCRIPTS
   ============================================================ -->
   <script type="module">
-    import {
-    loginUser,
-    getRedirectByRole
-  } from '../js/auth.js';
-
+    import { initDB, loginUser, getRedirectByRole } from '../js/db.js';
+    initDB();
 
     /* ----------------------------------------------------------
        TABS DE ROL

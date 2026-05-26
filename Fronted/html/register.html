@@ -340,6 +340,9 @@
        SCRIPTS
   ============================================================ -->
   <script type="module">
+    
+    import { initDB, createUser, setSession } from '../js/db.js';
+    initDB();
 
     /* ----------------------------------------------------------
        SELECTOR DE ROL
@@ -513,25 +516,17 @@
 
       await new Promise(r => setTimeout(r, 1400));
 
-      // Crear usuario nuevo
-      const newUser = {
-        id:         Date.now(),
-        name,
-        email:      email.toLowerCase(),
-        password,
-        role:       selectedRole,
-        language:   'es',
-        created_at: new Date().toISOString().split('T')[0],
-      };
+      // Crear usuario en db.js
+      const result = createUser({ name, email, password, role: selectedRole });
+      if (!result.ok) {
+        btn.textContent = 'Crear cuenta gratis →';
+        btn.disabled    = false;
+        showToast(result.error, 'error');
+        return;
+      }
 
-      // Guardarlo en qr_users para que el login lo encuentre
-      const users = JSON.parse(localStorage.getItem('qr_users') || '[]');
-      users.push(newUser);
-      localStorage.setItem('qr_users', JSON.stringify(users));
-
-      // Guardar sesión activa (sin password)
-      const { password: _, ...safeUser } = newUser;
-      localStorage.setItem('qr_user', JSON.stringify(safeUser));
+      // Guardar sesión activa
+      setSession(result.user);
 
       showToast('¡Cuenta creada! Bienvenido a Quetzal Routes 🎉', 'success');
 
