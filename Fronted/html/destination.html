@@ -26,12 +26,32 @@
         <span class="logo-text">Quetzal <span>Routes</span></span>
       </a>
 
-      <ul class="navbar-links">
-        <li><a href="explore.html">Explorar</a></li>
-        <li><a href="explore.html?cat=adventure">Aventura</a></li>
-        <li><a href="explore.html?cat=culture">Cultura</a></li>
-        <li><a href="explore.html?cat=gastronomy">Gastronomía</a></li>
-      </ul>
+      <div style="display:flex; align-items:center; background:#fff; border-radius:999px; border:1.5px solid #e0e0e0; padding:6px 8px 6px 16px; gap:8px; max-width:460px; width:100%;">
+        <input
+          type="text"
+          id="navSearch"
+          placeholder="¿A dónde quieres ir?"
+          style="border:none; outline:none; background:transparent; font-size:14px; flex:1; min-width:0;"
+        />
+        <div style="width:1px; height:20px; background:#e0e0e0;"></div>
+        <select
+          id="navCategory"
+          style="border:none; outline:none; background:transparent; font-size:14px; cursor:pointer; padding:0 4px;"
+        >
+          <option value="">Todas las categorías</option>
+          <option value="nature">Naturaleza</option>
+          <option value="culture">Cultura</option>
+          <option value="adventure">Aventura</option>
+          <option value="gastronomy">Gastronomía</option>
+          <option value="wellness">Bienestar</option>
+        </select>
+        <button
+          id="navSearchBtn"
+          style="background:#1a5c38; color:#fff; border:none; border-radius:999px; padding:8px 18px; font-size:14px; cursor:pointer; white-space:nowrap;"
+        >
+          🔍 Buscar
+        </button>
+      </div>
 
       <div class="navbar-actions">
         <button class="lang-toggle" id="langToggle">
@@ -916,6 +936,24 @@
       descToggle.textContent = open ? 'Leer más ▾' : 'Leer menos ▴';
     });
 
+
+    /* ----------------------------------------------------------
+       BARRA DE BÚSQUEDA — navbar
+    ---------------------------------------------------------- */
+    document.getElementById('navSearchBtn').addEventListener('click', () => {
+      const q   = document.getElementById('navSearch').value.trim();
+      const cat = document.getElementById('navCategory').value;
+      const params = new URLSearchParams();
+      if (q)   params.set('q', q);
+      if (cat) params.set('cat', cat);
+      window.location.href = `explore.html?${params.toString()}`;
+    });
+
+    document.getElementById('navSearch').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('navSearchBtn').click();
+    });
+
+    
     /* ----------------------------------------------------------
        NAVBAR móvil
     ---------------------------------------------------------- */
