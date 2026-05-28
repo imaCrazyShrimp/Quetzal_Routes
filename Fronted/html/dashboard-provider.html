@@ -980,14 +980,22 @@
   <!-- ── JAVASCRIPT ────────────────────────────────────────── -->
   <script type="module">
     import { getCurrentUser, logoutUser, requireAuth } from '../js/auth.js';
-    import { getDestinationsByProvider, getBookingsByProvider, getProviderById } from '../js/api.js';
     import { showToast } from '../js/ui.js';
+    import {
+      getProviderByUserId,
+      getDestinationsByProvider,
+      getBookingsByProvider,
+      createDestination,
+      initDB
+    } from '../js/db.js';
+
+    initDB();
 
     // ── Proteger ruta ────────────────────────────────────────
     requireAuth('provider');
 
     const user     = getCurrentUser();
-    const provider = await getProviderById(1); // En producción: buscar por user.id
+    const provider = getProviderByUserId(user.id); 
 
     // ── Poblar nombre y plan ─────────────────────────────────
     const businessName = provider?.business_name || user?.name || 'Mi empresa';
@@ -1015,7 +1023,7 @@
     if (plan === 'elite')   { document.getElementById('eliteBtn').textContent  = 'Plan actual ✓'; document.getElementById('eliteBtn').disabled = true; }
 
     // ── Cargar destinos ──────────────────────────────────────
-    const destinations = await getDestinationsByProvider(provider?.id || 1);
+    const destinations = provider ? getDestinationsByProvider(provider.id) : [];
 
     function statusBadge(s) {
       const map = { active:'status-active', pending:'status-pending', inactive:'status-inactive' };
@@ -1069,7 +1077,7 @@
     document.getElementById('statBookings').textContent = '—'; // requiere backend
 
     // ── Cargar reservas ──────────────────────────────────────
-    const bookings = await getBookingsByProvider(provider?.id || 1);
+    const bookings = provider ? getBookingsByProvider(provider.id) : [];
 
     function bookingStatusBadge(s) {
       const map = { pending:'status-pending', confirmed:'status-confirmed', cancelled:'status-cancelled' };
@@ -1141,14 +1149,73 @@
     document.getElementById('createDestForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('createDestBtn');
+
+      const title    = document.getElementById('destTitle')?.value.trim();
+      const titleEn  = document.getElementById('destTitleEn')?.value.trim();
+      const category = document.getElementById('destCategory')?.value;
+      const dept     = document.getElementById('destDepartment')?.value;
+      const descEs   = document.getElementById('destDescEs')?.value.trim();
+      const descEn   = document.getElementById('destDescEn')?.value.trim();
+      const address  = document.getElementById('destAddress')?.value.trim();
+      const lat      = parseFloat(document.getElementById('destLat')?.value) || null;
+      const lng      = parseFloat(document.getElementById('destLng')?.value) || null;
+      const priceFrom = parseFloat(document.getElementById('destPriceFrom')?.value) || 0;
+      const priceTo   = parseFloat(document.getElementById('destPriceTo')?.value) || 0;
+      const duration  = parseInt(document.getElementById('destDuration')?.value) || 1;
+      const maxPeople = parseInt(document.getElementById('destMaxPeople')?.value) || 10;
+      const coverImage = document.getElementById('destCoverImage')?.value.trim() || '';
+
+      if (!title || !category || !dept || !descEs || !address) {
+        showToast('Completa todos los campos obligatorios (*).', 'warning');
+        return;
+      }
+
+      if (!provider) {
+        showToast('No se encontró tu perfil de proveedor. Contacta soporte.', 'error');
+        return;
+      }
+
       btn.textContent = 'Publicando...';
       btn.disabled = true;
-      await new Promise(r => setTimeout(r, 1200));
-      showToast('¡Destino creado! Estará visible una vez aprobado. 🎉', 'success');
+
+      const result = createDestination({
+        provider_id:    provider.id,
+        title,
+        title_en:       titleEn,
+        category,
+        department:     dept,
+        description_es: descEs,
+        description_en: descEn,
+        address,
+        lat,
+        lng,
+        price_from:     priceFrom,
+        price_to:       priceTo,
+        duration_hours: duration,
+        max_people:     maxPeople,
+        cover_image:    coverImage,
+        status:         'active',
+        featured:       0,
+      });
+
+      await new Promise(r => setTimeout(r, 600));
+
+      if (result.ok) {
+        showToast('¡Destino publicado exitosamente! Ya es visible en Explorar. 🎉', 'success');
+        e.target.reset();
+        // Recargar tabla de destinos
+        const updatedDests = getDestinationsByProvider(provider.id);
+        document.getElementById('destTable').innerHTML =
+          updatedDests.map(d => renderDestRow(d)).join('');
+        document.getElementById('destTableCount').textContent =
+          `${updatedDests.length} destino${updatedDests.length !== 1 ? 's' : ''}`;
+        goTo('destinations');
+      } else {
+        showToast('Error al publicar el destino. Inténtalo de nuevo.', 'error');
+      }
+
       btn.textContent = 'Publicar destino';
       btn.disabled = false;
-      e.target.reset();
-      goTo('destinations');
     });
 
     // ── Planes (mock) ────────────────────────────────────────

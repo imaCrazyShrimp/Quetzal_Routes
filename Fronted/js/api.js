@@ -40,7 +40,16 @@ async function getDB() {
  */
 export async function getAllDestinations(filters = {}) {
   const db = await getDB();
-  let results = db.destinations.filter(d => d.status === 'active');
+
+  // Combinar destinos del JSON estático con los creados en localStorage
+  const localDestsRaw = localStorage.getItem('qr_destinations');
+  const localDests = localDestsRaw ? JSON.parse(localDestsRaw) : [];
+  // Evitar duplicados por id
+  const dbIds = new Set(db.destinations.map(d => d.id));
+  const newLocal = localDests.filter(d => !dbIds.has(d.id));
+  const allDests = [...db.destinations, ...newLocal];
+
+  let results = allDests.filter(d => d.status === 'active');
 
   // Aplicar filtros localmente (misma interfaz que el backend)
   if (filters.category)   results = results.filter(d => d.category === filters.category);

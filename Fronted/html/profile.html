@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mi perfil — Quetzal Routes" />
+  <title>Mi perfil — Quetzal Routes</title>
+
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+
+  <style>
+    /* ── VARIABLES ── */
+    :root {
+      --verde:        #1a5c38;
+      --verde-light:  #e8f5ee;
+      --rojo:         #c1121f;
+      --gold:         #f4a922;
+      --gris-bg:      #f7f7f5;
+      --gris-borde:   #e5e5e0;
+      --gris-texto:   #6b7280;
+      --text-dark:    #1a1a1a;
+      --radius:       16px;
+      --shadow:       0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--gris-bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* ── NAVBAR ── */
+    .profile-nav {
+      background: #fff;
+      border-bottom: 1px solid var(--gris-borde);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .profile-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .profile-nav-logo span { color: var(--verde); }
+
+    .profile-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      padding: 10px 18px;
+      border-radius: 8px; /* Esquinas suavizadas, no cápsulas */
+      font-size: 0.875rem;
+      font-weight: 600; /* Texto más marcado como en el prototipo */
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid transparent;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav-outline {
+      border: 2.3px solid #94a3b8; /* Borde un toque más grueso y definido */
+      color: #334155; 
+      background: #fff;
+    }
+
+    .btn-nav-outline:hover {
+      background: #f8fafc;
+      border-color: #64748b; /* Se oscurece sutilmente al pasar el cursor */
+    }
+
+    .btn-nav-outline:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+
+    .btn-nav-danger {
+      background: var(--rojo); /* Fondo sólido e intenso */
+      color: #ffffff; /* Texto blanco contrastante */
+    }
+
+    .btn-nav-danger:hover {
+      background: #b91c1c; /* Un rojo ligeramente más oscuro al pasar el cursor */
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+    }
+
+    /* ── LAYOUT ── */
+    .profile-layout {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .profile-layout { grid-template-columns: 1fr; }
+      .profile-sidebar { display: none; }
+      .profile-sidebar.open { display: block; }
+    }
+
+    /* ── SIDEBAR ── */
+    .profile-sidebar {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--gris-borde);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .profile-sidebar-header {
+      background: var(--verde);
+      padding: 1.5rem;
+      text-align: center;
+      color: #fff;
+    }
+
+    .profile-avatar-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #cbd5e1, #94a3b8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 auto 0.75rem;
+    }
+
+    .profile-sidebar-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .profile-sidebar-email {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .profile-sidebar-badge {
+      display: inline-block;
+      margin-top: 8px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .profile-sidebar-nav {
+      padding: 0.5rem 0;
+    }
+
+    .sidebar-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--gris-texto);
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .sidebar-nav-item {
+      margin: 0 0.5rem;
+      border-radius: 8px;
+      width: calc(100% - 1rem); /* Asegura que no se desborde al ponerle margen */
+    }
+    .sidebar-nav-item:hover { background: #f8fafc; color: var(--text-dark); }
+    .sidebar-nav-item.active { background: var(--verde-light); color: var(--verde); font-weight: 600; }
+    .sidebar-nav-item.danger { color: var(--rojo); }
+    .sidebar-nav-item.danger:hover { background: #fff0f0; }
+
+    .sidebar-nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--gris-borde);
+      margin: 0.25rem 1.25rem;
+    }
+
+    /* ── CONTENIDO PRINCIPAL ── */
+    .profile-content { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    /* ── SECCIONES ── */
+    .profile-section {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--gris-borde);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gris-borde);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-body { padding: 1.5rem; }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1rem;
+      background: var(--gris-bg);
+      border-radius: 10px;
+      border: 1px solid var(--gris-borde);
+    }
+
+    .stat-card-number {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--verde);
+      display: block;
+    }
+
+    .stat-card-label {
+      font-size: 0.75rem;
+      color: var(--gris-texto);
+      margin-top: 4px;
+    }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-field label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--gris-texto);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-field-value {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .info-field input,
+    .info-field textarea {
+      width: 100%;
+      border: 1.5px solid var(--gris-borde);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: var(--text-dark);
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+
+    .info-field input:focus,
+    .info-field textarea:focus {
+      outline: none;
+      border-color: var(--verde);
+    }
+
+    .info-field textarea { resize: vertical; min-height: 80px; }
+
+    .info-field-full { grid-column: 1 / -1; }
+
+    /* ── BOTONES ── */
+    .btn-primary {
+      background: var(--verde);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 24px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: #154d2f; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--verde);
+      border: 1.5px solid var(--verde);
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+
+    .btn-outline:hover { background: var(--verde-light); }
+
+    .btn-sm { padding: 6px 14px; font-size: 0.8rem; }
+
+    /* ── LISTA DE RESERVAS ── */
+    .booking-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .booking-item {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid var(--gris-borde);
+    }
+    .booking-item:last-child {
+      border-bottom: none; /* Quita la última línea para que se vea limpio */
+    }
+
+    .booking-img {
+      width: 76px;
+      height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--gris-borde);
+    }
+
+    .booking-info { flex: 1; min-width: 0; }
+
+    .booking-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .booking-meta {
+      font-size: 0.78rem;
+      color: var(--gris-texto);
+      margin-top: 3px;
+    }
+
+    .booking-status {
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .status-completed  { background: #e8f5ee; color: #1a5c38; }
+    .status-confirmed  { background: #e8f0ff; color: #3b4cc0; }
+    .status-pending    { background: #fff8e1; color: #f57c00; }
+    .status-cancelled  { background: #fff0f0; color: var(--rojo); }
+
+    /* ── LISTA DE FAVORITOS ── */
+    .favorites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .fav-card {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--gris-borde);
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .fav-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+
+    .fav-card-img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      background: var(--gris-borde);
+    }
+
+    .fav-card-body { padding: 0.75rem; }
+
+    .fav-card-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .fav-card-price {
+      font-size: 0.78rem;
+      color: var(--verde);
+      font-weight: 600;
+    }
+
+    /* ── LISTA DE RESEÑAS ── */
+    .review-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .review-item {
+      padding: 1rem;
+      background: var(--gris-bg);
+      border-radius: 10px;
+      border: 1px solid var(--gris-borde);
+    }
+
+    .review-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .review-dest-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .review-stars { color: var(--gold); font-size: 0.85rem; }
+
+    .review-comment {
+      font-size: 0.82rem;
+      color: var(--gris-texto);
+      line-height: 1.5;
+    }
+
+    .review-date {
+      font-size: 0.72rem;
+      color: #aaa;
+      margin-top: 6px;
+    }
+
+    /* ── DESTINOS DEL PROVEEDOR ── */
+    .dest-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .dest-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--gris-bg);
+      border-radius: 10px;
+      border: 1px solid var(--gris-borde);
+    }
+
+    .dest-item-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--gris-borde);
+    }
+
+    .dest-item-info { flex: 1; min-width: 0; }
+
+    .dest-item-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dest-item-meta { font-size: 0.78rem; color: var(--gris-texto); }
+
+    .dest-item-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+    /* ── BADGE PLAN ── */
+    .plan-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .plan-free    { background: #f0f0f0; color: #555; }
+    .plan-premium { background: #e8f5ee; color: var(--verde); }
+    .plan-elite   { background: #fff8e1; color: #b45309; }
+
+    /* ── ESTADO VACÍO ── */
+    .empty-state {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--gris-texto);
+    }
+
+    .empty-state-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .empty-state h3 { font-size: 1rem; color: var(--text-dark); margin-bottom: 6px; }
+    .empty-state p  { font-size: 0.85rem; margin-bottom: 1rem; }
+
+    /* ── TOAST ── */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      font-size: 0.875rem;
+      border-left: 4px solid var(--verde);
+      animation: slideIn 0.3s ease;
+      max-width: 320px;
+    }
+
+    .toast-error { border-left-color: var(--rojo); }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to   { transform: translateX(0);   opacity: 1; }
+    }
+
+    /* ── LOADING ── */
+    .loading-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      flex-direction: column;
+      gap: 1rem;
+      color: var(--gris-texto);
+    }
+
+    /* ── HIDDEN ── */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="profile-nav">
+    <a href="index.html" class="profile-nav-logo">
+     <span>🦜 Quetzal Routes</span>
+    </a>
+    <div class="profile-nav-actions">
+      <a href="explore.html" class="btn-nav btn-nav-outline">← Explorar</a>
+      <button class="btn-nav btn-nav-danger" id="logoutBtn">Cerrar sesión</button>
+    </div>
+  </nav>
+
+  <!-- ── LAYOUT ── -->
+  <div class="profile-layout" id="profileLayout">
+
+    <!-- SIDEBAR -->
+    <aside class="profile-sidebar" id="sidebar">
+      <div class="profile-sidebar-header">
+        <div class="profile-avatar-circle" id="sidebarAvatar">--</div>
+        <div class="profile-sidebar-name"  id="sidebarName">Cargando...</div>
+        <div class="profile-sidebar-email" id="sidebarEmail"></div>
+        <span class="profile-sidebar-badge" id="sidebarRole"></span>
+      </div>
+      <nav class="profile-sidebar-nav" id="sidebarNav">
+        <!-- Se llena dinámicamente según el rol -->
+      </nav>
+    </aside>
+
+    <!-- CONTENIDO -->
+    <main class="profile-content" id="profileContent">
+      <div class="loading-screen">
+        <div style="font-size:2rem;">🌿</div>
+        <p>Cargando tu perfil...</p>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script type="module">
+    import {
+      initDB, getSession, clearSession,
+      getUserById, updateUser,
+      getProviderByUserId, updateProvider,
+      getBookingsByUser, getBookingsByProvider,
+      getReviewsByUser,
+      getFavoritesByUser,
+      getDestinationsByProvider,
+      getAverageRating, getReviews,
+    } from '../js/db.js';
+
+    initDB();
+
+    // ── VERIFICAR SESIÓN ──────────────────────────────────────────────────────
+    const session = getSession();
+    if (!session) {
+      window.location.href = 'login.html';
+    }
+
+    // ── LOGOUT ───────────────────────────────────────────────────────────────
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      clearSession();
+      window.location.href = 'login.html';
+    });
+
+    // ── HELPERS ──────────────────────────────────────────────────────────────
+    function initials(name) {
+      return name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '—';
+      return new Date(iso).toLocaleDateString('es-GT', { year:'numeric', month:'long', day:'numeric' });
+    }
+
+    function statusLabel(status) {
+      const map = {
+        completed: 'Completado',
+        confirmed: 'Confirmado',
+        pending:   'Pendiente',
+        cancelled: 'Cancelado',
+      };
+      return map[status] || status;
+    }
+
+    function stars(rating) {
+      return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    }
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast${type === 'error' ? ' toast-error' : ''}`;
+      toast.textContent = msg;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+
+    // ── SIDEBAR COMÚN ─────────────────────────────────────────────────────────
+    function buildSidebar(user, navItems) {
+      document.getElementById('sidebarAvatar').textContent = initials(user.name);
+      document.getElementById('sidebarName').textContent   = user.name;
+      document.getElementById('sidebarEmail').textContent  = user.email;
+
+      const roleLabels = { tourist:'Turista', provider:'Proveedor', admin:'Administrador' };
+      document.getElementById('sidebarRole').textContent = roleLabels[user.role] || user.role;
+
+      const nav = document.getElementById('sidebarNav');
+      nav.innerHTML = navItems.map(item => {
+        if (item === 'divider') return '<div class="sidebar-divider"></div>';
+        return `
+          <button
+            class="sidebar-nav-item${item.active ? ' active' : ''}${item.danger ? ' danger' : ''}"
+            data-section="${item.section || ''}"
+          >
+            <span class="sidebar-nav-icon">${item.icon}</span>
+            ${item.label}
+          </button>
+        `;
+      }).join('');
+
+      nav.querySelectorAll('[data-section]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const section = btn.dataset.section;
+          if (!section) return;
+          nav.querySelectorAll('.sidebar-nav-item').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderSection(section);
+        });
+      });
+    }
+
+    // ── RENDER PRINCIPAL ──────────────────────────────────────────────────────
+    let currentUser     = null;
+    let currentProvider = null;
+    let currentSection  = '';
+
+    function renderSection(section) {
+      currentSection = section;
+      const content = document.getElementById('profileContent');
+      content.innerHTML = '';
+
+      if (currentUser.role === 'tourist') {
+        renderTouristSection(section, content);
+      } else if (currentUser.role === 'provider') {
+        renderProviderSection(section, content);
+      } else if (currentUser.role === 'admin') {
+        window.location.href = 'admin.html';
+      }
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // TURISTA
+    // ════════════════════════════════════════════════════════════════
+    function initTourist(user) {
+      const bookings  = getBookingsByUser(user.id);
+      const favorites = getFavoritesByUser(user.id);
+      const reviews   = getReviewsByUser(user.id);
+
+      buildSidebar(user, [
+        { icon:'👤', label:'Mi perfil',    section:'profile',   active:true },
+        { icon:'📅', label:'Mis reservas', section:'bookings'  },
+        { icon:'♡',  label:'Favoritos',    section:'favorites' },
+        { icon:'⭐', label:'Mis reseñas',  section:'reviews'   },
+        'divider',
+        { icon:'🔑', label:'Cambiar contraseña', section:'password' },
+      ]);
+
+      // Stats rápidas en sidebar
+      const nav = document.getElementById('sidebarNav');
+      const statsHtml = `
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:1rem 1.25rem;border-top:1px solid var(--gris-borde);margin-top:4px;">
+          <div style="text-align:center;">
+            <div style="font-size:1.2rem;font-weight:700;color:var(--verde);">${bookings.length}</div>
+            <div style="font-size:0.65rem;color:var(--gris-texto);">Reservas</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:1.2rem;font-weight:700;color:var(--verde);">${favorites.length}</div>
+            <div style="font-size:0.65rem;color:var(--gris-texto);">Favoritos</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:1.2rem;font-weight:700;color:var(--verde);">${reviews.length}</div>
+            <div style="font-size:0.65rem;color:var(--gris-texto);">Reseñas</div>
+          </div>
+        </div>
+      `;
+      nav.insertAdjacentHTML('beforeend', statsHtml);
+
+      renderSection('profile');
+    }
+
+    function renderTouristSection(section, container) {
+      const user      = currentUser;
+      const bookings  = getBookingsByUser(user.id);
+      const favorites = getFavoritesByUser(user.id);
+      const reviews   = getReviewsByUser(user.id);
+
+      if (section === 'profile') {
+        container.innerHTML = `
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">👤 Información personal</div>
+              <button class="btn-primary btn-sm" id="editToggleBtn">Editar perfil</button>
+            </div>
+            <div class="section-body">
+              <form id="profileForm">
+                <div class="info-grid">
+                  <div class="info-field">
+                    <label>Nombre completo</label>
+                    <input type="text" id="fieldName" value="${user.name}" disabled />
+                  </div>
+                  <div class="info-field">
+                    <label>Correo electrónico</label>
+                    <input type="email" id="fieldEmail" value="${user.email}" disabled />
+                  </div>
+                  <div class="info-field">
+                    <label>Idioma preferido</label>
+                    <input type="text" value="${user.language === 'es' ? 'Español' : 'English'}" disabled />
+                  </div>
+                  <div class="info-field">
+                    <label>Miembro desde</label>
+                    <input type="text" value="${formatDate(user.created_at)}" disabled />
+                  </div>
+                </div>
+                <div style="margin-top:1rem;display:none;" id="saveRow">
+                  <button type="submit" class="btn-primary">Guardar cambios</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">📊 Resumen de actividad</div>
+            </div>
+            <div class="section-body">
+              <div class="stats-row">
+                <div class="stat-card">
+                  <span class="stat-card-number">${bookings.length}</span>
+                  <div class="stat-card-label">Reservas</div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-card-number">${bookings.filter(b=>b.status==='completed').length}</span>
+                  <div class="stat-card-label">Completadas</div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-card-number">${favorites.length}</span>
+                  <div class="stat-card-label">Favoritos</div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-card-number">${reviews.length}</span>
+                  <div class="stat-card-label">Reseñas</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Toggle editar
+        const editBtn = document.getElementById('editToggleBtn');
+        const saveRow = document.getElementById('saveRow');
+        let editing   = false;
+
+        editBtn.addEventListener('click', () => {
+          editing = !editing;
+          ['fieldName','fieldEmail'].forEach(id => {
+            document.getElementById(id).disabled = !editing;
+          });
+          saveRow.style.display = editing ? 'block' : 'none';
+          editBtn.textContent   = editing ? 'Cancelar' : 'Editar perfil';
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name  = document.getElementById('fieldName').value.trim();
+          const email = document.getElementById('fieldEmail').value.trim();
+          if (!name || !email) return;
+
+          const result = updateUser(user.id, { name, email });
+          if (result.ok) {
+            currentUser = result.user;
+            document.getElementById('sidebarName').textContent  = result.user.name;
+            document.getElementById('sidebarEmail').textContent = result.user.email;
+            document.getElementById('sidebarAvatar').textContent = initials(result.user.name);
+            showToast('Perfil actualizado correctamente.');
+            editBtn.click();
+          } else {
+            showToast(result.error, 'error');
+          }
+        });
+      }
+
+      if (section === 'bookings') {
+        container.innerHTML = `
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">📅 Mis reservas</div>
+              <span style="font-size:0.8rem;color:var(--gris-texto);">${bookings.length} total</span>
+            </div>
+            <div class="section-body">
+              ${bookings.length === 0 ? `
+                <div class="empty-state">
+                  <div class="empty-state-icon">📅</div>
+                  <h3>Sin reservas aún</h3>
+                  <p>Explora destinos y haz tu primera reserva.</p>
+                  <a href="explore.html" class="btn-outline">Explorar destinos</a>
+                </div>
+              ` : `
+                <div class="booking-list">
+                  ${bookings.map(b => `
+                    <div class="booking-item">
+                      <img
+                        class="booking-img"
+                        src="${b.destination?.cover_image || ''}"
+                        alt="${b.destination?.title || ''}"
+                        onerror="this.style.background='var(--gris-borde)';this.src='';"
+                      />
+                      <div class="booking-info">
+                        <div class="booking-title">${b.destination?.title || 'Destino eliminado'}</div>
+                        <div class="booking-meta">
+                          📅 ${formatDate(b.date_requested)} &nbsp;·&nbsp;
+                          👥 ${b.people_count} persona${b.people_count > 1 ? 's' : ''} &nbsp;·&nbsp;
+                          💰 Q${b.total_amount}
+                        </div>
+                      </div>
+                      <span class="booking-status status-${b.status}">${statusLabel(b.status)}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }
+
+      if (section === 'favorites') {
+        container.innerHTML = `
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">♡ Mis favoritos</div>
+              <span style="font-size:0.8rem;color:var(--gris-texto);">${favorites.length} guardados</span>
+            </div>
+            <div class="section-body">
+              ${favorites.length === 0 ? `
+                <div class="empty-state">
+                  <div class="empty-state-icon">♡</div>
+                  <h3>Sin favoritos aún</h3>
+                  <p>Guarda destinos que te interesen para verlos aquí.</p>
+                  <a href="explore.html" class="btn-outline">Explorar destinos</a>
+                </div>
+              ` : `
+                <div class="favorites-grid">
+                  ${favorites.map(f => `
+                    <a href="destination.html?id=${f.destination.id}" class="fav-card">
+                      <img
+                        class="fav-card-img"
+                        src="${f.destination.cover_image || ''}"
+                        alt="${f.destination.title}"
+                        onerror="this.style.background='var(--gris-borde)';this.src='';"
+                      />
+                      <div class="fav-card-body">
+                        <div class="fav-card-title">${f.destination.title}</div>
+                        <div class="fav-card-price">Desde Q${f.destination.price_from}</div>
+                      </div>
+                    </a>
+                  `).join('')}
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }
+
+      if (section === 'reviews') {
+        container.innerHTML = `
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">⭐ Mis reseñas</div>
+              <span style="font-size:0.8rem;color:var(--gris-texto);">${reviews.length} publicadas</span>
+            </div>
+            <div class="section-body">
+              ${reviews.length === 0 ? `
+                <div class="empty-state">
+                  <div class="empty-state-icon">⭐</div>
+                  <h3>Sin reseñas aún</h3>
+                  <p>Después de visitar un destino, comparte tu experiencia.</p>
+                </div>
+              ` : `
+                <div class="review-list">
+                  ${reviews.map(r => `
+                    <div class="review-item">
+                      <div class="review-item-header">
+                        <div class="review-dest-title">${r.destination?.title || 'Destino eliminado'}</div>
+                        <div class="review-stars">${stars(r.rating)}</div>
+                      </div>
+                      <div class="review-comment">${r.comment}</div>
+                      <div class="review-date">${formatDate(r.created_at)}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }
+
+      if (section === 'password') {
+        container.innerHTML = `
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">🔑 Cambiar contraseña</div>
+            </div>
+            <div class="section-body">
+              <form id="passwordForm" style="max-width:400px;display:flex;flex-direction:column;gap:1rem;">
+                <div class="info-field">
+                  <label>Contraseña actual</label>
+                  <input type="password" id="currentPwd" placeholder="Tu contraseña actual" />
+                </div>
+                <div class="info-field">
+                  <label>Nueva contraseña</label>
+                  <input type="password" id="newPwd" placeholder="Mínimo 8 caracteres" />
+                </div>
+                <div class="info-field">
+                  <label>Confirmar nueva contraseña</label>
+                  <input type="password" id="confirmPwd" placeholder="Repite la nueva contraseña" />
+                </div>
+                <div>
+                  <button type="submit" class="btn-primary">Actualizar contraseña</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('passwordForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const fullUser = getUserById(user.id);
+          const current  = document.getElementById('currentPwd').value;
+          const newPwd   = document.getElementById('newPwd').value;
+          const confirm  = document.getElementById('confirmPwd').value;
+
+          if (fullUser.password !== current) {
+            showToast('La contraseña actual es incorrecta.', 'error');
+            return;
+          }
+          if (newPwd.length < 8) {
+            showToast('La nueva contraseña debe tener al menos 8 caracteres.', 'error');
+            return;
+          }
+          if (newPwd !== confirm) {
+            showToast('Las contraseñas no coinciden.', 'error');
+            return;
+          }
+
+          updateUser(user.id, { password: newPwd });
+          showToast('Contraseña actualizada correctamente.');
+          document.getElementById('passwordForm').reset();
+        });
+      }
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // PROVEEDOR
+    // ════════════════════════════════════════════════════════════════
+    function initProvider(user) {
+      const provider  = getProviderByUserId(user.id);
+      currentProvider = provider;
+
+      const destinations = provider ? getDestinationsByProvider(provider.id) : [];
+      const bookings     = provider ? getBookingsByProvider(provider.id) : [];
+
+      const planLabels = { free:'Explorador', premium:'Premium', elite:'Elite' };
+      const planClass  = { free:'plan-free', premium:'plan-premium', elite:'plan-elite' };
+      const plan       = provider?.plan || 'free';
+
+      buildSidebar(user, [
+        { icon:'🏢', label:'Mi empresa',    section:'business', active:true },
+        { icon:'🗺️', label:'Mis destinos',  section:'destinations' },
+        { icon:'📅', label:'Reservas',       section:'bookings' },
+        { icon:'📊', label:'Plan actual',    section:'plan' },
+        'divider',
+        { icon:'🔑', label:'Cambiar contraseña', section:'password' },
+      ]);
+
+      // Plan badge en sidebar
+      document.getElementById('sidebarNav').insertAdjacentHTML('beforeend', `
+        <div style="padding:1rem 1.25rem;border-top:1px solid var(--gris-borde);margin-top:4px;text-align:center;">
+          <span class="plan-badge ${planClass[plan]}">⚡ Plan ${planLabels[plan]}</span>
+        </div>
+      `);
+
+      renderSection('business');
+    }
+
+    function renderProviderSection(section, container) {
+      const user         = currentUser;
+      const provider     = currentProvider;
+      const destinations = provider ? getDestinationsByProvider(provider.id) : [];
+      const bookings     = provider ? getBookingsByProvider(provider.id) : [];
+      const planLabels   = { free:'Explorador', premium:'Premium', elite:'Elite' };
+
+      if (section === 'business') {
+        container.innerHTML = `
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">🏢 Datos de la empresa</div>
+              <button class="btn-primary btn-sm" id="editBizBtn">Editar</button>
+            </div>
+            <div class="section-body">
+              <form id="bizForm">
+                <div class="info-grid">
+                  <div class="info-field">
+                    <label>Nombre del negocio</label>
+                    <input type="text" id="bizName" value="${provider?.business_name || ''}" disabled />
+                  </div>
+                  <div class="info-field">
+                    <label>Correo de contacto</label>
+                    <input type="email" id="bizEmail" value="${provider?.contact_email || user.email}" disabled />
+                  </div>
+                  <div class="info-field">
+                    <label>WhatsApp</label>
+                    <input type="text" id="bizWhatsapp" value="${provider?.whatsapp || ''}" disabled />
+                  </div>
+                  <div class="info-field">
+                    <label>Plan</label>
+                    <input type="text" value="${planLabels[provider?.plan || 'free']}" disabled />
+                  </div>
+                  <div class="info-field info-field-full">
+                    <label>Descripción</label>
+                    <textarea id="bizDesc" disabled>${provider?.description_es || ''}</textarea>
+                  </div>
+                </div>
+                <div style="margin-top:1rem;display:none;" id="bizSaveRow">
+                  <button type="submit" class="btn-primary">Guardar cambios</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">📊 Resumen</div>
+            </div>
+            <div class="section-body">
+              <div class="stats-row">
+                <div class="stat-card">
+                  <span class="stat-card-number">${destinations.length}</span>
+                  <div class="stat-card-label">Destinos</div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-card-number">${bookings.length}</span>
+                  <div class="stat-card-label">Reservas</div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-card-number">${bookings.filter(b=>b.status==='completed').length}</span>
+                  <div class="stat-card-label">Completadas</div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-card-number">${destinations.reduce((a,d)=>a+d.views_count,0)}</span>
+                  <div class="stat-card-label">Vistas totales</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        const editBizBtn = document.getElementById('editBizBtn');
+        const bizSaveRow = document.getElementById('bizSaveRow');
+        let editing = false;
+
+        editBizBtn.addEventListener('click', () => {
+          editing = !editing;
+          ['bizName','bizEmail','bizWhatsapp','bizDesc'].forEach(id => {
+            document.getElementById(id).disabled = !editing;
+          });
+          bizSaveRow.style.display = editing ? 'block' : 'none';
+          editBizBtn.textContent   = editing ? 'Cancelar' : 'Editar';
+        });
+
+        document.getElementById('bizForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (!provider) return;
+          const result = updateProvider(provider.id, {
+            business_name:  document.getElementById('bizName').value.trim(),
+            contact_email:  document.getElementById('bizEmail').value.trim(),
+            whatsapp:       document.getElementById('bizWhatsapp').value.trim(),
+            description_es: document.getElementById('bizDesc').value.trim(),
+          });
+          if (result.ok) {
+            currentProvider = result.provider;
+            showToast('Datos de la empresa actualizados.');
+            editBizBtn.click();
+          } else {
+            showToast(result.error, 'error');
+          }
+        });
+      }
+
+      if (section === 'destinations') {
+        container.innerHTML = `
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">🗺️ Mis destinos</div>
+              <span style="font-size:0.8rem;color:var(--gris-texto);">${destinations.length} publicados</span>
+            </div>
+            <div class="section-body">
+              ${destinations.length === 0 ? `
+                <div class="empty-state">
+                  <div class="empty-state-icon">🗺️</div>
+                  <h3>Sin destinos publicados</h3>
+                  <p>Aún no tienes destinos en la plataforma.</p>
+                </div>
+              ` : `
+                <div class="dest-list">
+                  ${destinations.map(d => `
+                    <div class="dest-item">
+                      <img
+                        class="dest-item-img"
+                        src="${d.cover_image || ''}"
+                        alt="${d.title}"
+                        onerror="this.style.background='var(--gris-borde)';this.src='';"
+                      />
+                      <div class="dest-item-info">
+                        <div class="dest-item-title">${d.title}</div>
+                        <div class="dest-item-meta">
+                          Q${d.price_from}–Q${d.price_to} &nbsp;·&nbsp;
+                          ⏱ ${d.duration_hours}h &nbsp;·&nbsp;
+                          👁 ${d.views_count} vistas
+                        </div>
+                      </div>
+                      <div class="dest-item-actions">
+                        <a href="destination.html?id=${d.id}" class="btn-outline btn-sm">Ver</a>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }
+
+      if (section === 'bookings') {
+        container.innerHTML = `
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">📅 Reservas recibidas</div>
+              <span style="font-size:0.8rem;color:var(--gris-texto);">${bookings.length} total</span>
+            </div>
+            <div class="section-body">
+              ${bookings.length === 0 ? `
+                <div class="empty-state">
+                  <div class="empty-state-icon">📅</div>
+                  <h3>Sin reservas aún</h3>
+                  <p>Las reservas de tus destinos aparecerán aquí.</p>
+                </div>
+              ` : `
+                <div class="booking-list">
+                  ${bookings.map(b => `
+                    <div class="booking-item">
+                      <img
+                        class="booking-img"
+                        src="${b.destination?.cover_image || ''}"
+                        alt=""
+                        onerror="this.style.background='var(--gris-borde)';this.src='';"
+                      />
+                      <div class="booking-info">
+                        <div class="booking-title">${b.destination?.title || '—'}</div>
+                        <div class="booking-meta">
+                          👤 ${b.user?.name || 'Usuario'} &nbsp;·&nbsp;
+                          📅 ${formatDate(b.date_requested)} &nbsp;·&nbsp;
+                          👥 ${b.people_count} &nbsp;·&nbsp;
+                          💰 Q${b.total_amount}
+                        </div>
+                      </div>
+                      <span class="booking-status status-${b.status}">${statusLabel(b.status)}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }
+
+      if (section === 'plan') {
+        const plan       = provider?.plan || 'free';
+        const planLabels = { free:'Explorador', premium:'Plan Premium', elite:'Plan Elite' };
+        const planPrices = { free:'Gratis', premium:'Q150 / mes', elite:'Q450 / mes' };
+        const planClass  = { free:'plan-free', premium:'plan-premium', elite:'plan-elite' };
+
+        container.innerHTML = `
+          <div class="profile-section">
+            <div class="section-header">
+              <div class="section-title">📊 Plan actual</div>
+            </div>
+            <div class="section-body">
+              <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+                <span class="plan-badge ${planClass[plan]}" style="font-size:1rem;padding:8px 20px;">
+                  ⚡ ${planLabels[plan]}
+                </span>
+                <span style="color:var(--gris-texto);font-size:0.9rem;">${planPrices[plan]}</span>
+              </div>
+              <div class="stats-row" style="margin-bottom:1.5rem;">
+                <div class="stat-card">
+                  <span class="stat-card-number">${destinations.length}</span>
+                  <div class="stat-card-label">Destinos activos</div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-card-number">${plan === 'free' ? '1' : plan === 'premium' ? '5' : '∞'}</span>
+                  <div class="stat-card-label">Límite de destinos</div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-card-number">${provider?.verified ? '✓' : '—'}</span>
+                  <div class="stat-card-label">Verificado</div>
+                </div>
+              </div>
+              <p style="font-size:0.85rem;color:var(--gris-texto);">
+                Para cambiar de plan, contacta al equipo de Quetzal Routes.
+              </p>
+            </div>
+          </div>
+        `;
+      }
+
+      if (section === 'password') {
+        renderTouristSection('password', container);
+      }
+    }
+
+    // ── INICIALIZAR SEGÚN ROL ─────────────────────────────────────────────────
+
+    // Importar getUserById desde db.js
+    import('../js/db.js').then(db => {
+      window.__qrdb = db;
+      currentUser = db.getUserById(session.id) || session;
+
+      if (currentUser.role === 'admin') {
+        window.location.href = 'admin.html';
+        return;
+      }
+
+      if (currentUser.role === 'provider') {
+        initProvider(currentUser);
+      } else {
+        initTourist(currentUser);
+      }
+    });
+
+  </script>
+</body>
+</html>

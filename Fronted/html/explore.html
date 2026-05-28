@@ -23,12 +23,32 @@
         <span class="logo-text">Quetzal <span>Routes</span></span>
       </a>
 
-      <ul class="navbar-links">
-        <li><a href="explore.html" class="active">Explorar</a></li>
-        <li><a href="explore.html?cat=adventure">Aventura</a></li>
-        <li><a href="explore.html?cat=culture">Cultura</a></li>
-        <li><a href="explore.html?cat=gastronomy">Gastronomía</a></li>
-      </ul>
+      <div style="display:flex; align-items:center; background:#fff; border-radius:999px; border:1.5px solid #e0e0e0; padding:6px 8px 6px 16px; gap:8px; max-width:460px; width:100%;">
+        <input
+          type="text"
+          id="navSearch"
+          placeholder="¿A dónde quieres ir?"
+          style="border:none; outline:none; background:transparent; font-size:14px; flex:1; min-width:0;"
+        />
+        <div style="width:1px; height:20px; background:#e0e0e0;"></div>
+        <select
+          id="navCategory"
+          style="border:none; outline:none; background:transparent; font-size:14px; cursor:pointer; padding:0 4px;"
+        >
+          <option value="">Todas las categorías</option>
+          <option value="nature">Naturaleza</option>
+          <option value="culture">Cultura</option>
+          <option value="adventure">Aventura</option>
+          <option value="gastronomy">Gastronomía</option>
+          <option value="wellness">Bienestar</option>
+        </select>
+        <button
+          id="navSearchBtn"
+          style="background:#1a5c38; color:#fff; border:none; border-radius:999px; padding:8px 18px; font-size:14px; cursor:pointer; white-space:nowrap;"
+        >
+          🔍 Buscar
+        </button>
+      </div>
 
       <div class="navbar-actions">
         <button class="lang-toggle" id="langToggle">
@@ -67,21 +87,6 @@
           <h1 data-i18n="explore.title">Explora Guatemala</h1>
           <p data-i18n="explore.subtitle">Descubre experiencias auténticas en cada rincón del país</p>
         </div>
-
-        <!-- Barra de búsqueda rápida -->
-        <div class="explore-search">
-          <div class="explore-search-inner">
-            <span class="explore-search-icon">🔍</span>
-            <input
-              type="text"
-              id="searchInput"
-              class="explore-search-input"
-              placeholder="Buscar destinos..."
-            />
-            <button class="explore-search-clear hidden" id="searchClear">✕</button>
-          </div>
-        </div>
-      </div>
 
       <!-- Chips de categoría rápidos -->
       <div class="filter-chips explore-quick-filters" id="quickFilters">
@@ -285,137 +290,9 @@
             </div>
           </div>
 
-          <!-- Grid de resultados -->
+          <!-- Grid de resultados — se llena dinámicamente desde localStorage -->
           <div class="results-grid grid grid-3" id="resultsGrid">
-
-            <!-- Card 1 -->
-            <article class="card" data-id="1" data-cat="culture" data-dept="Antigua" data-price="150" data-rating="4.8">
-              <div class="card-image">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Tour Colonial Antigua" loading="lazy" />
-                <span class="card-category">Cultura</span>
-                <span class="card-featured-badge">⭐ Destacado</span>
-                <button class="card-favorite" aria-label="Guardar">♡</button>
-              </div>
-              <div class="card-body">
-                <p class="card-location">Antigua, Sacatepéquez</p>
-                <h3 class="card-title">Tour Colonial Antigua Guatemala</h3>
-                <div class="card-rating">
-                  <span class="stars">★★★★★</span>
-                  <span class="rating-score">4.8</span>
-                  <span class="reviews-count">(34 reseñas)</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="card-price">
-                  <span class="price-label">Desde</span>
-                  <span class="price-amount">Q150 <span class="price-currency">GTQ</span></span>
-                </div>
-                <span class="card-duration">6 horas</span>
-              </div>
-            </article>
-
-            <!-- Card 2 -->
-            <article class="card" data-id="2" data-cat="culture" data-dept="Peten" data-price="450" data-rating="4.9">
-              <div class="card-image">
-                <img src="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80" alt="Amanecer Tikal" loading="lazy" />
-                <span class="card-category">Cultura</span>
-                <span class="card-featured-badge">⭐ Destacado</span>
-                <button class="card-favorite" aria-label="Guardar">♡</button>
-              </div>
-              <div class="card-body">
-                <p class="card-location">Tikal, Petén</p>
-                <h3 class="card-title">Amanecer en Tikal — Tour Madrugada</h3>
-                <div class="card-rating">
-                  <span class="stars">★★★★★</span>
-                  <span class="rating-score">4.9</span>
-                  <span class="reviews-count">(58 reseñas)</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="card-price">
-                  <span class="price-label">Desde</span>
-                  <span class="price-amount">Q450 <span class="price-currency">GTQ</span></span>
-                </div>
-                <span class="card-duration">8 horas</span>
-              </div>
-            </article>
-
-            <!-- Card 3 -->
-            <article class="card" data-id="3" data-cat="adventure" data-dept="Atitlan" data-price="200" data-rating="4.7">
-              <div class="card-image">
-                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Kayak Atitlán" loading="lazy" />
-                <span class="card-category">Aventura</span>
-                <span class="card-featured-badge">⭐ Destacado</span>
-                <button class="card-favorite" aria-label="Guardar">♡</button>
-              </div>
-              <div class="card-body">
-                <p class="card-location">Panajachel, Sololá</p>
-                <h3 class="card-title">Kayak en Lago de Atitlán</h3>
-                <div class="card-rating">
-                  <span class="stars">★★★★★</span>
-                  <span class="rating-score">4.7</span>
-                  <span class="reviews-count">(21 reseñas)</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="card-price">
-                  <span class="price-label">Desde</span>
-                  <span class="price-amount">Q200 <span class="price-currency">GTQ</span></span>
-                </div>
-                <span class="card-duration">4 horas</span>
-              </div>
-            </article>
-
-            <!-- Card 4 -->
-            <article class="card" data-id="4" data-cat="adventure" data-dept="Antigua" data-price="380" data-rating="4.9">
-              <div class="card-image">
-                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Volcán Acatenango" loading="lazy" />
-                <span class="card-category">Aventura</span>
-                <button class="card-favorite" aria-label="Guardar">♡</button>
-              </div>
-              <div class="card-body">
-                <p class="card-location">Chimaltenango</p>
-                <h3 class="card-title">Senderismo Volcán Acatenango</h3>
-                <div class="card-rating">
-                  <span class="stars">★★★★★</span>
-                  <span class="rating-score">4.9</span>
-                  <span class="reviews-count">(47 reseñas)</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="card-price">
-                  <span class="price-label">Desde</span>
-                  <span class="price-amount">Q380 <span class="price-currency">GTQ</span></span>
-                </div>
-                <span class="card-duration">2 días</span>
-              </div>
-            </article>
-
-            <!-- Card 5 -->
-            <article class="card" data-id="5" data-cat="gastronomy" data-dept="Verapaz" data-price="175" data-rating="4.6">
-              <div class="card-image">
-                <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80" alt="Ruta del Cacao" loading="lazy" />
-                <span class="card-category">Gastronomía</span>
-                <button class="card-favorite" aria-label="Guardar">♡</button>
-              </div>
-              <div class="card-body">
-                <p class="card-location">Cobán, Alta Verapaz</p>
-                <h3 class="card-title">Ruta del Cacao y Chocolate Artesanal</h3>
-                <div class="card-rating">
-                  <span class="stars">★★★★★</span>
-                  <span class="rating-score">4.6</span>
-                  <span class="reviews-count">(19 reseñas)</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="card-price">
-                  <span class="price-label">Desde</span>
-                  <span class="price-amount">Q175 <span class="price-currency">GTQ</span></span>
-                </div>
-                <span class="card-duration">5 horas</span>
-              </div>
-            </article>
-
+            <p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">Cargando destinos...</p>
           </div>
 
           <!-- Estado vacío -->
@@ -499,8 +376,124 @@
   ============================================================ -->
   <script type="module">
     /* ----------------------------------------------------------
+   CARGAR DESTINOS DESDE localStorage (db.js)
+    ---------------------------------------------------------- */
+    import { initDB, getActiveDestinations } from '../js/db.js';
+    initDB();
+
+    function renderDestinationCards() {
+      const grid = document.getElementById('resultsGrid');
+      if (!grid) return;
+
+      const destinations = getActiveDestinations();
+
+      if (!destinations.length) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No hay destinos disponibles aún.</p>';
+        document.getElementById('resultsNumber').textContent = '0';
+        return;
+      }
+
+      const categoryLabels = {
+        adventure: 'Aventura', culture: 'Cultura', nature: 'Naturaleza',
+        history: 'Historia', gastronomy: 'Gastronomía', wellness: 'Bienestar',
+      };
+
+      grid.innerHTML = destinations.map(d => {
+        const catLabel = categoryLabels[d.category] || d.category || '';
+        const img = d.cover_image
+          ? `<img src="${d.cover_image}" alt="${d.title}" loading="lazy" />`
+          : `<div class="card-image-placeholder">🗺️</div>`;
+
+        // Si la calificación es alta, se muestra el badge de destacado
+        const isFeatured = d.rating_avg >= 4.5; 
+
+        return `
+          <article class="card"
+            data-id="${d.id}"
+            data-cat="${d.category || ''}"
+            data-dept="${d.department || ''}"
+            data-price="${d.price_from || 0}"
+            data-rating="${d.rating_avg || 0}"
+            style="cursor:pointer"
+            onclick="window.location.href='destination.html?id=${d.id}'">
+            
+            <div class="card-image">
+              ${img}
+              ${catLabel ? `<span class="card-category">${catLabel.toUpperCase()}</span>` : ''}
+              ${isFeatured ? `<span class="card-badge-featured">⭐ Destacado</span>` : ''}
+              
+              <button class="card-favorite-floating" aria-label="Guardar en favoritos">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </button>
+            </div>
+            
+            <div class="card-body">
+              <p class="card-location">Panajachel, ${d.department || ''}</p>
+              
+              <h3 class="card-title">${d.title}</h3>
+              
+              <div class="card-rating-container">
+                <div class="stars">★★★★★</div>
+                <span class="rating-val">${d.rating_avg || '4.7'}</span>
+                <span class="rating-count">(21 reseñas)</span>
+              </div>
+              
+              <div class="card-divider"></div>
+              
+              <div class="card-footer-layout">
+                <div class="price-section">
+                  <span class="price-label">Desde</span>
+                  <div class="price-amount-container">
+                    <span class="price-q">Q${d.price_from ?? '—'}</span>
+                    <span class="price-currency">GTQ</span>
+                  </div>
+                </div>
+                
+                <div class="duration-section">
+                  <span class="duration-icon">⏱️</span>
+                  <span>${d.duration_hours || '4'} horas</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      document.getElementById('resultsNumber').textContent = destinations.length;
+      
+      // Volver a vincular los eventos de los nuevos botones de favoritos flotantes
+      linkFloatingFavorites();
+    }
+
+    // Función auxiliar para controlar el click del corazón sin activar la redirección de la card
+    function linkFloatingFavorites() {
+      document.querySelectorAll('.card-favorite-floating').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const isSelected = btn.classList.toggle('active');
+          const path = btn.querySelector('path');
+          if (isSelected) {
+            btn.style.background = '#ffe3e3';
+            btn.style.color = '#e53e3e';
+            path.setAttribute('fill', '#e53e3e');
+          } else {
+            btn.style.background = '#ffffff';
+            btn.style.color = '#1a202c';
+            path.setAttribute('fill', 'none');
+          }
+        });
+      });
+    }
+
+    renderDestinationCards();
+
+    /* ----------------------------------------------------------
       SESIÓN — navbar dinámico
     ---------------------------------------------------------- */
+
     const storedUser = localStorage.getItem('qr_user');
 
     if (storedUser) {
@@ -519,7 +512,7 @@
 
         // Insertar botones de usuario
         navbarActions.insertAdjacentHTML('beforeend', `
-          <a href="${dashboardLink}" class="btn btn-outline btn-sm">
+          <a href="profile.html" class="btn btn-outline btn-sm">
             👤 ${user.email}
           </a>
           <button class="btn btn-accent btn-sm" id="logoutBtn">
@@ -531,12 +524,43 @@
           localStorage.removeItem('qr_user');
           window.location.href = 'login.html';
         });
+        // Limpiar menú móvil
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu) {
+          mobileMenu.querySelectorAll('a[href="login.html"], a[href="register.html"]')
+            .forEach(el => el.remove());
+          mobileMenu.insertAdjacentHTML('beforeend', `
+            <a href="${dashboardLink}">👤 ${user.email}</a>
+            <button class="btn btn-accent btn-sm btn-block" id="mobileLogoutBtn">
+              Cerrar sesión
+            </button>
+          `);
+          document.getElementById('mobileLogoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('qr_user');
+            window.location.href = 'login.html';
+          });
+        }
       }
     }
 
     /* ----------------------------------------------------------
        NAVBAR
     ---------------------------------------------------------- */
+    document.getElementById('navSearchBtn').addEventListener('click', () => {
+      const q   = document.getElementById('navSearch').value.trim();
+      const cat = document.getElementById('navCategory').value;
+      state.query    = q;
+      state.category = cat;
+      document.querySelectorAll('.chip-category').forEach(c => {
+        c.classList.toggle('active', c.dataset.cat === cat);
+      });
+      applyFilters();
+    });
+
+    document.getElementById('navSearch').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('navSearchBtn').click();
+    });
+
     const navToggle  = document.getElementById('navToggle');
     const mobileMenu = document.getElementById('mobileMenu');
     navToggle.addEventListener('click', () => {
@@ -554,8 +578,7 @@
 
     // Aplicar búsqueda desde URL
     if (urlQuery) {
-      document.getElementById('searchInput').value = urlQuery;
-      document.getElementById('searchClear').classList.remove('hidden');
+       document.getElementById('navSearch').value = urlQuery;
     }
 
     // Aplicar categoría desde URL
@@ -747,25 +770,6 @@
     });
 
     /* ----------------------------------------------------------
-       BÚSQUEDA DE TEXTO
-    ---------------------------------------------------------- */
-    const searchInput = document.getElementById('searchInput');
-    const searchClear = document.getElementById('searchClear');
-
-    searchInput.addEventListener('input', () => {
-      state.query = searchInput.value.trim();
-      searchClear.classList.toggle('hidden', !state.query);
-      applyFilters();
-    });
-
-    searchClear.addEventListener('click', () => {
-      searchInput.value = '';
-      state.query = '';
-      searchClear.classList.add('hidden');
-      applyFilters();
-    });
-
-    /* ----------------------------------------------------------
        ORDENAR
     ---------------------------------------------------------- */
     document.getElementById('sortSelect').addEventListener('change', (e) => {
@@ -843,8 +847,8 @@
       state.rating   = 0;
       state.query    = '';
 
-      searchInput.value = '';
-      searchClear.classList.add('hidden');
+      document.getElementById('navSearch').value   = '';
+      document.getElementById('navCategory').value = '';
       rangeMin.value = 0;
       rangeMax.value = 1000;
       document.getElementById('priceMin').textContent = 0;
