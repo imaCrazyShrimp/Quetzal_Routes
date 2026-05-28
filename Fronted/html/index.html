@@ -227,100 +227,155 @@
       </div>
 
       <!-- Grid de cards — se llena dinámicamente con JS -->
+      <!-- Grid de cards — Estructura corregida con CSS compacto -->
       <div class="grid grid-3" id="featuredGrid">
 
         <!-- Card 1 -->
-        <article class="card" data-id="1">
+        <article class="card" data-id="1" style="cursor:pointer">
           <div class="card-image">
             <img
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
+              src="https://alacartatours.com/wp-content/uploads/2025/01/the-colonial-city-of-antigua-tour-2.jpg"
               alt="Tour Colonial Antigua Guatemala"
               loading="lazy"
             />
-            <span class="card-category">Cultura</span>
-            <span class="card-featured-badge">⭐ Destacado</span>
-            <button class="card-favorite" aria-label="Guardar favorito">♡</button>
+            <span class="card-category">CULTURA</span>
+            <span class="card-badge-featured">⭐ Destacado</span>
+            
+            <button class="card-favorite-floating card-favorite" aria-label="Guardar en favoritos">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
           </div>
+          
           <div class="card-body">
+            <!-- Quitamos el emoji estático del HTML para que actúe .card-location::before -->
             <p class="card-location">Antigua, Sacatepéquez</p>
+            
             <h3 class="card-title">Tour Colonial Antigua Guatemala</h3>
-            <div class="card-rating">
-              <span class="stars">★★★★★</span>
-              <span class="rating-score">4.8</span>
-              <span class="reviews-count">(34 reseñas)</span>
+            
+            <div class="card-rating-container">
+              <div class="stars">★★★★★</div>
+              <span class="rating-val">4.8</span>
+              <span class="rating-count">(34 reseñas)</span>
             </div>
-          </div>
-          <div class="card-footer">
-            <div class="card-price">
-              <span class="price-label">Desde</span>
-              <span class="price-amount">Q150 <span class="price-currency">GTQ</span></span>
+            
+            <div class="card-divider"></div>
+            
+            <div class="card-footer-layout">
+              <div class="price-section">
+                <span class="price-label">Desde</span>
+                <div class="price-amount-container">
+                  <span class="price-q">Q150</span>
+                  <span class="price-currency">GTQ</span>
+                </div>
+              </div>
+              
+              <div class="duration-section">
+                <span class="duration-icon">⏱️</span>
+                <span>6 horas</span>
+              </div>
             </div>
-            <span class="card-duration">6 horas</span>
           </div>
         </article>
 
         <!-- Card 2 -->
-        <article class="card" data-id="2">
+        <article class="card" data-id="2" style="cursor:pointer">
           <div class="card-image">
             <img
               src="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80"
               alt="Amanecer en Tikal"
               loading="lazy"
             />
-            <span class="card-category">Cultura</span>
-            <span class="card-featured-badge">⭐ Destacado</span>
-            <button class="card-favorite" aria-label="Guardar favorito">♡</button>
+            <span class="card-category">CULTURA</span>
+            <span class="card-badge-featured">⭐ Destacado</span>
+            
+            <button class="card-favorite-floating card-favorite" aria-label="Guardar en favoritos">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
           </div>
+          
           <div class="card-body">
             <p class="card-location">Tikal, Petén</p>
+            
             <h3 class="card-title">Amanecer en Tikal — Tour Madrugada</h3>
-            <div class="card-rating">
-              <span class="stars">★★★★★</span>
-              <span class="rating-score">4.9</span>
-              <span class="reviews-count">(58 reseñas)</span>
+            
+            <div class="card-rating-container">
+              <div class="stars">★★★★★</div>
+              <span class="rating-val">4.9</span>
+              <span class="rating-count">(58 reseñas)</span>
             </div>
-          </div>
-          <div class="card-footer">
-            <div class="card-price">
-              <span class="price-label">Desde</span>
-              <span class="price-amount">Q450 <span class="price-currency">GTQ</span></span>
+            
+            <div class="card-divider"></div>
+            
+            <div class="card-footer-layout">
+              <div class="price-section">
+                <span class="price-label">Desde</span>
+                <div class="price-amount-container">
+                  <span class="price-q">Q450</span>
+                  <span class="price-currency">GTQ</span>
+                </div>
+              </div>
+              
+              <div class="duration-section">
+                <span class="duration-icon">⏱️</span>
+                <span>8 horas</span>
+              </div>
             </div>
-            <span class="card-duration">8 horas</span>
           </div>
         </article>
 
         <!-- Card 3 -->
-        <article class="card" data-id="3">
+        <article class="card" data-id="3" style="cursor:pointer">
           <div class="card-image">
             <img
               src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
               alt="Kayak en Lago de Atitlán"
               loading="lazy"
             />
-            <span class="card-category">Aventura</span>
-            <span class="card-featured-badge">⭐ Destacado</span>
-            <button class="card-favorite" aria-label="Guardar favorito">♡</button>
+            <span class="card-category">AVENTURA</span>
+            <span class="card-badge-featured">⭐ Destacado</span>
+            
+            <button class="card-favorite-floating card-favorite" aria-label="Guardar en favoritos">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
           </div>
+          
           <div class="card-body">
             <p class="card-location">Panajachel, Sololá</p>
+            
             <h3 class="card-title">Kayak en Lago de Atitlán</h3>
-            <div class="card-rating">
-              <span class="stars">★★★★★</span>
-              <span class="rating-score">4.7</span>
-              <span class="reviews-count">(21 reseñas)</span>
+            
+            <div class="card-rating-container">
+              <div class="stars">★★★★★</div>
+              <span class="rating-val">4.7</span>
+              <span class="rating-count">(21 reseñas)</span>
             </div>
-          </div>
-          <div class="card-footer">
-            <div class="card-price">
-              <span class="price-label">Desde</span>
-              <span class="price-amount">Q200 <span class="price-currency">GTQ</span></span>
+            
+            <div class="card-divider"></div>
+            
+            <div class="card-footer-layout">
+              <div class="price-section">
+                <span class="price-label">Desde</span>
+                <div class="price-amount-container">
+                  <span class="price-q">Q200</span>
+                  <span class="price-currency">GTQ</span>
+                </div>
+              </div>
+              
+              <div class="duration-section">
+                <span class="duration-icon">⏱️</span>
+                <span>4 horas</span>
+              </div>
             </div>
-            <span class="card-duration">4 horas</span>
           </div>
         </article>
 
       </div>
-
       <div class="featured-cta">
         <a href="explore.html" class="btn btn-outline btn-lg" data-i18n="featured.cta">
           Ver todos los destinos →
@@ -343,7 +398,7 @@
       <div class="departments-grid">
 
         <a href="explore.html?dept=Antigua" class="dept-card dept-card-lg">
-          <img src="https://images.unsplash.com/photo-1547558902-c0e053aca5b6?w=800&q=80" alt="Antigua Guatemala" loading="lazy" />
+          <img src="https://alacartatours.com/wp-content/uploads/2025/01/the-colonial-city-of-antigua-tour-2.jpg" alt="Antigua Guatemala" loading="lazy" />
           <div class="dept-card-overlay">
             <h3>Antigua Guatemala</h3>
             <p>Ciudad Colonial · Patrimonio UNESCO</p>
@@ -799,14 +854,21 @@
     });
 
     /* ----------------------------------------------------------
-       CARDS — favoritos (UI demo, sin backend aún)
+       CARDS — favoritos (UI demo compacta)
     ---------------------------------------------------------- */
     document.querySelectorAll('.card-favorite').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
+        
         const isActive = btn.classList.toggle('active');
-        btn.textContent = isActive ? '♥' : '♡';
+        if (isActive) {
+          btn.style.background = 'var(--primary-color)';
+          btn.style.color = '#ffffff';
+        } else {
+          btn.style.background = '#ffffff';
+          btn.style.color = '#1a202c';
+        }
       });
     });
 

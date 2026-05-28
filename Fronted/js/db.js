@@ -32,11 +32,46 @@ const SEED = {
     { id:3, user_id:6, business_name:'Antigua Heritage Tours', description_es:'Recorridos culturales e históricos por la Antigua Guatemala declarada Patrimonio de la Humanidad. Tours a pie, en bicicleta y artesanía local.',    contact_email:'pedro@antiguaheritage.com',  whatsapp:'+50299998765', plan:'free',    verified:1, created_at:'2025-01-08T08:00:00Z' },
   ],
   destinations: [
-    { id:1, provider_id:1, title:'Kayak Tour — Lago de Atitlán al Amanecer',        category:'adventure', department:'Solola',        price_from:35,  price_to:50,  duration_hours:3,  max_people:8,  status:'active', featured:1, views_count:342, cover_image:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',       address:'Embarcadero Principal, Panajachel, Sololá',    lat:14.748,   lng:-91.1607, description_es:'Vive la magia del Lago de Atitlán desde el agua al amanecer. Tour en kayak de 3 horas rodeado de los tres volcanes. Incluye guía bilingüe, equipo completo y desayuno típico.',           created_at:'2025-01-10T08:00:00Z' },
-    { id:2, provider_id:2, title:'Expedición Tikal — Ciudad Perdida Maya',           category:'history',   department:'Peten',         price_from:75,  price_to:110, duration_hours:10, max_people:12, status:'active', featured:1, views_count:589, cover_image:'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80',       address:'Parque Nacional Tikal, Petén',                 lat:17.222,   lng:-89.6237, description_es:'Adéntrate en la jungla del Petén para descubrir Tikal. Recorre templos milenarios, observa fauna silvestre y sube al Templo IV para ver el amanecer sobre el dosel de la selva.',      created_at:'2025-01-12T09:00:00Z' },
-    { id:3, provider_id:3, title:'Tour Histórico por Antigua Guatemala',             category:'culture',   department:'Sacatepequez',  price_from:20,  price_to:30,  duration_hours:4,  max_people:15, status:'active', featured:0, views_count:210, cover_image:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',       address:'Parque Central, Antigua Guatemala',            lat:14.5586,  lng:-90.7345, description_es:'Descubre la joya colonial de Centroamérica a pie con un guía local experto. Incluye degustación de chocolate guatemalteco y café de altura.',                                           created_at:'2025-01-15T10:00:00Z' },
-    { id:4, provider_id:1, title:'Senderismo Volcán San Pedro — Cima a 3,020 msnm', category:'nature',    department:'Solola',        price_from:45,  price_to:65,  duration_hours:6,  max_people:10, status:'active', featured:1, views_count:278, cover_image:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80',       address:'San Pedro La Laguna, Sololá',                  lat:14.6937,  lng:-91.2683, description_es:'Conquista el Volcán San Pedro con vistas panorámicas del Lago de Atitlán y los volcanes vecinos desde la cima a 3,020 metros. Almuerzo incluido.',                                     created_at:'2025-01-18T07:00:00Z' },
-    { id:5, provider_id:2, title:'Semuc Champey — Piscinas Naturales de Lanquín',   category:'nature',    department:'AltaVerapaz',   price_from:55,  price_to:80,  duration_hours:8,  max_people:12, status:'active', featured:1, views_count:415, cover_image:'https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80',       address:'Semuc Champey, Lanquín, Alta Verapaz',         lat:15.5333,  lng:-89.9667, description_es:'Descubre Semuc Champey, un puente natural de piedra caliza con piscinas de agua esmeralda. Incluye visita a las cuevas de Lanquín y nado en las piscinas naturales.',                  created_at:'2025-01-20T08:00:00Z' },
+    { 
+      id:1, provider_id:3, title:'Tour Colonial Antigua Guatemala', category:'culture', department:'Sacatepequez', 
+      price_from:150, price_to:150, duration_hours:6, max_people:12, status:'active', featured:1, views_count:342, 
+      cover_image:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', 
+      address:'Parque Central, Antigua Guatemala, Sacatepéquez', lat:14.5586, lng:-90.7295, rating_avg: 4.8,
+      description_es:'Recorre las calles empedradas de la Ciudad Colonial más bella de Centroamérica. Visita conventos, iglesias barrocas, mercados de artesanías y disfruta de una degustación de café de altura. Nuestro guía experto te contará 500 años de historia viva.', 
+      created_at:'2025-01-10T08:00:00Z' 
+    },
+    { 
+      id:2, provider_id:2, title:'Amanecer en Tikal — Tour Madrugada', category:'culture', department:'Peten', 
+      price_from:450, price_to:450, duration_hours:8, max_people:8, status:'active', featured:1, views_count:589, 
+      cover_image:'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80', 
+      address:'Parque Nacional Tikal, Petén', lat:17.222, lng:-89.6237, rating_avg: 4.9,
+      description_es:'Adéntrate en la jungla del Petén para descubrir Tikal. Recorre templos milenarios, observa fauna silvestre y sube al Templo IV para ver el amanecer sobre el dosel de la selva.', 
+      created_at:'2025-01-12T09:00:00Z' 
+    },
+    { 
+      id:3, provider_id:1, title:'Kayak en Lago de Atitlán', category:'adventure', department:'Solola', 
+      price_from:200, price_to:200, duration_hours:4, max_people:10, status:'active', featured:1, views_count:210, 
+      cover_image:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', 
+      address:'Panajachel, Sololá', lat:14.7444, lng:-91.1542, rating_avg: 4.7,
+      description_es:'Vive la magia del Lago de Atitlán desde el agua. Tour en kayak rodeado de los tres volcanes. Incluye guía bilingüe y equipo completo.', 
+      created_at:'2025-01-15T10:00:00Z' 
+    },
+    { 
+      id:4, provider_id:2, title:'Senderismo Volcán Acatenango — Cima a 3,976 msnm', category:'adventure', department:'Chimaltenango', 
+      price_from:380, price_to:400, duration_hours:24, max_people:15, status:'active', featured:0, views_count:278, 
+      cover_image:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80', 
+      address:'La Soledad, Chimaltenango', lat:14.5012, lng:-90.8757, rating_avg: 4.9,
+      description_es:'Acampa frente al Volcán de Fuego en erupción. Una expedición extrema de dos días con guías certificados, equipo de acampar y alimentación incluida.', 
+      created_at:'2025-01-18T07:00:00Z' 
+    },
+    { 
+      id:5, provider_id:3, title:'Ruta del Cacao y Chocolate Artesanal', category:'gastronomy', department:'AltaVerapaz', 
+      price_from:175, price_to:200, duration_hours:5, max_people:20, status:'active', featured:0, views_count:415, 
+      cover_image:'https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80', 
+      address:'Cobán, Alta Verapaz', lat:15.4697, lng:-90.3795, rating_avg: 4.6,
+      description_es:'Especialistas en turismo gastronómico y cultural. Aprende el proceso completo desde la semilla hasta la barra de chocolate con comunidades locales.', 
+      created_at:'2025-01-20T08:00:00Z' 
+    }
   ],
   bookings: [
     { id:1, destination_id:1, user_id:4, date_requested:'2025-02-10', people_count:2, total_amount:90.0,  status:'completed', created_at:'2025-02-01T12:00:00Z' },

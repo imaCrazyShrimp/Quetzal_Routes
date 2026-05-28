@@ -529,6 +529,9 @@
   ============================================================ -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script type="module">
+    import { initDB, getSession, createBooking, toggleFavorite, isFavorite, createReview } from '../js/db.js';
+    initDB();
+    const session = getSession();
 
     /* ----------------------------------------------------------
       SESIÓN — navbar dinámico
@@ -679,6 +682,7 @@
     const params  = new URLSearchParams(window.location.search);
     const destId  = parseInt(params.get('id')) || 1;
     const dest    = destinations[destId] || destinations[1];
+    dest.id = destId;
 
     // Rellenar datos en el DOM
     document.title = `${dest.title} — Quetzal Routes`;
@@ -798,10 +802,24 @@
       }
       document.getElementById('bookingDate').classList.remove('error');
 
-      // Rellenar modal de confirmación
+      if (!session) {
+        window.location.href = `login.html`;
+        return;
+      }
+
       const subtotal = dest.price * people;
       const fee      = Math.round(subtotal * serviceFeeRate);
       const total    = subtotal + fee;
+
+      // Guardar reserva en db.js
+      createBooking({
+        destination_id: dest.id,
+        user_id:        session.id,
+        date_requested: date,
+        people_count:   people,
+        total_amount:   total,
+      });
+
       const dateFormatted = new Date(date + 'T12:00:00').toLocaleDateString('es-GT', {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
       });
@@ -810,7 +828,6 @@
       document.getElementById('confirmPeople').textContent = `${people} persona${people > 1 ? 's' : ''}`;
       document.getElementById('confirmTotal').textContent  = `Q${total} GTQ`;
 
-      // Abrir modal
       document.getElementById('bookingModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     });
@@ -857,6 +874,11 @@
        ENVIAR RESEÑA
     ---------------------------------------------------------- */
     document.getElementById('submitReview').addEventListener('click', () => {
+      if (!session) {
+        window.location.href = 'login.html';
+        return;
+      }
+
       const comment = document.getElementById('reviewComment').value.trim();
       if (!selectedRating) {
         starLabel.textContent = '⚠ Selecciona una calificación';
@@ -868,7 +890,20 @@
         return;
       }
 
-      // Agregar reseña al DOM (demo)
+      // Guardar reseña en db.js
+      const result = createReview({
+        destination_id: dest.id,
+        user_id:        session.id,
+        rating:         selectedRating,
+        comment,
+      });
+
+      if (!result.ok) {
+        showToast(result.error, 'error');
+        return;
+      }
+
+      // Agregar al DOM inmediatamente
       const list    = document.getElementById('reviewsList');
       const newItem = document.createElement('div');
       newItem.className = 'review-item review-item-new';
@@ -876,7 +911,7 @@
         <div class="review-header">
           <div class="review-avatar" style="background:var(--rojo-huipil)">Tú</div>
           <div class="review-meta">
-            <strong>Tu reseña</strong>
+            <strong>${session.name || 'Tú'}</strong>
             <span>Ahora mismo</span>
           </div>
           <div class="review-rating">
@@ -895,17 +930,62 @@
       starLabel.style.color = '';
       document.getElementById('reviewComment').classList.remove('error');
 
-      // Toast de confirmación
       showToast('¡Reseña publicada! Gracias por tu opinión.', 'success');
     });
+
+        /* ----------------------------------------------------------
+      CARGAR RESEÑAS DESDE LA DB (Añade esta sección en tus scripts)
+    ---------------------------------------------------------- */
+    function cargarReseasDelDestino() {
+      const list = document.getElementById('reviewsList');
+      // Si tu db.js tiene una función para traer las reseñas guardadas:
+      const reseñasGuardadas = getReviews ? getReviews(dest.id) : [];
+
+      // Opcional: Puedes limpiar la lista o dejar las dos fijas y sumarle las de la DB
+      reseñasGuardadas.forEach(rev => {
+        const newItem = document.createElement('div');
+        newItem.className = 'review-item';
+        newItem.innerHTML = `
+          <div class="review-header">
+            <div class="review-avatar" style="background:var(--verde-quetzal, #1a5c38); color:#fff;">U</div>
+            <div class="review-meta">
+              <strong>Usuario del sitio</strong>
+              <span>Reseña guardada</span>
+            </div>
+            <div class="review-rating">
+              <span class="stars">${'★'.repeat(rev.rating)}${'☆'.repeat(5 - rev.rating)}</span>
+            </div>
+          </div>
+          <p class="review-text">${rev.comment}</p>
+        `;
+        list.prepend(newItem);
+      });
+    }
+
+    // Llama a la función justo después de cargar los datos del destino
+    cargarReseasDelDestino();
 
     /* ----------------------------------------------------------
        FAVORITO
     ---------------------------------------------------------- */
     const favBtn = document.getElementById('favBtn');
+
+    // Estado inicial según sesión
+    if (session && isFavorite(session.id, dest.id)) {
+      favBtn.classList.add('active');
+      favBtn.innerHTML = '<span>♥</span> Guardado';
+    }
+
     favBtn.addEventListener('click', () => {
-      const active = favBtn.classList.toggle('active');
-      favBtn.innerHTML = active ? '<span>♥</span> Guardado' : '<span>♡</span> Guardar';
+      if (!session) {
+        window.location.href = 'login.html';
+        return;
+      }
+      const result = toggleFavorite(session.id, dest.id);
+      const saved  = result.action === 'added';
+      favBtn.classList.toggle('active', saved);
+      favBtn.innerHTML = saved ? '<span>♥</span> Guardado' : '<span>♡</span> Guardar';
+      showToast(saved ? 'Guardado en favoritos.' : 'Eliminado de favoritos.');
     });
 
     /* ----------------------------------------------------------
