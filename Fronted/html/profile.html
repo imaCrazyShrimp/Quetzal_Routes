@@ -714,6 +714,21 @@
       const nav = document.getElementById('sidebarNav');
       nav.innerHTML = navItems.map(item => {
         if (item === 'divider') return '<div class="sidebar-divider"></div>';
+        
+        // 1. SI TIENE HREF: Renderizar como un enlace real <a>
+        if (item.href) {
+          return `
+            <a
+              href="${item.href}"
+              class="sidebar-nav-item${item.active ? ' active' : ''}${item.danger ? ' danger' : ''}"
+            >
+              <span class="sidebar-nav-icon">${item.icon}</span>
+              ${item.label}
+            </a>
+          `;
+        }
+
+        // 2. SI NO TIENE HREF: Renderizar como botón para cambiar de sección interna
         return `
           <button
             class="sidebar-nav-item${item.active ? ' active' : ''}${item.danger ? ' danger' : ''}"
@@ -725,6 +740,7 @@
         `;
       }).join('');
 
+      // El listener solo escuchará a los botones que tengan secciones internas
       nav.querySelectorAll('[data-section]').forEach(btn => {
         btn.addEventListener('click', () => {
           const section = btn.dataset.section;
@@ -1083,7 +1099,7 @@
         { icon:'🏢', label:'Mi empresa',    section:'business', active:true },
         { icon:'🗺️', label:'Mis destinos',  section:'destinations' },
         { icon:'📅', label:'Reservas',       section:'bookings' },
-        { icon:'📊', label:'Plan actual',    section:'plan' },
+        { icon:'📊', label:'Mi panel',       href:'dashboard-provider.html' },
         'divider',
         { icon:'🔑', label:'Cambiar contraseña', section:'password' },
       ]);
