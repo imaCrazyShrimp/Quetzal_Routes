@@ -783,6 +783,16 @@
                 </p>
               </div>
 
+              <!-- Galería de imágenes -->
+              <div class="form-group span-2">
+                <label class="form-label">Galería de imágenes (URLs adicionales)</label>
+                <textarea class="form-input" id="destGallery" rows="2"
+                  placeholder="https://foto1.jpg, https://foto2.jpg, https://foto3.jpg"></textarea>
+                <p style="font-size:0.72rem; color:var(--gris-texto); margin-top:0.35rem;">
+                  📸 Opcional. Pega varias URLs separadas por coma. Se mostrarán como galería en la página del destino.
+                </p>
+              </div>
+
             </div><!-- /form-grid -->
 
             <div style="display:flex; gap:0.75rem; margin-top:1.5rem; justify-content:flex-end;">
@@ -1150,20 +1160,22 @@
       e.preventDefault();
       const btn = document.getElementById('createDestBtn');
 
-      const title    = document.getElementById('destTitle')?.value.trim();
-      const titleEn  = document.getElementById('destTitleEn')?.value.trim();
-      const category = document.getElementById('destCategory')?.value;
-      const dept     = document.getElementById('destDepartment')?.value;
-      const descEs   = document.getElementById('destDescEs')?.value.trim();
-      const descEn   = document.getElementById('destDescEn')?.value.trim();
-      const address  = document.getElementById('destAddress')?.value.trim();
-      const lat      = parseFloat(document.getElementById('destLat')?.value) || null;
-      const lng      = parseFloat(document.getElementById('destLng')?.value) || null;
-      const priceFrom = parseFloat(document.getElementById('destPriceFrom')?.value) || 0;
-      const priceTo   = parseFloat(document.getElementById('destPriceTo')?.value) || 0;
-      const duration  = parseInt(document.getElementById('destDuration')?.value) || 1;
-      const maxPeople = parseInt(document.getElementById('destMaxPeople')?.value) || 10;
+      const title      = document.getElementById('destTitle')?.value.trim();
+      const titleEn    = document.getElementById('destTitleEn')?.value.trim();
+      const category   = document.getElementById('destCategory')?.value;
+      const dept       = document.getElementById('destDepartment')?.value;
+      const descEs     = document.getElementById('destDescEs')?.value.trim();
+      const descEn     = document.getElementById('destDescEn')?.value.trim();
+      const address    = document.getElementById('destAddress')?.value.trim();
+      const lat        = parseFloat(document.getElementById('destLat')?.value) || null;
+      const lng        = parseFloat(document.getElementById('destLng')?.value) || null;
+      const priceFrom  = parseFloat(document.getElementById('destPriceFrom')?.value) || 0;
+      const priceTo    = parseFloat(document.getElementById('destPriceTo')?.value) || 0;
+      const duration   = document.getElementById('destDuration')?.value.trim() || '1 hora';
+      const maxPeople  = parseInt(document.getElementById('destMaxPeople')?.value) || 10;
       const coverImage = document.getElementById('destCoverImage')?.value.trim() || '';
+      const galleryRaw = document.getElementById('destGallery')?.value.trim() || '';
+      const gallery    = galleryRaw ? galleryRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
 
       if (!title || !category || !dept || !descEs || !address) {
         showToast('Completa todos los campos obligatorios (*).', 'warning');
@@ -1192,6 +1204,7 @@
         price_from:     priceFrom,
         price_to:       priceTo,
         duration_hours: duration,
+        gallery:        gallery,
         max_people:     maxPeople,
         cover_image:    coverImage,
         status:         'active',

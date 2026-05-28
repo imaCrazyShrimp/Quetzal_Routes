@@ -529,7 +529,8 @@
   ============================================================ -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script type="module">
-    import { initDB, getSession, createBooking, toggleFavorite, isFavorite, createReview } from '../js/db.js';
+    import { initDB, getSession, createBooking, toggleFavorite, isFavorite, createReview,
+             getDestinationById, getProviderById, getAverageRating, getReviewsByDestination } from '../js/db.js';
     initDB();
     const session = getSession();
 
@@ -586,7 +587,7 @@
        DATOS DE DESTINOS (mock — reemplazar con api.js)
     ---------------------------------------------------------- */
     const destinations = {
-      1: {
+      101: {
         title: 'Tour Colonial Antigua Guatemala',
         category: 'Cultura',
         location: 'Antigua, Sacatepéquez',
@@ -605,7 +606,7 @@
           whatsapp: '+50255551234',
         }
       },
-      2: {
+      102: {
         title: 'Amanecer en Tikal — Tour Madrugada',
         category: 'Cultura',
         location: 'Tikal, Petén',
@@ -623,7 +624,7 @@
           whatsapp: '+50255555678',
         }
       },
-      3: {
+      103: {
         title: 'Kayak en Lago de Atitlán',
         category: 'Aventura',
         location: 'Panajachel, Sololá',
@@ -640,7 +641,7 @@
           whatsapp: '+50255551234',
         }
       },
-      4: {
+      104: {
         title: 'Senderismo Volcán Acatenango',
         category: 'Aventura',
         location: 'Chimaltenango',
@@ -657,7 +658,7 @@
           whatsapp: '+50255555678',
         }
       },
-      5: {
+      105: {
         title: 'Ruta del Cacao y Chocolate Artesanal',
         category: 'Gastronomía',
         location: 'Cobán, Alta Verapaz',
@@ -674,15 +675,59 @@
           whatsapp: '+50255551234',
         }
       }
+      
     };
 
+    
+
     /* ----------------------------------------------------------
-       CARGAR DESTINO SEGÚN ID EN URL
+       CARGAR DESTINO — primero db.js, fallback al objeto estático
     ---------------------------------------------------------- */
-    const params  = new URLSearchParams(window.location.search);
-    const destId  = parseInt(params.get('id')) || 1;
-    const dest    = destinations[destId] || destinations[1];
-    dest.id = destId;
+    const params = new URLSearchParams(window.location.search);
+    const destId = parseInt(params.get('id')) || 101;
+
+    // IDs 101-105 son estáticos (index.html). IDs reales vienen de db.js
+    const STATIC_IDS = new Set([101, 102, 103, 104, 105]);
+    const dbDest = STATIC_IDS.has(destId) ? null : getDestinationById(destId);
+
+    let dest;
+
+    if (dbDest) {
+      // Destino dinámico — viene de localStorage (db.js)
+      const dbProvider = dbDest.provider_id ? getProviderById(dbDest.provider_id) : null;
+      const liveReviews = getReviewsByDestination(destId);
+      const liveRating  = getAverageRating(destId);
+
+      dest = {
+        id:        dbDest.id,
+        title:     dbDest.title,
+        category:  dbDest.category   || '',
+        location:  dbDest.department || '',
+        address:   dbDest.address    || '',
+        lat:       dbDest.lat        || 14.634,
+        lng:       dbDest.lng        || -90.506,
+        price:     dbDest.price_from || 0,
+        rating:    liveRating        || dbDest.rating_avg || 0,
+        reviews:   liveReviews.length,
+        duration:  dbDest.duration_hours ? `${dbDest.duration_hours}` : '—',
+        maxPeople: dbDest.max_people  || 0,
+        images:    (dbDest.gallery && dbDest.gallery.length > 0)
+                     ? dbDest.gallery
+                     : (dbDest.cover_image ? [dbDest.cover_image] : [
+                         'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80'
+                       ]),
+        provider: {
+          name:     dbProvider?.business_name || 'Proveedor',
+          initials: dbProvider?.business_name?.substring(0,2).toUpperCase() || 'QR',
+          desc:     dbProvider?.description_es || '',
+          whatsapp: dbProvider?.whatsapp || '+50255551234',
+        }
+      };
+    } else {
+      // Fallback — destino estático (cards de index.html que no están en db.js)
+      dest = destinations[destId] || destinations[101];
+      dest.id = destId;
+    }
 
     // Rellenar datos en el DOM
     document.title = `${dest.title} — Quetzal Routes`;
