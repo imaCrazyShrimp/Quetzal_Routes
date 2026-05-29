@@ -154,7 +154,7 @@
               <h1 id="destTitle">Tour Colonial Antigua Guatemala</h1>
               <div class="dest-actions">
                 <button class="dest-action-btn" id="favBtn" aria-label="Guardar en favoritos">
-                  <i data-lucide="heart"></i> Guardar
+                  <i data-lucide="heart-plus"></i> Guardar
                 </button>
                 <button class="dest-action-btn" id="shareBtn" aria-label="Compartir">
                   <i data-lucide="share-2"></i> Compartir
@@ -541,7 +541,7 @@
              getDestinationById, getProviderById, getAverageRating, getReviewsByDestination } from '../js/db.js';
     initDB();
     const session = getSession();
-
+      lucide.createIcons();
     /* ----------------------------------------------------------
       SESIÓN — navbar dinámico
     ---------------------------------------------------------- */
@@ -1057,7 +1057,7 @@
       });
     }
 
-    // Llama a la función justo después de cargar los datos del destino
+    // Llama a la función justo después de cargar los datos del destino 
     cargarReseasDelDestino();
 
     /* ----------------------------------------------------------
@@ -1068,7 +1068,8 @@
     // Estado inicial según sesión
     if (session && isFavorite(session.id, dest.id)) {
       favBtn.classList.add('active');
-      favBtn.innerHTML = '<span>♥</span> Guardado';
+      favBtn.innerHTML = '<i data-lucide="heart-minus"></i> Guardado';
+      lucide.createIcons(); 
     }
 
     favBtn.addEventListener('click', () => {
@@ -1079,7 +1080,8 @@
       const result = toggleFavorite(session.id, dest.id);
       const saved  = result.action === 'added';
       favBtn.classList.toggle('active', saved);
-      favBtn.innerHTML = saved ? '<span>♥</span> Guardado' : '<span>♡</span> Guardar';
+      favBtn.innerHTML = saved ? '<i data-lucide="heart-minus"></i> Guardado' : '<i data-lucide="heart-plus"></i> Guardar';
+      lucide.createIcons()
       showToast(saved ? 'Guardado en favoritos.' : 'Eliminado de favoritos.');
     });
 
@@ -1155,7 +1157,7 @@
       container.appendChild(toast);
       setTimeout(() => toast.remove(), 4000);
     }
-
+    lucide.createIcons();
   </script>
 
 </body>
