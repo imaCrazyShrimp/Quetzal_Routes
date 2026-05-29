@@ -469,11 +469,11 @@
 }
 
 .how-connector::after {
-  content: '→';
   position: absolute;
-  right: -10px;
-  top: -12px;
+  right: -1px;
+  top: -16.1px;
   font-size: var(--text-xl);
+
   color: var(--verde-quetzal);
 }
 
