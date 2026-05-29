@@ -748,7 +748,15 @@
     document.title = `${dest.title} — Quetzal Routes`;
     document.getElementById('breadcrumbTitle').textContent  = dest.title;
     document.getElementById('destTitle').textContent        = dest.title;
-    document.getElementById('destCategory').textContent     = dest.category;
+    const categoryLabels = {
+      cultura: 'Cultura', culture: 'Cultura',
+      aventura: 'Aventura', adventure: 'Aventura',
+      naturaleza: 'Naturaleza', nature: 'Naturaleza',
+      gastronomía: 'Gastronomía', gastronomy: 'Gastronomía',
+      bienestar: 'Bienestar', wellness: 'Bienestar',
+      historia: 'Historia', history: 'Historia',
+    };
+    document.getElementById('destCategory').textContent = categoryLabels[dest.category?.toLowerCase()] || dest.category || '';
     document.getElementById('destLocation').innerHTML  = `<span class="filter-title-wrap">
                                                             <i data-lucide="map-pin"></i>
                                                             ${dest.location}
