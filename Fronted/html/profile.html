@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+7<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -6,7 +6,9 @@
   <meta name="description" content="Mi perfil — Quetzal Routes" />
   <title>Mi perfil — Quetzal Routes</title>
 
+  <!--Fonts and icons -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <link rel="stylesheet" href="../css/base.css" />
   <link rel="stylesheet" href="../css/components.css" />
@@ -727,6 +729,7 @@
           renderSection(section);
         });
       });
+      lucide.createIcons();
     }
 
     // ── RENDER PRINCIPAL ──────────────────────────────────────────────────────
@@ -757,12 +760,12 @@
       const reviews   = getReviewsByUser(user.id);
 
       buildSidebar(user, [
-        { icon:'👤', label:'Mi perfil',    section:'profile',   active:true },
-        { icon:'📅', label:'Mis reservas', section:'bookings'  },
-        { icon:'♡',  label:'Favoritos',    section:'favorites' },
-        { icon:'⭐', label:'Mis reseñas',  section:'reviews'   },
+        { icon:'<i data-lucide="user"></i>',        label:'Mi perfil',    section:'profile',   active:true },
+        { icon:'<i data-lucide="calendar"></i>',    label:'Mis reservas', section:'bookings'  },
+        { icon:'<i data-lucide="heart"></i>',       label:'Favoritos',    section:'favorites' },
+        { icon:'<i data-lucide="star"></i>',        label:'Mis reseñas',  section:'reviews'   },
         'divider',
-        { icon:'🔑', label:'Cambiar contraseña', section:'password' },
+        { icon:'<i data-lucide="key-round"></i>',   label:'Cambiar contraseña', section:'password' },
       ]);
 
       // Stats rápidas en sidebar
@@ -798,7 +801,7 @@
         container.innerHTML = `
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">👤 Información personal</div>
+              <div class="section-title">Información personal</div>
               <button class="btn btn-accent btn-sm" id="editToggleBtn">Editar perfil</button>
             </div>
             <div class="section-body">
@@ -830,7 +833,7 @@
 
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">📊 Resumen de actividad</div>
+              <div class="section-title"><i data-lucide="bar-chart-2"></i> Resumen de actividad</div>
             </div>
             <div class="section-body">
               <div class="stats-row">
@@ -893,7 +896,7 @@
         container.innerHTML = `
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">📅 Mis reservas</div>
+              <div class="section-title"><i data-lucide="calendar"></i> Mis reservas</div>
               <span style="font-size:0.8rem;color:var(--gris-texto);">${bookings.length} total</span>
             </div>
             <div class="section-body">
@@ -936,7 +939,7 @@
         container.innerHTML = `
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">♡ Mis favoritos</div>
+              <div class="section-title"><i data-lucide="heart"></i> Mis favoritos</div>
               <span style="font-size:0.8rem;color:var(--gris-texto);">${favorites.length} guardados</span>
             </div>
             <div class="section-body">
@@ -974,7 +977,7 @@
         container.innerHTML = `
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">⭐ Mis reseñas</div>
+              <div class="section-title"><i data-lucide="star"></i> Mis reseñas</div>
               <span style="font-size:0.8rem;color:var(--gris-texto);">${reviews.length} publicadas</span>
             </div>
             <div class="section-body">
@@ -1007,7 +1010,7 @@
         container.innerHTML = `
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">🔑 Cambiar contraseña</div>
+              <div class="section-title"><i data-lucide="key-round"></i> Cambiar contraseña</div>
             </div>
             <div class="section-body">
               <form id="passwordForm" style="max-width:400px;display:flex;flex-direction:column;gap:1rem;">
@@ -1073,12 +1076,12 @@
       const plan       = provider?.plan || 'free';
 
       buildSidebar(user, [
-        { icon:'🏢', label:'Mi empresa',    section:'business', active:true },
-        { icon:'🗺️', label:'Mis destinos',  section:'destinations' },
-        { icon:'📅', label:'Reservas',       section:'bookings' },
-        { icon:'📊', label:'Mi panel',       href:'dashboard-provider.html' },
+        { icon:'<i data-lucide="building-2"></i>',  label:'Mi empresa',   section:'business',      active:true },
+        { icon:'<i data-lucide="map"></i>',         label:'Mis destinos', section:'destinations' },
+        { icon:'<i data-lucide="calendar"></i>',    label:'Reservas',     section:'bookings' },
+        { icon:'<i data-lucide="layout-dashboard"></i>', label:'Mi panel', href:'dashboard-provider.html' },
         'divider',
-        { icon:'🔑', label:'Cambiar contraseña', section:'password' },
+        { icon:'<i data-lucide="key-round"></i>',   label:'Cambiar contraseña', section:'password' },
       ]);
 
       // Plan badge en sidebar
@@ -1102,7 +1105,7 @@
         container.innerHTML = `
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">🏢 Datos de la empresa</div>
+              <div class="section-title">Datos de la empresa</div>
               <button class="btn btn-accent btn-sm" id="editBizBtn">Editar</button>
             </div>
             <div class="section-body">
@@ -1138,7 +1141,7 @@
 
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">📊 Resumen</div>
+              <div class="section-title">Resumen</div>
             </div>
             <div class="section-body">
               <div class="stats-row">
@@ -1199,7 +1202,7 @@
         container.innerHTML = `
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">🗺️ Mis destinos</div>
+              <div class="section-title"><i data-lucide="map"></i> Mis destinos</div>
               <span style="font-size:0.8rem;color:var(--gris-texto);">${destinations.length} publicados</span>
             </div>
             <div class="section-body">
@@ -1243,7 +1246,7 @@
         container.innerHTML = `
           <div class="profile-section">
             <div class="section-header">
-              <div class="section-title">📅 Reservas recibidas</div>
+              <div class="section-title"><i data-lucide="calendar"></i> Reservas recibidas</div>
               <span style="font-size:0.8rem;color:var(--gris-texto);">${bookings.length} total</span>
             </div>
             <div class="section-body">

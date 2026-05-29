@@ -6,6 +6,10 @@
   <meta name="description" content="Iniciar sesión en Quetzal Routes" />
   <title>Iniciar sesión — Quetzal Routes</title>
 
+  <!--Fonts and icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
   <link rel="stylesheet" href="../css/base.css" />
   <link rel="stylesheet" href="../css/components.css" />
   <link rel="stylesheet" href="../css/pages/auth.css" />
@@ -43,7 +47,7 @@
       />
       <div class="auth-visual-overlay"></div>
       <div class="auth-visual-content">
-        <div class="auth-visual-tag">🌿 Guatemala te espera</div>
+        <div class="auth-visual-tag">Guatemala te espera</div>
         <h2>Cientos de aventuras a un clic de distancia</h2>
         <p>Inicia sesión y accede a los mejores destinos turísticos de Guatemala seleccionados para ti.</p>
 
@@ -104,7 +108,7 @@
                 required
               />
               <button type="button" class="password-toggle" id="passwordToggle" aria-label="Mostrar contraseña">
-                👁
+                <i data-lucide="eye-off"></i>
               </button>
             </div>
             <span class="form-error hidden" id="passwordError">Ingresa tu contraseña</span>
@@ -128,10 +132,10 @@
 
           <div class="auth-social">
             <button type="button" class="auth-social-btn">
-              <span>🌐</span> Google
+              <i data-lucide="globe"></i> Google
             </button>
             <button type="button" class="auth-social-btn">
-              <span>📘</span> Facebook
+              <i data-lucide="book"></i> Facebook
             </button>
           </div>
 
@@ -177,7 +181,10 @@
       const input = document.getElementById('loginPassword');
       const isText = input.type === 'text';
       input.type = isText ? 'password' : 'text';
-      document.getElementById('passwordToggle').textContent = isText ? '👁' : '🙈';
+      document.getElementById('passwordToggle').innerHTML = isText
+        ? '<i data-lucide="eye-off"></i>'
+        : '<i data-lucide="eye"></i>';
+      lucide.createIcons();
     });
 
     /* ----------------------------------------------------------
@@ -272,6 +279,8 @@
       container.appendChild(toast);
       setTimeout(() => toast.remove(), 4000);
     }
+
+    lucide.createIcons()
   </script>
 
 </body>

@@ -33,7 +33,7 @@ const SEED = {
   ],
   destinations: [
     { 
-      id:1, provider_id:3, title:'Tour Colonial Antigua Guatemala', category:'culture', department:'Sacatepequez', 
+      id:1, provider_id:3, title:'Tour Colonial Antigua Guatemala', category:'cultura', department:'Sacatepequez', 
       price_from:150, price_to:150, duration_hours:6, max_people:12, status:'active', featured:1, views_count:342, 
       cover_image:'https://alacartatours.com/wp-content/uploads/2025/01/the-colonial-city-of-antigua-tour-2.jpg', 
       address:'Parque Central, Antigua Guatemala, Sacatepéquez', lat:14.5586, lng:-90.7295, rating_avg: 4.8,
@@ -44,7 +44,7 @@ const SEED = {
       created_at:'2025-01-10T08:00:00Z' 
     },
     { 
-      id:2, provider_id:2, title:'Amanecer en Tikal — Tour Madrugada', category:'culture', department:'Peten', 
+      id:2, provider_id:2, title:'Amanecer en Tikal — Tour Madrugada', category:'cultura', department:'Peten', 
       price_from:450, price_to:450, duration_hours:8, max_people:8, status:'active', featured:1, views_count:589, 
       cover_image:'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1200&q=80', 
       address:'Parque Nacional Tikal, Petén', lat:17.222, lng:-89.6237, rating_avg: 4.9,
@@ -55,7 +55,7 @@ const SEED = {
       created_at:'2025-01-12T09:00:00Z' 
     },
     { 
-      id:3, provider_id:1, title:'Kayak en Lago de Atitlán', category:'adventure', department:'Solola', 
+      id:3, provider_id:1, title:'Kayak en Lago de Atitlán', category:'aventura', department:'Solola', 
       price_from:200, price_to:200, duration_hours:4, max_people:10, status:'active', featured:1, views_count:210, 
       cover_image:'https://www.civitatis.com/f/guatemala/antigua-guatemala/galeria/big/lago-atitlan-vistas-volcanes.jpg', 
       address:'Panajachel, Sololá', lat:14.7444, lng:-91.1542, rating_avg: 4.7,
@@ -66,7 +66,7 @@ const SEED = {
       created_at:'2025-01-15T10:00:00Z' 
     },
     { 
-      id:4, provider_id:2, title:'Senderismo Volcán Acatenango — Cima a 3,976 msnm', category:'adventure', department:'Chimaltenango', 
+      id:4, provider_id:2, title:'Senderismo Volcán Acatenango — Cima a 3,976 msnm', category:'aventura', department:'Chimaltenango', 
       price_from:380, price_to:400, duration_hours:24, max_people:15, status:'active', featured:0, views_count:278, 
       cover_image:'https://www.prensalibre.com/wp-content/uploads/2021/12/NAC-LM-071121-VOLCAN-ACATENANGO-011.jpg?resize=1536,1024', 
       address:'La Soledad, Chimaltenango', lat:14.5012, lng:-90.8757, rating_avg: 4.9,
@@ -77,7 +77,7 @@ const SEED = {
       created_at:'2025-01-18T07:00:00Z' 
     },
     { 
-      id:5, provider_id:3, title:'Ruta del Cacao y Chocolate Artesanal', category:'gastronomy', department:'AltaVerapaz', 
+      id:5, provider_id:3, title:'Ruta del Cacao y Chocolate Artesanal', category:'gastronomía', department:'AltaVerapaz', 
       price_from:175, price_to:200, duration_hours:5, max_people:20, status:'active', featured:0, views_count:415, 
       cover_image:'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/ed/e5/15/5ta-avenida-norte-15.jpg?w=900&h=500&s=1', 
       address:'Cobán, Alta Verapaz', lat:15.4697, lng:-90.3795, rating_avg: 4.6,

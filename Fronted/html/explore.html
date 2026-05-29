@@ -6,7 +6,9 @@
   <meta name="description" content="Explora todos los destinos turísticos de Guatemala — filtra por categoría, región y precio." />
   <title>Explorar Destinos — Quetzal Routes</title>
 
+  <!--Fonts and icons -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="../css/base.css" />
@@ -53,7 +55,7 @@
           id="navSearchBtn"
           style="background:#1a5c38; color:#fff; border:none; border-radius:999px; padding:8px 18px; font-size:14px; cursor:pointer; white-space:nowrap;"
         >
-          🔍 Buscar
+          <i data-lucide="search"></i>
         </button>
       </div>
 
@@ -93,22 +95,22 @@
       <!-- Chips de categoría rápidos -->
       <div class="filter-chips explore-quick-filters" id="quickFilters">
         <button class="chip chip-category active" data-cat="">
-          <span class="chip-icon">🗺️</span> Todos
+          <i data-lucide="map"></i> Todos
         </button>
         <button class="chip chip-category" data-cat="nature">
-          <span class="chip-icon">🌿</span> Naturaleza
+          <i data-lucide="trees"></i> Naturaleza
         </button>
         <button class="chip chip-category" data-cat="culture">
-          <span class="chip-icon">🏛️</span> Cultura
+          <i data-lucide="landmark"></i> Cultura
         </button>
         <button class="chip chip-category" data-cat="adventure">
-          <span class="chip-icon">🧗</span> Aventura
+          <i data-lucide="mountain"></i> Aventura
         </button>
         <button class="chip chip-category" data-cat="gastronomy">
-          <span class="chip-icon">🍫</span> Gastronomía
+          <i data-lucide="utensils"></i> Gastronomía
         </button>
         <button class="chip chip-category" data-cat="wellness">
-          <span class="chip-icon">🧘</span> Bienestar
+          <i data-lucide="heart"></i> Bienestar
         </button>
       </div>
     </div>
@@ -138,7 +140,9 @@
           <!-- Filtro: Departamento -->
           <div class="filter-group">
             <h4 class="filter-group-title">
-              <span>📍 Región</span>
+              <span class="filter-title-wrap">
+                <i data-lucide="map-pin"></i> Región
+              </span>
               <button class="filter-group-toggle" aria-label="Expandir">▾</button>
             </h4>
             <div class="filter-group-body">
@@ -172,7 +176,9 @@
           <!-- Filtro: Precio -->
           <div class="filter-group">
             <h4 class="filter-group-title">
-              <span>💰 Precio (GTQ)</span>
+              <span class="filter-title-wrap">
+                <i data-lucide="wallet"></i> Precio (GTQ)
+              </span>
               <button class="filter-group-toggle" aria-label="Expandir">▾</button>
             </h4>
             <div class="filter-group-body">
@@ -205,7 +211,9 @@
           <!-- Filtro: Calificación -->
           <div class="filter-group">
             <h4 class="filter-group-title">
-              <span>⭐ Calificación</span>
+              <span class="filter-title-wrap">
+                <i data-lucide="star"></i> Calificación
+              </span>
               <button class="filter-group-toggle" aria-label="Expandir">▾</button>
             </h4>
             <div class="filter-group-body">
@@ -231,7 +239,9 @@
           <!-- Filtro: Duración -->
           <div class="filter-group">
             <h4 class="filter-group-title">
-              <span>⏱ Duración</span>
+              <span class="filter-title-wrap">
+                <i data-lucide="clock"></i> Duración
+              </span>
               <button class="filter-group-toggle" aria-label="Expandir">▾</button>
             </h4>
             <div class="filter-group-body">
@@ -426,7 +436,7 @@
             <div class="card-image">
               ${img}
               ${catLabel ? `<span class="card-category">${catLabel.toUpperCase()}</span>` : ''}
-              ${isFeatured ? `<span class="card-badge-featured">⭐ Destacado</span>` : ''}
+              ${isFeatured ? `<span class="card-badge-featured"><i data-lucide="star"></i> Destacado</span>` : ''}
               
               <button class="card-favorite-floating" aria-label="Guardar en favoritos">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -436,7 +446,7 @@
             </div>
             
             <div class="card-body">
-              <p class="card-location">${d.address || d.department || ''}</p>
+              <p class="card-location"><i data-lucide="map-pin"></i> ${d.address || d.department || ''}</p>
               
               <h3 class="card-title">${d.title}</h3>
               
@@ -458,7 +468,7 @@
                 </div>
                 
                 <div class="duration-section">
-                  <span class="duration-icon">⏱️</span>
+                  <span class="duration-icon"><i data-lucide="clock"></i></span>
                   <span>${d.duration_hours || '4'} horas</span>
                 </div>
               </div>
@@ -471,6 +481,8 @@
       
       // Volver a vincular los eventos de los nuevos botones de favoritos flotantes
       linkFloatingFavorites();
+
+      lucide.createIcons();
     }
 
     // Función auxiliar para controlar el click del corazón sin activar la redirección de la card
@@ -518,8 +530,8 @@
 
         // Insertar botones de usuario
         navbarActions.insertAdjacentHTML('beforeend', `
-          <a href="profile.html" class="btn btn-outline btn-sm">
-            👤 ${user.name}
+          <a href="profile.html" class="btn btn-outline btn-sm nav-user-btn">
+            <i data-lucide="circle-user-round"></i> ${user.name}
           </a>
           <button class="btn btn-accent btn-sm" id="logoutBtn">
             Cerrar sesión
@@ -547,6 +559,8 @@
           });
         }
       }
+
+      lucide.createIcons();
     }
 
     /* ----------------------------------------------------------

@@ -229,6 +229,23 @@
   border-bottom: none;
 }
 
+/* Botón de usuario en el navbar */
+.nav-user-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Forzar el tamaño del SVG de Lucide */
+.nav-user-btn svg,
+.nav-user-btn i {
+  width: 16px !important;
+  height: 16px !important;
+  stroke-width: 2.5;
+  flex-shrink: 0;
+  color: inherit;
+}
+
 
 /* ------------------------------------------------------------
    2. BOTONES
@@ -554,6 +571,35 @@
   justify-content: space-between;
   align-items: flex-end;
   margin-top: auto; /* Empuja el footer siempre al fondo */
+}
+
+/* Card Icon Alignment */
+.card-badge-featured,
+.card-location,
+.duration-section {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Tiny space between icon and text */
+}
+
+/* Size the Lucide icons inside the cards */
+.card-badge-featured i,
+.card-badge-featured svg,
+.card-location i,
+.card-location svg,
+.duration-icon i,
+.duration-icon svg {
+  width: 14px; /* Slightly smaller than the sidebar icons so they fit the cards */
+  height: 14px;
+  stroke-width: 2;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+/* IF YOU HAVE A GHOST PIN: Add this to hide the old emoji pin if it was in your CSS */
+.card-location::before {
+  content: none !important; 
+  display: none !important;
 }
 
 .price-section {
@@ -1037,8 +1083,34 @@
 }
 
 /* Chip de categoría con icono */
-.chip-category .chip-icon {
-  font-size: 1rem;
+/* Target the SVG element that Lucide creates inside the chip */
+.chip-category svg, 
+.chip-category i {
+  width: 18px;  /* Fits perfectly with text size */
+  height: 18px;
+  stroke-width: 2; /* Adjusts thickness */
+  display: inline-block;
+  flex-shrink: 0; /* Prevents the icon from getting squished */
+  color: inherit; 
+  stroke: currentColor;
+}
+
+/* Flex container to perfectly align the icon and text */
+.filter-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between the icon and the text */
+}
+
+/* Size and style the Lucide icons inside the filter titles */
+.filter-title-wrap svg,
+.filter-title-wrap i {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  flex-shrink: 0;
+  /* Optional: You can force a specific color here, or let it inherit the text color */
+  color: inherit; 
 }
 
 
@@ -1302,4 +1374,18 @@
     height: 36px;
     font-size: var(--text-xs);
   }
+
+[data-lucide] {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.chip-icon,
+.filter-group-title i,
+button i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 }

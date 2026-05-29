@@ -6,7 +6,9 @@
   <meta name="description" content="Detalle del destino turístico — Quetzal Routes Guatemala" />
   <title>Destino — Quetzal Routes</title>
 
+  <!--Fonts and icons -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Leaflet.js para el mapa -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -56,7 +58,7 @@
           id="navSearchBtn"
           style="background:#1a5c38; color:#fff; border:none; border-radius:999px; padding:8px 18px; font-size:14px; cursor:pointer; white-space:nowrap;"
         >
-          🔍 Buscar
+          <i data-lucide="search"></i>
         </button>
       </div>
 
@@ -152,10 +154,10 @@
               <h1 id="destTitle">Tour Colonial Antigua Guatemala</h1>
               <div class="dest-actions">
                 <button class="dest-action-btn" id="favBtn" aria-label="Guardar en favoritos">
-                  <span>♡</span> Guardar
+                  <i data-lucide="heart"></i> Guardar
                 </button>
                 <button class="dest-action-btn" id="shareBtn" aria-label="Compartir">
-                  <span>↗</span> Compartir
+                  <i data-lucide="share-2"></i> Compartir
                 </button>
               </div>
             </div>
@@ -165,9 +167,9 @@
               <strong id="destRatingScore">4.8</strong>
               <span class="dest-reviews-link" id="destReviewsLink">(34 reseñas)</span>
               <span class="dest-separator">·</span>
-              <span class="dest-duration" id="destDuration">⏱ 6 horas</span>
+              <span class="dest-duration" id="destDuration"><i data-lucide="clock"></i> 6 horas</span>
               <span class="dest-separator">·</span>
-              <span class="dest-people" id="destPeople">👥 Máx. 12 personas</span>
+              <span class="dest-people" id="destPeople"><i data-lucide="users"></i> Máx. 12 personas</span>
             </div>
           </div>
 
@@ -220,7 +222,7 @@
           <div class="dest-section">
             <h2 class="dest-section-title">Ubicación</h2>
             <p class="dest-address" id="destAddress">
-              📍 Parque Central, Antigua Guatemala, Sacatepéquez
+              <i data-lucide="map-pin"></i> Parque Central, Antigua Guatemala, Sacatepéquez
             </p>
             <div class="dest-map" id="destMap"></div>
           </div>
@@ -418,7 +420,7 @@
               class="btn btn-outline btn-block"
               id="whatsappBtn"
             >
-              <span>💬</span> Contactar por WhatsApp
+              <i data-lucide="message-circle"></i> Contactar por WhatsApp
             </a>
           </div>
 
@@ -435,7 +437,7 @@
   <div class="modal-overlay" id="bookingModal">
     <div class="modal">
       <div class="modal-header">
-        <h3 class="modal-title">¡Reserva solicitada! 🎉</h3>
+        <h3 class="modal-title">¡Reserva solicitada!</h3>
         <button class="modal-close" id="modalClose">✕</button>
       </div>
       <div class="modal-body">
@@ -444,15 +446,15 @@
           <h3 id="confirmDestName">Tour Colonial Antigua Guatemala</h3>
           <div class="booking-confirm-details">
             <div class="booking-confirm-row">
-              <span>📅 Fecha</span>
+              <span>Fecha</span>
               <strong id="confirmDate">—</strong>
             </div>
             <div class="booking-confirm-row">
-              <span>👥 Personas</span>
+              <span>Personas</span>
               <strong id="confirmPeople">—</strong>
             </div>
             <div class="booking-confirm-row">
-              <span>💰 Total</span>
+              <span>Total</span>
               <strong id="confirmTotal">—</strong>
             </div>
           </div>
@@ -558,8 +560,8 @@
         if (user.role === 'admin')    dashboardLink = 'admin.html';
 
         navbarActions.insertAdjacentHTML('beforeend', `
-          <a href="profile.html" class="btn btn-outline btn-sm">
-            👤 ${user.name}
+          <a href="profile.html" class="btn btn-outline btn-sm nav-user-btn">
+            <i data-lucide="circle-user-round"></i> ${user.name}
           </a>
           <button class="btn btn-accent btn-sm" id="logoutBtn">
             Cerrar sesión
@@ -587,6 +589,9 @@
           });
         }
       }
+
+      
+      lucide.createIcons();
     }
 
     /* ----------------------------------------------------------
@@ -744,12 +749,24 @@
     document.getElementById('breadcrumbTitle').textContent  = dest.title;
     document.getElementById('destTitle').textContent        = dest.title;
     document.getElementById('destCategory').textContent     = dest.category;
-    document.getElementById('destLocation').textContent     = `📍 ${dest.location}`;
-    document.getElementById('destDuration').textContent     = `⏱ ${dest.duration}`;
-    document.getElementById('destPeople').textContent       = `👥 Máx. ${dest.maxPeople} personas`;
+    document.getElementById('destLocation').innerHTML  = `<span class="filter-title-wrap">
+                                                            <i data-lucide="map-pin"></i>
+                                                            ${dest.location}
+                                                          </span>`;
+    document.getElementById('destDuration').innerHTML  = `<span class="filter-title-wrap">
+                                                            <i data-lucide="clock"></i> 
+                                                            ${dest.duration}
+                                                          </span>  `;
+    document.getElementById('destPeople').innerHTML    = `<span class="filter-title-wrap">
+                                                            <i data-lucide="users"></i> Máx. 
+                                                            ${dest.maxPeople} personas
+                                                          </span>`;
     document.getElementById('destRatingScore').textContent  = dest.rating;
     document.getElementById('destReviewsLink').textContent  = `(${dest.reviews} reseñas)`;
-    document.getElementById('destAddress').textContent      = `📍 ${dest.address}`;
+    document.getElementById('destAddress').innerHTML   = `<span class="filter-title-wrap">
+                                                            <i data-lucide="map-pin"></i> 
+                                                            ${dest.address}
+                                                          </span>`;
     document.getElementById('bookingPrice').textContent     = `Q${dest.price}`;
     document.getElementById('bookingRating').textContent    = dest.rating;
     document.getElementById('bookingReviewCount').textContent = `(${dest.reviews})`;
@@ -760,6 +777,7 @@
     document.getElementById('providerAvatar').textContent   = dest.provider.initials;
     document.getElementById('providerDesc').textContent     = dest.provider.desc;
     document.getElementById('whatsappBtn').href = `https://wa.me/${dest.provider.whatsapp.replace(/\D/g,'')}`;
+    lucide.createIcons();
     const descEl2 = document.getElementById('destDescription');
     if (dest.description_es || dbDest?.description_es) {
       descEl2.innerHTML = `<p>${dest.description_es || dbDest?.description_es || ''}</p>`;
