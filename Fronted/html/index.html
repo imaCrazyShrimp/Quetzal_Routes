@@ -741,7 +741,7 @@
 
         navbarActions.insertAdjacentHTML('beforeend', `
           <a href="profile.html" class="btn btn-outline btn-sm">
-            👤 ${user.email}
+            👤 ${user.name}
           </a>
 
           <button class="btn btn-accent btn-sm" id="logoutBtn">
@@ -760,7 +760,7 @@
 
         if (mobileMenu) {
           mobileMenu.innerHTML += `
-            <a href="${dashboardLink}">👤 ${user.email}</a>
+            <a href="${dashboardLink}">👤 ${user.name}</a>
             <button class="btn btn-accent btn-sm btn-block" id="mobileLogoutBtn">
               Cerrar sesión
             </button>

@@ -564,7 +564,7 @@
 
         navbarActions.insertAdjacentHTML('beforeend', `
           <a href="profile.html" class="btn btn-outline btn-sm">
-            👤 ${user.email}
+            👤 ${user.name}
           </a>
           <button class="btn btn-accent btn-sm" id="logoutBtn">
             Cerrar sesión
@@ -581,7 +581,7 @@
           mobileMenu.querySelectorAll('a[href="login.html"], a[href="register.html"]')
             .forEach(el => el.remove());
           mobileMenu.insertAdjacentHTML('beforeend', `
-            <a href="${dashboardLink}">👤 ${user.email}</a>
+            <a href="${dashboardLink}">👤 ${user.name}</a>
             <button class="btn btn-accent btn-sm btn-block" id="mobileLogoutBtn">
               Cerrar sesión
             </button>
