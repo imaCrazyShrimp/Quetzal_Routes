@@ -6,6 +6,8 @@
   <meta name="description" content="Mi perfil — Quetzal Routes" />
   <title>Mi perfil — Quetzal Routes</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="../css/base.css" />
   <link rel="stylesheet" href="../css/components.css" />
 
@@ -31,6 +33,7 @@
       background: var(--gris-bg);
       color: var(--text-dark);
       min-height: 100vh;
+      padding-top: 55px
     }
 
     /* ── NAVBAR ── */
@@ -320,40 +323,6 @@
 
     .info-field-full { grid-column: 1 / -1; }
 
-    /* ── BOTONES ── */
-    .btn-primary {
-      background: var(--verde);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      padding: 10px 24px;
-      font-size: 0.875rem;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-
-    .btn-primary:hover { background: #154d2f; }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--verde);
-      border: 1.5px solid var(--verde);
-      border-radius: 999px;
-      padding: 8px 20px;
-      font-size: 0.875rem;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.2s;
-    }
-
-    .btn-outline:hover { background: var(--verde-light); }
-
-    .btn-sm { padding: 6px 14px; font-size: 0.8rem; }
 
     /* ── LISTA DE RESERVAS ── */
     .booking-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -605,15 +574,23 @@
 <body>
 
   <!-- ── NAVBAR ── -->
-  <nav class="profile-nav">
-    <a href="index.html" class="profile-nav-logo">
-     <span>🦜 Quetzal Routes</span>
+  <nav class="navbar navbar-solid" id="navbar">
+  <div class="container">
+    
+    <a href="index.html" class="navbar-logo" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+      <img src="../assets/img/logo1.png" alt="Logo Quetzal Routes" style="width: 40px; height: 40px; object-fit: contain;" />
+      <span class="logo-text" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: #0b3d40; text-transform: uppercase; letter-spacing: 0.5px;">
+        Quetzal Routes
+      </span>
     </a>
-    <div class="profile-nav-actions">
-      <a href="explore.html" class="btn-nav btn-nav-outline">← Explorar</a>
-      <button class="btn-nav btn-nav-danger" id="logoutBtn">Cerrar sesión</button>
+
+    <div class="navbar-actions" style="display: flex; gap: 12px; align-items: center;">
+      <a href="explore.html" class="btn btn-outline btn-sm">← Explorar</a>
+      <button id="logoutBtn" class="btn btn-accent btn-sm">Cerrar sesión</button>
     </div>
-  </nav>
+
+  </div>
+</nav>
 
   <!-- ── LAYOUT ── -->
   <div class="profile-layout" id="profileLayout">
@@ -714,6 +691,21 @@
       const nav = document.getElementById('sidebarNav');
       nav.innerHTML = navItems.map(item => {
         if (item === 'divider') return '<div class="sidebar-divider"></div>';
+        
+        // 1. SI TIENE HREF: Renderizar como un enlace real <a>
+        if (item.href) {
+          return `
+            <a
+              href="${item.href}"
+              class="sidebar-nav-item${item.active ? ' active' : ''}${item.danger ? ' danger' : ''}"
+            >
+              <span class="sidebar-nav-icon">${item.icon}</span>
+              ${item.label}
+            </a>
+          `;
+        }
+
+        // 2. SI NO TIENE HREF: Renderizar como botón para cambiar de sección interna
         return `
           <button
             class="sidebar-nav-item${item.active ? ' active' : ''}${item.danger ? ' danger' : ''}"
@@ -725,6 +717,7 @@
         `;
       }).join('');
 
+      // El listener solo escuchará a los botones que tengan secciones internas
       nav.querySelectorAll('[data-section]').forEach(btn => {
         btn.addEventListener('click', () => {
           const section = btn.dataset.section;
@@ -806,7 +799,7 @@
           <div class="profile-section">
             <div class="section-header">
               <div class="section-title">👤 Información personal</div>
-              <button class="btn-primary btn-sm" id="editToggleBtn">Editar perfil</button>
+              <button class="btn btn-accent btn-sm" id="editToggleBtn">Editar perfil</button>
             </div>
             <div class="section-body">
               <form id="profileForm">
@@ -829,7 +822,7 @@
                   </div>
                 </div>
                 <div style="margin-top:1rem;display:none;" id="saveRow">
-                  <button type="submit" class="btn-primary">Guardar cambios</button>
+                  <button type="submit" class="btn btn-outline btn-sm">Guardar cambios</button>
                 </div>
               </form>
             </div>
@@ -1083,7 +1076,7 @@
         { icon:'🏢', label:'Mi empresa',    section:'business', active:true },
         { icon:'🗺️', label:'Mis destinos',  section:'destinations' },
         { icon:'📅', label:'Reservas',       section:'bookings' },
-        { icon:'📊', label:'Plan actual',    section:'plan' },
+        { icon:'📊', label:'Mi panel',       href:'dashboard-provider.html' },
         'divider',
         { icon:'🔑', label:'Cambiar contraseña', section:'password' },
       ]);
@@ -1110,7 +1103,7 @@
           <div class="profile-section">
             <div class="section-header">
               <div class="section-title">🏢 Datos de la empresa</div>
-              <button class="btn-primary btn-sm" id="editBizBtn">Editar</button>
+              <button class="btn btn-accent btn-sm" id="editBizBtn">Editar</button>
             </div>
             <div class="section-body">
               <form id="bizForm">
@@ -1137,7 +1130,7 @@
                   </div>
                 </div>
                 <div style="margin-top:1rem;display:none;" id="bizSaveRow">
-                  <button type="submit" class="btn-primary">Guardar cambios</button>
+                  <button type="submit" class="btn btn-outline btn-sm">Guardar cambios</button>
                 </div>
               </form>
             </div>

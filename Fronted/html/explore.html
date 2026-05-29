@@ -6,6 +6,8 @@
   <meta name="description" content="Explora todos los destinos turísticos de Guatemala — filtra por categoría, región y precio." />
   <title>Explorar Destinos — Quetzal Routes</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
   <!-- CSS -->
   <link rel="stylesheet" href="../css/base.css" />
   <link rel="stylesheet" href="../css/components.css" />
@@ -18,9 +20,14 @@
   ============================================================ -->
   <nav class="navbar navbar-solid" id="navbar">
     <div class="container">
-      <a href="index.html" class="navbar-logo">
-        <span class="logo-icon">🦜</span>
-        <span class="logo-text">Quetzal <span>Routes</span></span>
+      <a href="index.html" class="navbar-logo" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+        <!-- Tu nuevo logo en PNG -->
+        <img src="../assets/img/logo1.png" alt="Logo Quetzal Routes" style="width: 40px; height: 40px; object-fit: contain;" />
+        
+        <!-- El texto con la nueva tipografía -->
+        <span class="logo-text" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: #0b3d40; text-transform: uppercase; letter-spacing: 0.5px;">
+          Quetzal Routes
+        </span>
       </a>
 
       <div style="display:flex; align-items:center; background:#fff; border-radius:999px; border:1.5px solid #e0e0e0; padding:6px 8px 6px 16px; gap:8px; max-width:460px; width:100%;">
@@ -292,7 +299,8 @@
 
           <!-- Grid de resultados — se llena dinámicamente desde localStorage -->
           <div class="results-grid grid grid-3" id="resultsGrid">
-            <p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">Cargando destinos...</p>
+            <p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">
+              Cargando destinos...</p>
           </div>
 
           <!-- Estado vacío -->
@@ -325,7 +333,15 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="footer-logo">🦜 Quetzal Routes</a>
+          <a href="index.html" class="footer-logo" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <!-- Tu nuevo logo en PNG -->
+            <img src="../assets/img/logo1.png" alt="Logo Quetzal Routes" style="width: 40px; height: 40px; object-fit: contain;" />
+            
+            <!-- El texto con la nueva tipografía -->
+            <span class="logo-text" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: #429150; text-transform: uppercase; letter-spacing: 0.5px;">
+              Quetzal Routes
+            </span>
+          </a>
           <p>El marketplace turístico de Guatemala. Conectamos viajeros del mundo con experiencias auténticas.</p>
           <div class="footer-social">
             <a href="#" aria-label="Instagram">📷</a>
@@ -378,14 +394,22 @@
     /* ----------------------------------------------------------
    CARGAR DESTINOS DESDE localStorage (db.js)
     ---------------------------------------------------------- */
-    import { initDB, getActiveDestinations } from '../js/db.js';
+    import { initDB, getActiveDestinations, getReviews } from '../js/db.js';
     initDB();
 
     function renderDestinationCards() {
       const grid = document.getElementById('resultsGrid');
       if (!grid) return;
 
-      const destinations = getActiveDestinations();
+      const allReviews   = getReviews();
+      const destinations = getActiveDestinations().map(d => {
+        const destReviews = allReviews.filter(r => r.destination_id === d.id);
+        return {
+          ...d,
+          rating_avg:   destReviews.length ? Math.round(destReviews.reduce((a,r) => a + r.rating, 0) / destReviews.length * 10) / 10 : d.rating_avg,
+          review_count: destReviews.length,
+        };
+      });
 
       if (!destinations.length) {
         grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No hay destinos disponibles aún.</p>';
@@ -430,14 +454,14 @@
             </div>
             
             <div class="card-body">
-              <p class="card-location">Panajachel, ${d.department || ''}</p>
+              <p class="card-location">${d.address || d.department || ''}</p>
               
               <h3 class="card-title">${d.title}</h3>
               
               <div class="card-rating-container">
                 <div class="stars">★★★★★</div>
-                <span class="rating-val">${d.rating_avg || '4.7'}</span>
-                <span class="rating-count">(21 reseñas)</span>
+                <span class="rating-val">${d.rating_avg ?? '—'}</span>
+                <span class="rating-count">(${d.review_count ?? 0} reseñas)</span>
               </div>
               
               <div class="card-divider"></div>
@@ -513,7 +537,7 @@
         // Insertar botones de usuario
         navbarActions.insertAdjacentHTML('beforeend', `
           <a href="profile.html" class="btn btn-outline btn-sm">
-            👤 ${user.email}
+            👤 ${user.name}
           </a>
           <button class="btn btn-accent btn-sm" id="logoutBtn">
             Cerrar sesión
@@ -530,7 +554,7 @@
           mobileMenu.querySelectorAll('a[href="login.html"], a[href="register.html"]')
             .forEach(el => el.remove());
           mobileMenu.insertAdjacentHTML('beforeend', `
-            <a href="${dashboardLink}">👤 ${user.email}</a>
+            <a href="${dashboardLink}">👤 ${user.name}</a>
             <button class="btn btn-accent btn-sm btn-block" id="mobileLogoutBtn">
               Cerrar sesión
             </button>

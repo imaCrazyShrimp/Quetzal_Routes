@@ -6,6 +6,8 @@
   <meta name="description" content="Panel de proveedor — Quetzal Routes" />
   <title>Mi Panel — Quetzal Routes</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
   <!-- CSS -->
   <link rel="stylesheet" href="../css/base.css" />
   <link rel="stylesheet" href="../css/components.css" />
@@ -488,11 +490,14 @@
   <!-- ── NAVBAR ──────────────────────────────────────────────── -->
   <nav class="navbar" id="navbar" style="background:#fff; box-shadow: 0 1px 12px rgba(0,0,0,0.07);">
     <div class="container">
-      <a href="index.html" class="navbar-logo">
-        <span class="logo-icon">
-          <img src="../assets/img/logo-quetzal-removebg-preview.png" alt="Logo" height="40px" />
+      <a href="index.html" class="navbar-logo" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+        <!-- Tu nuevo logo en PNG -->
+        <img src="../assets/img/logo1.png" alt="Logo Quetzal Routes" style="width: 40px; height: 40px; object-fit: contain;" />
+        
+        <!-- El texto con la nueva tipografía -->
+        <span class="logo-text" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: #0b3d40; text-transform: uppercase; letter-spacing: 0.5px;">
+          Quetzal Routes
         </span>
-        <span class="logo-text">Quetzal <span>Routes</span></span>
       </a>
 
       <div class="navbar-actions" style="margin-left:auto;">
@@ -535,9 +540,9 @@
         <button class="dash-nav-item" data-section="plan">
           <span class="dash-nav-icon">⭐</span> Mi plan
         </button>
-        <button class="dash-nav-item" data-section="profile">
+        <a class="dash-nav-item" href="profile.html">
           <span class="dash-nav-icon">👤</span> Perfil
-        </button>
+        </a>
       </nav>
 
       <div class="dash-sidebar-footer">
@@ -780,6 +785,16 @@
                 <p style="font-size:0.72rem; color:var(--gris-texto); margin-top:0.35rem;">
                   💡 Sube tu imagen a <a href="https://imgur.com" target="_blank" style="color:var(--verde-quetzal);">imgur.com</a> o 
                   <a href="https://cloudinary.com" target="_blank" style="color:var(--verde-quetzal);">Cloudinary</a> y pega la URL aquí.
+                </p>
+              </div>
+
+              <!-- Galería de imágenes -->
+              <div class="form-group span-2">
+                <label class="form-label">Galería de imágenes (URLs adicionales)</label>
+                <textarea class="form-input" id="destGallery" rows="2"
+                  placeholder="https://foto1.jpg, https://foto2.jpg, https://foto3.jpg"></textarea>
+                <p style="font-size:0.72rem; color:var(--gris-texto); margin-top:0.35rem;">
+                  📸 Opcional. Pega varias URLs separadas por coma. Se mostrarán como galería en la página del destino.
                 </p>
               </div>
 
@@ -1150,20 +1165,22 @@
       e.preventDefault();
       const btn = document.getElementById('createDestBtn');
 
-      const title    = document.getElementById('destTitle')?.value.trim();
-      const titleEn  = document.getElementById('destTitleEn')?.value.trim();
-      const category = document.getElementById('destCategory')?.value;
-      const dept     = document.getElementById('destDepartment')?.value;
-      const descEs   = document.getElementById('destDescEs')?.value.trim();
-      const descEn   = document.getElementById('destDescEn')?.value.trim();
-      const address  = document.getElementById('destAddress')?.value.trim();
-      const lat      = parseFloat(document.getElementById('destLat')?.value) || null;
-      const lng      = parseFloat(document.getElementById('destLng')?.value) || null;
-      const priceFrom = parseFloat(document.getElementById('destPriceFrom')?.value) || 0;
-      const priceTo   = parseFloat(document.getElementById('destPriceTo')?.value) || 0;
-      const duration  = parseInt(document.getElementById('destDuration')?.value) || 1;
-      const maxPeople = parseInt(document.getElementById('destMaxPeople')?.value) || 10;
+      const title      = document.getElementById('destTitle')?.value.trim();
+      const titleEn    = document.getElementById('destTitleEn')?.value.trim();
+      const category   = document.getElementById('destCategory')?.value;
+      const dept       = document.getElementById('destDepartment')?.value;
+      const descEs     = document.getElementById('destDescEs')?.value.trim();
+      const descEn     = document.getElementById('destDescEn')?.value.trim();
+      const address    = document.getElementById('destAddress')?.value.trim();
+      const lat        = parseFloat(document.getElementById('destLat')?.value) || null;
+      const lng        = parseFloat(document.getElementById('destLng')?.value) || null;
+      const priceFrom  = parseFloat(document.getElementById('destPriceFrom')?.value) || 0;
+      const priceTo    = parseFloat(document.getElementById('destPriceTo')?.value) || 0;
+      const duration   = document.getElementById('destDuration')?.value.trim() || '1 hora';
+      const maxPeople  = parseInt(document.getElementById('destMaxPeople')?.value) || 10;
       const coverImage = document.getElementById('destCoverImage')?.value.trim() || '';
+      const galleryRaw = document.getElementById('destGallery')?.value.trim() || '';
+      const gallery    = galleryRaw ? galleryRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
 
       if (!title || !category || !dept || !descEs || !address) {
         showToast('Completa todos los campos obligatorios (*).', 'warning');
@@ -1192,6 +1209,7 @@
         price_from:     priceFrom,
         price_to:       priceTo,
         duration_hours: duration,
+        gallery:        gallery,
         max_people:     maxPeople,
         cover_image:    coverImage,
         status:         'active',

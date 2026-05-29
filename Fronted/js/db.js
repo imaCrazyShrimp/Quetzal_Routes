@@ -35,41 +35,56 @@ const SEED = {
     { 
       id:1, provider_id:3, title:'Tour Colonial Antigua Guatemala', category:'culture', department:'Sacatepequez', 
       price_from:150, price_to:150, duration_hours:6, max_people:12, status:'active', featured:1, views_count:342, 
-      cover_image:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', 
+      cover_image:'https://alacartatours.com/wp-content/uploads/2025/01/the-colonial-city-of-antigua-tour-2.jpg', 
       address:'Parque Central, Antigua Guatemala, Sacatepéquez', lat:14.5586, lng:-90.7295, rating_avg: 4.8,
       description_es:'Recorre las calles empedradas de la Ciudad Colonial más bella de Centroamérica. Visita conventos, iglesias barrocas, mercados de artesanías y disfruta de una degustación de café de altura. Nuestro guía experto te contará 500 años de historia viva.', 
+      images:['https://alacartatours.com/wp-content/uploads/2025/01/the-colonial-city-of-antigua-tour-2.jpg',
+        'https://cdn.tourcms.com/a/11676/586/1/large.jpg',
+        'https://media.tacdn.com/media/attractions-splice-spp-674x446/12/73/d2/25.jpg'],
       created_at:'2025-01-10T08:00:00Z' 
     },
     { 
       id:2, provider_id:2, title:'Amanecer en Tikal — Tour Madrugada', category:'culture', department:'Peten', 
       price_from:450, price_to:450, duration_hours:8, max_people:8, status:'active', featured:1, views_count:589, 
-      cover_image:'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80', 
+      cover_image:'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1200&q=80', 
       address:'Parque Nacional Tikal, Petén', lat:17.222, lng:-89.6237, rating_avg: 4.9,
       description_es:'Adéntrate en la jungla del Petén para descubrir Tikal. Recorre templos milenarios, observa fauna silvestre y sube al Templo IV para ver el amanecer sobre el dosel de la selva.', 
+      images:['https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1200&q=80',
+        'https://images.unsplash.com/photo-1592229506179-7995edeb6226?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://www.visitcentroamerica.com/wp-content/uploads/2025/04/Tikal-National-Park-Aerial-View-Guatemala-Centroamerica-04.webp'],
       created_at:'2025-01-12T09:00:00Z' 
     },
     { 
       id:3, provider_id:1, title:'Kayak en Lago de Atitlán', category:'adventure', department:'Solola', 
       price_from:200, price_to:200, duration_hours:4, max_people:10, status:'active', featured:1, views_count:210, 
-      cover_image:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', 
+      cover_image:'https://www.civitatis.com/f/guatemala/antigua-guatemala/galeria/big/lago-atitlan-vistas-volcanes.jpg', 
       address:'Panajachel, Sololá', lat:14.7444, lng:-91.1542, rating_avg: 4.7,
       description_es:'Vive la magia del Lago de Atitlán desde el agua. Tour en kayak rodeado de los tres volcanes. Incluye guía bilingüe y equipo completo.', 
+      images:['https://www.civitatis.com/f/guatemala/antigua-guatemala/galeria/big/lago-atitlan-vistas-volcanes.jpg',
+        'https://www.civitatis.com/f/guatemala/antigua-guatemala/big/tour-kayak-lago-atitlan.jpg',
+        'https://dynamic-media.tacdn.com/media/photo-o/2f/18/af/b8/caption.jpg?w=1400&h=1000&s=1'],
       created_at:'2025-01-15T10:00:00Z' 
     },
     { 
       id:4, provider_id:2, title:'Senderismo Volcán Acatenango — Cima a 3,976 msnm', category:'adventure', department:'Chimaltenango', 
       price_from:380, price_to:400, duration_hours:24, max_people:15, status:'active', featured:0, views_count:278, 
-      cover_image:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80', 
+      cover_image:'https://www.prensalibre.com/wp-content/uploads/2021/12/NAC-LM-071121-VOLCAN-ACATENANGO-011.jpg?resize=1536,1024', 
       address:'La Soledad, Chimaltenango', lat:14.5012, lng:-90.8757, rating_avg: 4.9,
       description_es:'Acampa frente al Volcán de Fuego en erupción. Una expedición extrema de dos días con guías certificados, equipo de acampar y alimentación incluida.', 
+      images:['https://www.prensalibre.com/wp-content/uploads/2021/12/NAC-LM-071121-VOLCAN-ACATENANGO-011.jpg?resize=1536,1024',
+        'https://www.visitcentroamerica.com/wp-content/uploads/2025/04/Acatenango-Volcano-Hiking-Guatemala-Centroamerica-03.webp',
+        'https://blackbeartravel.mx/contenido/uploads/2023/10/excursion-al-volcan-acatenango-guatemala-BLACKBEAR-13.jpg'],
       created_at:'2025-01-18T07:00:00Z' 
     },
     { 
       id:5, provider_id:3, title:'Ruta del Cacao y Chocolate Artesanal', category:'gastronomy', department:'AltaVerapaz', 
       price_from:175, price_to:200, duration_hours:5, max_people:20, status:'active', featured:0, views_count:415, 
-      cover_image:'https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80', 
+      cover_image:'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/ed/e5/15/5ta-avenida-norte-15.jpg?w=900&h=500&s=1', 
       address:'Cobán, Alta Verapaz', lat:15.4697, lng:-90.3795, rating_avg: 4.6,
       description_es:'Especialistas en turismo gastronómico y cultural. Aprende el proceso completo desde la semilla hasta la barra de chocolate con comunidades locales.', 
+      images:['https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/ed/e5/15/5ta-avenida-norte-15.jpg?w=900&h=500&s=1',
+        'https://www.guatemala.com/fotos/201603/Jose-Moreno-885x500.png',
+        'https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80'],
       created_at:'2025-01-20T08:00:00Z' 
     }
   ],
