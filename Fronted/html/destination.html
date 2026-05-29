@@ -6,6 +6,8 @@
   <meta name="description" content="Detalle del destino turístico — Quetzal Routes Guatemala" />
   <title>Destino — Quetzal Routes</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
   <!-- Leaflet.js para el mapa -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -21,9 +23,14 @@
   ============================================================ -->
   <nav class="navbar navbar-solid" id="navbar">
     <div class="container">
-      <a href="index.html" class="navbar-logo">
-        <span class="logo-icon">🦜</span>
-        <span class="logo-text">Quetzal <span>Routes</span></span>
+      <a href="index.html" class="navbar-logo" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+        <!-- Tu nuevo logo en PNG -->
+        <img src="../assets/img/logo1.png" alt="Logo Quetzal Routes" style="width: 40px; height: 40px; object-fit: contain;" />
+        
+        <!-- El texto con la nueva tipografía -->
+        <span class="logo-text" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: #0b3d40; text-transform: uppercase; letter-spacing: 0.5px;">
+          Quetzal Routes
+        </span>
       </a>
 
       <div style="display:flex; align-items:center; background:#fff; border-radius:999px; border:1.5px solid #e0e0e0; padding:6px 8px 6px 16px; gap:8px; max-width:460px; width:100%;">
@@ -102,11 +109,7 @@
 
         <!-- Imagen principal -->
         <div class="gallery-main" id="galleryMain">
-          <img
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"
-            alt="Tour Colonial Antigua Guatemala"
-            id="galleryMainImg"
-          />
+          <img id="galleryMainImg" alt="" />
           <button class="gallery-fullscreen-btn" id="galleryFullscreenBtn" aria-label="Ver todas las fotos">
             📷 Ver todas las fotos
           </button>
@@ -115,13 +118,13 @@
         <!-- Miniaturas -->
         <div class="gallery-thumbs" id="galleryThumbs">
           <div class="gallery-thumb active" data-index="0">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70" alt="Foto 1" />
+            <img src="https://cdn.pixabay.com/photo/2020/04/25/05/44/guatemala-5089571_1280.jpg" alt="Foto 1" />
           </div>
           <div class="gallery-thumb" data-index="1">
-            <img src="https://images.unsplash.com/photo-1547558902-c0e053aca5b6?w=400&q=70" alt="Foto 2" />
+            <img src="https://images.unsplash.com/photo-1589783500222-4529ddfd87d1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3VhdGVtYWxhJTIwYW50aWd1YXxlbnwwfHwwfHx8MA%3D%3D" alt="Foto 2" />
           </div>
           <div class="gallery-thumb" data-index="2">
-            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&q=70" alt="Foto 3" />
+            <img src="https://images.unsplash.com/photo-1589783500222-4529ddfd87d1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3VhdGVtYWxhJTIwYW50aWd1YXxlbnwwfHwwfHx8MA%3D%3D" alt="Foto 3" />
             <div class="gallery-thumb-more">+2</div>
           </div>
         </div>
@@ -478,7 +481,15 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="footer-logo">🦜 Quetzal Routes</a>
+          <a href="index.html" class="footer-logo" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <!-- Tu nuevo logo en PNG -->
+            <img src="../assets/img/logo1.png" alt="Logo Quetzal Routes" style="width: 40px; height: 40px; object-fit: contain;" />
+            
+            <!-- El texto con la nueva tipografía -->
+            <span class="logo-text" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: #429150; text-transform: uppercase; letter-spacing: 0.5px;">
+              Quetzal Routes
+            </span>
+          </a>
           <p>El marketplace turístico de Guatemala.</p>
           <div class="footer-social">
             <a href="#" aria-label="Instagram">📷</a>
@@ -596,9 +607,9 @@
         price: 150, rating: 4.8, reviews: 34,
         duration: '6 horas', maxPeople: 12,
         images: [
-          'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
-          'https://images.unsplash.com/photo-1547558902-c0e053aca5b6?w=1200&q=80',
-          'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1200&q=80',
+          'https://alacartatours.com/wp-content/uploads/2025/01/the-colonial-city-of-antigua-tour-2.jpg',
+          'https://cdn.tourcms.com/a/11676/586/1/large.jpg',
+          'https://media.tacdn.com/media/attractions-splice-spp-674x446/12/73/d2/25.jpg',
         ],
         provider: {
           name: 'Quetzal Tours Antigua', initials: 'QT',
@@ -616,7 +627,8 @@
         duration: '8 horas', maxPeople: 8,
         images: [
           'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1200&q=80',
-          'https://images.unsplash.com/photo-1570979733461-e5945efc9e8f?w=1200&q=80',
+          'https://images.unsplash.com/photo-1592229506179-7995edeb6226?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          'https://www.visitcentroamerica.com/wp-content/uploads/2025/04/Tikal-National-Park-Aerial-View-Guatemala-Centroamerica-04.webp',
         ],
         provider: {
           name: 'Petén Explorer', initials: 'PE',
@@ -633,7 +645,9 @@
         price: 200, rating: 4.7, reviews: 21,
         duration: '4 horas', maxPeople: 10,
         images: [
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80',
+          'https://www.civitatis.com/f/guatemala/antigua-guatemala/galeria/big/lago-atitlan-vistas-volcanes.jpg',
+          'https://www.civitatis.com/f/guatemala/antigua-guatemala/big/tour-kayak-lago-atitlan.jpg',
+          'https://dynamic-media.tacdn.com/media/photo-o/2f/18/af/b8/caption.jpg?w=1400&h=1000&s=1',
         ],
         provider: {
           name: 'Quetzal Tours Antigua', initials: 'QT',
@@ -710,11 +724,12 @@
         rating:    liveRating        || dbDest.rating_avg || 0,
         reviews:   liveReviews.length,
         duration:  dbDest.duration_hours ? `${dbDest.duration_hours}` : '—',
+        description_es: dbDest.description_es || '',
         maxPeople: dbDest.max_people  || 0,
-        images:    (dbDest.gallery && dbDest.gallery.length > 0)
-                     ? dbDest.gallery
+        images:    (dbDest.images && dbDest.images.length > 0)
+                     ? dbDest.images
                      : (dbDest.cover_image ? [dbDest.cover_image] : [
-                         'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80'
+                         'https://alacartatours.com/wp-content/uploads/2025/01/the-colonial-city-of-antigua-tour-2.jpg'
                        ]),
         provider: {
           name:     dbProvider?.business_name || 'Proveedor',
@@ -750,36 +765,58 @@
     document.getElementById('providerAvatar').textContent   = dest.provider.initials;
     document.getElementById('providerDesc').textContent     = dest.provider.desc;
     document.getElementById('whatsappBtn').href = `https://wa.me/${dest.provider.whatsapp.replace(/\D/g,'')}`;
+    const descEl2 = document.getElementById('destDescription');
+    if (dest.description_es || dbDest?.description_es) {
+      descEl2.innerHTML = `<p>${dest.description_es || dbDest?.description_es || ''}</p>`;
+    }
 
     /* ----------------------------------------------------------
-       GALERÍA
+    // GALERÍA - CORREGIDO
     ---------------------------------------------------------- */
-    const mainImg  = document.getElementById('galleryMainImg');
-    const thumbs   = document.querySelectorAll('.gallery-thumb');
+    const mainImg = document.getElementById('galleryMainImg');
+
+    // Actualizar imagen principal con la primera del destino
+    if (dest.images && dest.images.length > 0) {
+      mainImg.src = dest.images[0];
+      mainImg.alt = dest.title;
+    }
 
     // Construir miniaturas dinámicamente
     const thumbsContainer = document.getElementById('galleryThumbs');
     thumbsContainer.innerHTML = '';
+
     dest.images.forEach((src, i) => {
       const div = document.createElement('div');
       div.className = `gallery-thumb${i === 0 ? ' active' : ''}`;
       div.dataset.index = i;
-      div.innerHTML = `<img src="${src.replace('w=1200','w=400')}" alt="Foto ${i+1}" loading="lazy" />`;
+      
+      div.innerHTML = `
+        <img src="${src.replace('w=1200','w=400')}" 
+            alt="Foto ${i+1}" 
+            loading="lazy" />
+      `;
+      
       if (i === 2 && dest.images.length > 3) {
         div.innerHTML += `<div class="gallery-thumb-more">+${dest.images.length - 3}</div>`;
       }
+      
       thumbsContainer.appendChild(div);
     });
 
-    // Cambiar imagen principal al click en miniatura
+    // Cambiar imagen principal al hacer clic en miniatura
     thumbsContainer.addEventListener('click', (e) => {
       const thumb = e.target.closest('.gallery-thumb');
       if (!thumb) return;
+      
       const idx = parseInt(thumb.dataset.index);
+      
       mainImg.src = dest.images[idx];
+      
+      // Actualizar active
       document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
       thumb.classList.add('active');
     });
+
 
     /* ----------------------------------------------------------
        MAPA — Leaflet.js
@@ -984,7 +1021,7 @@
     function cargarReseasDelDestino() {
       const list = document.getElementById('reviewsList');
       // Si tu db.js tiene una función para traer las reseñas guardadas:
-      const reseñasGuardadas = getReviews ? getReviews(dest.id) : [];
+      const reseñasGuardadas = getReviewsByDestination(dest.id) || [];
 
       // Opcional: Puedes limpiar la lista o dejar las dos fijas y sumarle las de la DB
       reseñasGuardadas.forEach(rev => {
@@ -992,10 +1029,10 @@
         newItem.className = 'review-item';
         newItem.innerHTML = `
           <div class="review-header">
-            <div class="review-avatar" style="background:var(--verde-quetzal, #1a5c38); color:#fff;">U</div>
+            <div class="review-avatar" style="background:var(--verde-quetzal, #1a5c38); color:#fff;">${rev.user?.name?.charAt(0).toUpperCase() || 'U'}</div>
             <div class="review-meta">
-              <strong>Usuario del sitio</strong>
-              <span>Reseña guardada</span>
+              <strong>${rev.user?.name || 'Usuario'}</strong>
+              <span>${new Date(rev.created_at).toLocaleDateString('es-GT', {year:'numeric', month:'long'})}</span>
             </div>
             <div class="review-rating">
               <span class="stars">${'★'.repeat(rev.rating)}${'☆'.repeat(5 - rev.rating)}</span>

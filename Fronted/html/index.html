@@ -6,6 +6,8 @@
   <meta name="description" content="Quetzal Routes — Descubre Guatemala auténtica. Conectamos viajeros con experiencias únicas en Antigua, Atitlán, Petén y más." />
   <title>Quetzal Routes — Descubre Guatemala</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
   <!-- CSS -->
   <link rel="stylesheet" href="../css/base.css" />
   <link rel="stylesheet" href="../css/components.css" />
@@ -18,12 +20,14 @@
   ============================================================ -->
   <nav class="navbar navbar-transparent" id="navbar">
     <div class="container">
-      <a href="index.html" class="navbar-logo">
-        <span class="logo-icon">
-        <img src="../assets/img/logo-quetzal-removebg-preview.png" alt="Logo Quetzal" height="100px" />
-      </span>
-      <span class="logo-text">Quetzal <span>Routes</span></span>
-
+      <a href="index.html" class="navbar-logo" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+        <!-- Tu nuevo logo en PNG -->
+        <img src="../assets/img/logo1.png" alt="Logo Quetzal Routes" style="width: 40px; height: 40px; object-fit: contain;" />
+        
+        <!-- El texto con la nueva tipografía -->
+        <span class="logo-text" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: #0b3d40; text-transform: uppercase; letter-spacing: 0.5px;">
+          Quetzal Routes
+        </span>
       </a>
 
       <ul class="navbar-links">
@@ -39,13 +43,6 @@
           <a href="login.html">Iniciar sesión</a>
           <a href="register.html">Registrarse</a>
         </div>
-
-        <!-- Usuario -->
-        <div id="userButtons" style="display:none;">
-          <a id="profileBtn" href="#">Mi perfil</a>
-          <button id="logoutBtn">Cerrar sesión</button>
-        </div>
-        
         
         <button class="lang-toggle" id="langToggle" aria-label="Cambiar idioma">
           <span class="lang-active" id="langCurrent">ES</span>
@@ -331,7 +328,7 @@
         <article class="card" data-id="103" style="cursor:pointer">
           <div class="card-image">
             <img
-              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
+              src="https://www.civitatis.com/f/guatemala/antigua-guatemala/galeria/big/lago-atitlan-vistas-volcanes.jpg"
               alt="Kayak en Lago de Atitlán"
               loading="lazy"
             />
@@ -406,7 +403,7 @@
         </a>
 
         <a href="explore.html?dept=Atitlan" class="dept-card">
-          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Lago de Atitlán" loading="lazy" />
+          <img src="https://www.civitatis.com/f/guatemala/antigua-guatemala/galeria/big/lago-atitlan-vistas-volcanes.jpg" alt="Lago de Atitlán" loading="lazy" />
           <div class="dept-card-overlay">
             <h3>Lago de Atitlán</h3>
             <p>El lago más bello del mundo</p>
@@ -422,7 +419,7 @@
         </a>
 
         <a href="explore.html?dept=Verapaz" class="dept-card">
-          <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80" alt="Alta Verapaz" loading="lazy" />
+          <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/35/07/33/img-20160201-121933-largejpg.jpg?w=1200&h=700&s=1" alt="Alta Verapaz" loading="lazy" />
           <div class="dept-card-overlay">
             <h3>Alta Verapaz</h3>
             <p>Cacao · Quetzales · Semuc</p>
@@ -628,7 +625,15 @@
 
         <!-- Columna 1 — Marca -->
         <div class="footer-brand">
-          <a href="index.html" class="footer-logo">🦜 Quetzal Routes</a>
+          <a href="index.html" class="footer-logo" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <!-- Tu nuevo logo en PNG -->
+            <img src="../assets/img/logo1.png" alt="Logo Quetzal Routes" style="width: 40px; height: 40px; object-fit: contain;" />
+            
+            <!-- El texto con la nueva tipografía -->
+            <span class="logo-text" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: #429150; text-transform: uppercase; letter-spacing: 0.5px;">
+              Quetzal Routes
+            </span>
+          </a>
           <p>El marketplace turístico de Guatemala. Conectamos viajeros del mundo con experiencias auténticas y proveedores locales de confianza.</p>
           <div class="footer-social">
             <a href="#" aria-label="Instagram">📷</a>
@@ -745,9 +750,10 @@
         `);
 
         // Logout
+        // Logout normal (escritorio)
         document.getElementById('logoutBtn').addEventListener('click', () => {
           localStorage.removeItem('qr_user');
-          window.location.reload();
+          window.location.href = 'login.html'; // Redirección idéntica a explore.html
         });
 
         const mobileMenu = document.getElementById('mobileMenu');
@@ -759,7 +765,6 @@
               Cerrar sesión
             </button>
           `;
-
           // Eliminar links viejos
           mobileMenu.querySelectorAll('a[href="login.html"], a[href="register.html"]')
             .forEach(el => el.remove());
@@ -767,7 +772,7 @@
           // Logout móvil
           document.getElementById('mobileLogoutBtn')?.addEventListener('click', () => {
             localStorage.removeItem('qr_user');
-            window.location.reload();
+            window.location.href = 'login.html'; // Redirección idéntica a explore.html
           });
         }
       }
@@ -810,9 +815,11 @@
        HERO — slideshow de fondo
     ---------------------------------------------------------- */
     const heroImages = [
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80',
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80',
+      'https://wallpapers.com/images/hd/sun-and-shadows-tikal-nneykzomijis20rz.jpg',
+      'https://wallpapercat.com/w/full/9/1/1/622088-1920x1080-desktop-full-hd-guatemala-wallpaper-photo.jpg',
       'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1600&q=80',
+      'https://images.pexels.com/photos/335887/pexels-photo-335887.jpeg?_gl=1*1rx16kr*_ga*MTgxMjI5ODMyNS4xNzc5OTI2MDk3*_ga_8JE65Q40S6*czE3Nzk5OTQyNTIkbzQkZzEkdDE3Nzk5OTQ2NDMkajQ4JGwwJGgw',
+      'https://wallpapercat.com/w/full/0/3/2/1565259-1920x1080-desktop-full-hd-guatemala-city-wallpaper.jpg',
     ];
     let currentSlide = 0;
     const heroBgImg   = document.getElementById('heroBgImg');
