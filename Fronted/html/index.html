@@ -6,7 +6,9 @@
   <meta name="description" content="Quetzal Routes — Descubre Guatemala auténtica. Conectamos viajeros con experiencias únicas en Antigua, Atitlán, Petén y más." />
   <title>Quetzal Routes — Descubre Guatemala</title>
 
+  <!--Fonts and icons -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="../css/base.css" />
@@ -44,11 +46,6 @@
           <a href="register.html">Registrarse</a>
         </div>
         
-        <button class="lang-toggle" id="langToggle" aria-label="Cambiar idioma">
-          <span class="lang-active" id="langCurrent">ES</span>
-          <span style="color:var(--gris-borde)">|</span>
-          <span id="langOther">EN</span>
-        </button>
         <a href="login.html" class="btn btn-outline btn-sm" id="navLoginBtn" style="display:none;">Iniciar sesión</a>
         <a href="register.html" class="btn btn-accent btn-sm" id="navRegisterBtn" style="display:none;">Registrarse</a>
       </div>
@@ -96,7 +93,6 @@
     <!-- Contenido hero -->
     <div class="container hero-content">
       <div class="hero-tag" id="heroTag">
-        <span>🌿</span>
         <span data-i18n="hero.tag">Destinos auténticos en Guatemala</span>
       </div>
 
@@ -122,15 +118,14 @@
           />
           <div class="search-bar-divider"></div>
           <select class="search-bar-select" id="heroCategory">
-            <option value="">Todas las categorías</option>
-            <option value="nature">🌿 Naturaleza</option>
-            <option value="culture">🏛️ Cultura</option>
-            <option value="adventure">🧗 Aventura</option>
-            <option value="gastronomy">🍫 Gastronomía</option>
-            <option value="wellness">🧘 Bienestar</option>
+            <option value="nature">Naturaleza</option>
+            <option value="culture">Cultura</option>
+            <option value="adventure">Aventura</option>
+            <option value="gastronomy">Gastronomía</option>
+            <option value="wellness">Bienestar</option>
           </select>
           <button class="search-bar-btn" id="heroSearchBtn">
-            <span>🔍</span>
+            <i data-lucide="search"></i>
             <span data-i18n="hero.searchBtn">Buscar</span>
           </button>
         </div>
@@ -236,7 +231,7 @@
               loading="lazy"
             />
             <span class="card-category">CULTURA</span>
-            <span class="card-badge-featured">⭐ Destacado</span>
+            <span class="card-badge-featured"><i data-lucide="star"></i> Destacado</span>
             
             <button class="card-favorite-floating card-favorite" aria-label="Guardar en favoritos">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -269,7 +264,7 @@
               </div>
               
               <div class="duration-section">
-                <span class="duration-icon">⏱️</span>
+                <i data-lucide="clock"></i>
                 <span>6 horas</span>
               </div>
             </div>
@@ -285,7 +280,7 @@
               loading="lazy"
             />
             <span class="card-category">CULTURA</span>
-            <span class="card-badge-featured">⭐ Destacado</span>
+            <span class="card-badge-featured"><i data-lucide="star"></i> Destacado</span>
             
             <button class="card-favorite-floating card-favorite" aria-label="Guardar en favoritos">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -317,7 +312,7 @@
               </div>
               
               <div class="duration-section">
-                <span class="duration-icon">⏱️</span>
+                <i data-lucide="clock"></i>
                 <span>8 horas</span>
               </div>
             </div>
@@ -333,7 +328,7 @@
               loading="lazy"
             />
             <span class="card-category">AVENTURA</span>
-            <span class="card-badge-featured">⭐ Destacado</span>
+            <span class="card-badge-featured"><i data-lucide="star"></i> Destacado</span>
             
             <button class="card-favorite-floating card-favorite" aria-label="Guardar en favoritos">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -365,7 +360,7 @@
               </div>
               
               <div class="duration-section">
-                <span class="duration-icon">⏱️</span>
+                <i data-lucide="clock"></i>
                 <span>4 horas</span>
               </div>
             </div>
@@ -453,7 +448,7 @@
 
         <div class="how-step">
           <div class="how-step-number">01</div>
-          <div class="how-step-icon">🔍</div>
+          <div class="how-step-icon"><i data-lucide="search"></i></div>
           <h3 data-i18n="how.step1Title">Explora y filtra</h3>
           <p data-i18n="how.step1Desc">
             Navega cientos de experiencias. Filtra por categoría, departamento, precio y calificación para encontrar la aventura perfecta.
@@ -464,7 +459,7 @@
 
         <div class="how-step">
           <div class="how-step-number">02</div>
-          <div class="how-step-icon">📅</div>
+          <div class="how-step-icon"><i data-lucide="calendar"></i></div>
           <h3 data-i18n="how.step2Title">Reserva fácil</h3>
           <p data-i18n="how.step2Desc">
             Elige fecha, número de personas y confirma tu reserva directamente con el proveedor local. Sin intermediarios innecesarios.
@@ -475,7 +470,7 @@
 
         <div class="how-step">
           <div class="how-step-number">03</div>
-          <div class="how-step-icon">🌄</div>
+          <div class="how-step-icon"><i data-lucide="sun"></i></div>
           <h3 data-i18n="how.step3Title">¡Vive la experiencia!</h3>
           <p data-i18n="how.step3Desc">
             Disfruta tu aventura en Guatemala con guías locales expertos. Luego comparte tu reseña para ayudar a otros viajeros.
@@ -568,14 +563,14 @@
             Únete a Quetzal Routes y lleva tu negocio al siguiente nivel. Llega a miles de turistas extranjeros que buscan exactamente lo que tú ofreces.
           </p>
           <ul class="provider-cta-list">
-            <li>✓ Perfil gratuito para comenzar</li>
-            <li>✓ Recibe reservas directas con comisión del 10%</li>
-            <li>✓ Panel de gestión completo</li>
-            <li>✓ Visibilidad en 2 idiomas (ES/EN)</li>
+            <li><i data-lucide="check"></i> Perfil gratuito para comenzar</li>
+            <li><i data-lucide="check"></i> Recibe reservas directas con comisión del 10%</li>
+            <li><i data-lucide="check"></i> Panel de gestión completo</li>
+            <li><i data-lucide="check"></i> Visibilidad en 2 idiomas (ES/EN)</li>
           </ul>
           <div class="provider-cta-actions">
             <a href="register.html?role=provider" class="btn btn-accent btn-lg">
-              Registrar mi empresa →
+              Registrar mi empresa <i data-lucide="arrow-right"></i>
             </a>
             <a href="#how" class="btn btn-outline-white btn-lg">
               Ver planes
@@ -707,6 +702,7 @@
        SCRIPTS
   ============================================================ -->
   <script type="module">
+    lucide.createIcons();
     import { t, setLanguage, getCurrentLang } from '../js/i18n.js';
     import { toggleLoader, showToast } from '../js/ui.js';
 
@@ -740,10 +736,9 @@
         }
 
         navbarActions.insertAdjacentHTML('beforeend', `
-          <a href="profile.html" class="btn btn-outline btn-sm">
-            👤 ${user.name}
+          <a href="profile.html" class="btn btn-outline btn-sm nav-user-btn">
+            <i data-lucide="circle-user-round"></i> ${user.name}
           </a>
-
           <button class="btn btn-accent btn-sm" id="logoutBtn">
             Cerrar sesión
           </button>
@@ -776,6 +771,7 @@
           });
         }
       }
+      lucide.createIcons();
     }  else {
       // No hay sesión: mostrar botones de invitado
       document.getElementById('navLoginBtn').style.display = '';
@@ -923,6 +919,7 @@
       el.classList.add('animate-on-scroll');
       observer.observe(el);
     });
+
   </script>
 
 </body>

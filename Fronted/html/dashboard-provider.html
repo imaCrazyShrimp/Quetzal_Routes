@@ -6,7 +6,9 @@
   <meta name="description" content="Panel de proveedor — Quetzal Routes" />
   <title>Mi Panel — Quetzal Routes</title>
 
+  <!--Fonts and icons -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="../css/base.css" />
@@ -482,6 +484,29 @@
       .plans-grid { grid-template-columns: 1fr; }
       .dash-sidebar-toggle { display: flex; align-items: center; justify-content: center; }
     }
+
+        /* Lucide icons en sidebar nav */
+    .dash-nav-icon svg,
+    .dash-nav-icon.dash-nav-icon {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
+      flex-shrink: 0;
+      color: inherit;
+    }
+
+    /* Lucide icons en stat cards */
+    .stat-card-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2;
+      color: inherit;
+    }
+
+    .stat-card-icon.green svg { color: var(--verde-quetzal); }
+    .stat-card-icon.yellow svg { color: #a07000; }
+    .stat-card-icon.red svg { color: var(--rojo-huipil); }
+    .stat-card-icon.blue svg { color: #4285f4; }
   </style>
 </head>
 
@@ -523,33 +548,27 @@
 
       <nav class="dash-nav">
         <button class="dash-nav-item active" data-section="overview">
-          <span class="dash-nav-icon">📊</span> Resumen
+          <i data-lucide="bar-chart-2" class="dash-nav-icon"></i> Resumen
         </button>
         <button class="dash-nav-item" data-section="destinations">
-          <span class="dash-nav-icon">🗺️</span> Mis destinos
+          <i data-lucide="map" class="dash-nav-icon"></i> Mis destinos
         </button>
         <button class="dash-nav-item" data-section="create">
-          <span class="dash-nav-icon">➕</span> Nuevo destino
+          <i data-lucide="plus-circle" class="dash-nav-icon"></i> Nuevo destino
         </button>
         <button class="dash-nav-item" data-section="bookings">
-          <span class="dash-nav-icon">📅</span> Reservas
+          <i data-lucide="calendar" class="dash-nav-icon"></i> Reservas
         </button>
 
         <div class="dash-nav-divider"></div>
 
         <button class="dash-nav-item" data-section="plan">
-          <span class="dash-nav-icon">⭐</span> Mi plan
+          <i data-lucide="star" class="dash-nav-icon"></i> Mi plan
         </button>
         <a class="dash-nav-item" href="profile.html">
-          <span class="dash-nav-icon">👤</span> Perfil
+          <i data-lucide="circle-user-round" class="dash-nav-icon"></i> Perfil
         </a>
       </nav>
-
-      <div class="dash-sidebar-footer">
-        <button class="dash-nav-item" id="sidebarLogout" style="color:rgba(255,255,255,0.4);">
-          <span class="dash-nav-icon">🚪</span> Cerrar sesión
-        </button>
-      </div>
     </aside>
 
     <!-- ── CONTENIDO PRINCIPAL ──────────────────────────────── -->
@@ -573,25 +592,25 @@
         <!-- Stats -->
         <div class="dash-stats">
           <div class="stat-card">
-            <div class="stat-card-icon green">👁️</div>
+            <div class="stat-card-icon green"><i data-lucide="eye"></i></div>
             <div class="stat-card-value" id="statVisits">1,240</div>
             <div class="stat-card-label">Visitas este mes</div>
             <div class="stat-card-delta up">↑ 18% vs mes anterior</div>
           </div>
           <div class="stat-card">
-            <div class="stat-card-icon blue">📅</div>
+            <div class="stat-card-icon blue"><i data-lucide="calendar"></i></div>
             <div class="stat-card-value" id="statBookings">0</div>
             <div class="stat-card-label">Reservas totales</div>
             <div class="stat-card-delta up">↑ 3 nuevas esta semana</div>
           </div>
           <div class="stat-card">
-            <div class="stat-card-icon yellow">⭐</div>
+            <div class="stat-card-icon yellow"><i data-lucide="star"></i></div>
             <div class="stat-card-value" id="statRating">—</div>
             <div class="stat-card-label">Calificación promedio</div>
             <div class="stat-card-delta up">Basado en tus reseñas</div>
           </div>
           <div class="stat-card">
-            <div class="stat-card-icon red">💰</div>
+            <div class="stat-card-icon red"><i data-lucide="banknote"></i></div>
             <div class="stat-card-value" id="statRevenue">Q0</div>
             <div class="stat-card-label">Ingresos estimados</div>
             <div class="stat-card-delta" style="color:var(--gris-texto);">Comisión 10% incluida</div>
@@ -709,20 +728,32 @@
                 <label class="form-label">Departamento *</label>
                 <select class="form-select" id="destDepartment" required>
                   <option value="">Selecciona un departamento</option>
-                  <option value="Antigua Guatemala">Antigua Guatemala</option>
-                  <option value="Lago Atitlán">Lago Atitlán / Sololá</option>
-                  <option value="Petén">Petén</option>
                   <option value="Alta Verapaz">Alta Verapaz</option>
-                  <option value="Quetzaltenango">Quetzaltenango</option>
-                  <option value="Huehuetenango">Huehuetenango</option>
-                  <option value="Guatemala">Ciudad de Guatemala</option>
-                  <option value="Izabal">Izabal / Río Dulce</option>
-                  <option value="El Progreso">El Progreso</option>
-                  <option value="Retalhuleu">Retalhuleu</option>
+                  <option value="Baja Verapaz">Baja Verapaz</option>
+                  <option value="Chimaltenango">Chimaltenango</option>
                   <option value="Chiquimula">Chiquimula</option>
+                  <option value="El Progreso">El Progreso</option>
+                  <option value="Escuintla">Escuintla</option>
+                  <option value="Guatemala">Guatemala</option>
+                  <option value="Huehuetenango">Huehuetenango</option>
+                  <option value="Izabal">Izabal</option>
+                  <option value="Jalapa">Jalapa</option>
+                  <option value="Jutiapa">Jutiapa</option>
+                  <option value="Petén">Petén</option>
+                  <option value="Quetzaltenango">Quetzaltenango</option>
+                  <option value="Quiché">Quiché</option>
+                  <option value="Retalhuleu">Retalhuleu</option>
+                  <option value="Sacatepéquez">Sacatepéquez</option>
+                  <option value="San Marcos">San Marcos</option>
+                  <option value="Santa Rosa">Santa Rosa</option>
+                  <option value="Sololá">Sololá</option>
+                  <option value="Suchitepéquez">Suchitepéquez</option>
+                  <option value="Totonicapán">Totonicapán</option>
+                  <option value="Zacapa">Zacapa</option>
                   <option value="Otro">Otro</option>
                 </select>
               </div>
+
 
               <!-- Descripción ES -->
               <div class="form-group span-2">
@@ -1005,6 +1036,7 @@
     } from '../js/db.js';
 
     initDB();
+    lucide.createIcons();
 
     // ── Proteger ruta ────────────────────────────────────────
     requireAuth('provider');
@@ -1179,8 +1211,8 @@
       const duration   = document.getElementById('destDuration')?.value.trim() || '1 hora';
       const maxPeople  = parseInt(document.getElementById('destMaxPeople')?.value) || 10;
       const coverImage = document.getElementById('destCoverImage')?.value.trim() || '';
-      const galleryRaw = document.getElementById('destGallery')?.value.trim() || '';
-      const gallery    = galleryRaw ? galleryRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+      const imagesRaw = document.getElementById('destGallery')?.value.trim() || '';
+      const images    = imagesRaw ? imagesRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
 
       if (!title || !category || !dept || !descEs || !address) {
         showToast('Completa todos los campos obligatorios (*).', 'warning');
@@ -1209,7 +1241,7 @@
         price_from:     priceFrom,
         price_to:       priceTo,
         duration_hours: duration,
-        gallery:        gallery,
+        images:        images,
         max_people:     maxPeople,
         cover_image:    coverImage,
         status:         'active',

@@ -6,6 +6,10 @@
   <meta name="description" content="Crear cuenta en Quetzal Routes" />
   <title>Crear cuenta — Quetzal Routes</title>
 
+  <!--Fonts and icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
   <link rel="stylesheet" href="../css/base.css" />
   <link rel="stylesheet" href="../css/components.css" />
   <link rel="stylesheet" href="../css/pages/auth.css" />
@@ -43,29 +47,29 @@
       />
       <div class="auth-visual-overlay"></div>
       <div class="auth-visual-content">
-        <div class="auth-visual-tag">💫 Únete gratis</div>
+        <div class="auth-visual-tag">Únete gratis</div>
         <h2>Empieza tu aventura guatemalteca hoy</h2>
         <p>Crea tu cuenta en menos de 2 minutos y accede a experiencias únicas.</p>
 
         <div class="auth-benefits">
           <div class="auth-benefit">
-            <span class="auth-benefit-icon">✓</span>
-            <span>Acceso a más de 150 destinos</span>
+              <i data-lucide="check" class="auth-benefit-icon"></i>
+              <span>Acceso a más de 150 destinos</span>
           </div>
           <div class="auth-benefit">
-            <span class="auth-benefit-icon">✓</span>
+            <i data-lucide="check" class="auth-benefit-icon"></i>
             <span>Reservas directas con proveedores</span>
           </div>
           <div class="auth-benefit">
-            <span class="auth-benefit-icon">✓</span>
+            <i data-lucide="check" class="auth-benefit-icon"></i>
             <span>Guarda tus favoritos</span>
           </div>
           <div class="auth-benefit">
-            <span class="auth-benefit-icon">✓</span>
+            <i data-lucide="check" class="auth-benefit-icon"></i>
             <span>Reseñas verificadas de viajeros reales</span>
           </div>
           <div class="auth-benefit">
-            <span class="auth-benefit-icon">✓</span>
+            <i data-lucide="check" class="auth-benefit-icon"></i>
             <span>Interfaz en español e inglés</span>
           </div>
         </div>
@@ -164,7 +168,9 @@
                   autocomplete="new-password"
                   required
                 />
-                <button type="button" class="password-toggle" id="regPasswordToggle" aria-label="Mostrar">👁</button>
+                <button type="button" class="password-toggle" id="regPasswordToggle" aria-label="Mostrar">
+                  <i data-lucide="eye-off"></i>
+                </button>
               </div>
               <span class="form-error hidden" id="regPasswordError">Mínimo 8 caracteres</span>
             </div>
@@ -182,7 +188,9 @@
                   autocomplete="new-password"
                   required
                 />
-                <button type="button" class="password-toggle" id="regPasswordConfirmToggle" aria-label="Mostrar">👁</button>
+                <button type="button" class="password-toggle" id="regPasswordConfirmToggle" aria-label="Mostrar">
+                  <i data-lucide="eye-off"></i>
+                </button>
               </div>
               <span class="form-error hidden" id="regPasswordConfirmError">Las contraseñas no coinciden</span>
             </div>
@@ -318,10 +326,10 @@
 
           <div class="auth-social">
             <button type="button" class="auth-social-btn">
-              <span>🌐</span> Google
+              <i data-lucide="globe"></i> Google
             </button>
             <button type="button" class="auth-social-btn">
-              <span>📘</span> Facebook
+              <i data-lucide="book"></i> Facebook
             </button>
           </div>
 
@@ -397,7 +405,10 @@
         const input  = document.getElementById(inputId);
         const isText = input.type === 'text';
         input.type = isText ? 'password' : 'text';
-        document.getElementById(btnId).textContent = isText ? '👁' : '🙈';
+        document.getElementById(btnId).innerHTML = isText
+          ? '<i data-lucide="eye-off"></i>'
+          : '<i data-lucide="eye"></i>';
+        lucide.createIcons();
       });
     }
 
@@ -559,6 +570,7 @@
       setTimeout(() => toast.remove(), 4000);
     }
 
+    lucide.createIcons();
   </script>
 
 </body>

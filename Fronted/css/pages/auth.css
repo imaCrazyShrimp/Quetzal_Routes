@@ -844,4 +844,16 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+
+.password-toggle svg,
+.auth-tab svg,
+.auth-role-icon svg,
+.auth-benefit-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  flex-shrink: 0;
+  color: inherit;
+}
 }
