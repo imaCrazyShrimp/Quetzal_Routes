@@ -1179,8 +1179,8 @@
       const duration   = document.getElementById('destDuration')?.value.trim() || '1 hora';
       const maxPeople  = parseInt(document.getElementById('destMaxPeople')?.value) || 10;
       const coverImage = document.getElementById('destCoverImage')?.value.trim() || '';
-      const galleryRaw = document.getElementById('destGallery')?.value.trim() || '';
-      const gallery    = galleryRaw ? galleryRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+      const imagesRaw = document.getElementById('destGallery')?.value.trim() || '';
+      const images    = imagesRaw ? imagesRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
 
       if (!title || !category || !dept || !descEs || !address) {
         showToast('Completa todos los campos obligatorios (*).', 'warning');
@@ -1209,7 +1209,7 @@
         price_from:     priceFrom,
         price_to:       priceTo,
         duration_hours: duration,
-        gallery:        gallery,
+        images:        images,
         max_people:     maxPeople,
         cover_image:    coverImage,
         status:         'active',

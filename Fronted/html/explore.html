@@ -58,11 +58,6 @@
       </div>
 
       <div class="navbar-actions">
-        <button class="lang-toggle" id="langToggle">
-          <span class="lang-active" id="langCurrent">ES</span>
-          <span style="color:var(--gris-borde)">|</span>
-          <span id="langOther">EN</span>
-        </button>
         <a href="login.html" class="btn btn-outline btn-sm">Iniciar sesión</a>
         <a href="register.html" class="btn btn-accent btn-sm">Registrarse</a>
       </div>
@@ -285,10 +280,6 @@
               </select>
 
               <!-- Vista: grid / lista -->
-              <div class="view-toggle">
-                <button class="view-btn active" id="viewGrid" aria-label="Vista cuadrícula">⊞</button>
-                <button class="view-btn" id="viewList" aria-label="Vista lista">☰</button>
-              </div>
 
               <!-- Botón filtros (mobile) -->
               <button class="btn btn-outline btn-sm filters-toggle-btn" id="filtersToggleBtn">
@@ -310,15 +301,6 @@
             <p>Intenta con otros filtros o busca en otra región.</p>
             <button class="btn btn-primary" id="resetFiltersBtn">Limpiar filtros</button>
           </div>
-
-          <!-- Paginación -->
-          <nav class="pagination" id="pagination" aria-label="Paginación">
-            <button class="page-btn" id="pagePrev" disabled>‹</button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn" id="pageNext">›</button>
-          </nav>
 
         </section>
       </div>
@@ -823,24 +805,13 @@
     /* ----------------------------------------------------------
        VISTA GRID / LISTA
     ---------------------------------------------------------- */
-    const viewGrid = document.getElementById('viewGrid');
-    const viewList = document.getElementById('viewList');
     const resultsGrid = document.getElementById('resultsGrid');
 
     viewGrid.addEventListener('click', () => {
       state.view = 'grid';
       viewGrid.classList.add('active');
-      viewList.classList.remove('active');
       resultsGrid.classList.remove('view-list');
       resultsGrid.classList.add('grid-3');
-    });
-
-    viewList.addEventListener('click', () => {
-      state.view = 'list';
-      viewList.classList.add('active');
-      viewGrid.classList.remove('active');
-      resultsGrid.classList.add('view-list');
-      resultsGrid.classList.remove('grid-3');
     });
 
     /* ----------------------------------------------------------
